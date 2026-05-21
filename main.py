@@ -10,8 +10,8 @@ def parse_oracle_metadata(file_content):
     lines = [line.strip() for line in file_content.splitlines() if line.strip()]
     
     current_table = None
-    # Definimos los tipos de datos conocidos en Oracle para ayudar al parser
-    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB'}
+    # Definimos un set más amplio de tipos de datos de Oracle para robustecer el parser
+    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2'}
     
     i = 0
     while i < len(lines):
@@ -24,19 +24,22 @@ def parse_oracle_metadata(file_content):
             continue
             
         # 2. Identificar pares de Columna y Tipo
-        # El patrón observado es: Nombre_Columna seguido inmediatamente por el Tipo de Dato
-        if i + 1 < len(lines) and lines[i+1] in oracle_types:
-            col_name = line
-            col_type = lines[i+1]
-            
-            data.append({
-                "Tabla": current_table,
-                "Campo": col_name,
-                "Tipo de Dato": col_type
-            })
-            # Avanzamos 2 líneas (nombre y tipo)
-            i += 2
-            continue
+        # El patrón es: Nombre_Columna seguido por el Tipo de Dato.
+        # Se extrae el tipo base (ej. VARCHAR2) ignorando precisiones (ej. VARCHAR2(100))
+        if i + 1 < len(lines):
+            type_candidate = lines[i+1].split('(')[0].strip().upper()
+            if type_candidate in oracle_types:
+                col_name = line
+                col_type = lines[i+1]
+                
+                data.append({
+                    "Tabla": current_table,
+                    "Campo": col_name,
+                    "Tipo de Dato": col_type
+                })
+                # Avanzamos 2 líneas (nombre y tipo)
+                i += 2
+                continue
         
         i += 1
         
@@ -93,4 +96,3 @@ if uploaded_file is not None:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
 else:
     st.info("Por favor, sube el archivo .txt para comenzar el análisis.")
-
