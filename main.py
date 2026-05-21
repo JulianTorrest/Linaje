@@ -49,8 +49,13 @@ def parse_oracle_metadata(file_content):
             elif line.startswith('AGG_'): inferred_tipo = tipo_norm["AGG"]
             else: inferred_tipo = "Tabla"
 
-            # Valores por defecto para la nueva tabla detectada
-            current_esquema = "Bronce"
+            # Inferencia de esquema por tipo (Regla de negocio: AGG, DIM, VST, FCT -> Oro)
+            if inferred_tipo in [tipo_norm["FCT"], tipo_norm["DIM"], tipo_norm["AGG"], tipo_norm["VST"]]:
+                current_esquema = "Oro"
+            else:
+                # TBL_ por defecto es Bronce, a menos que se detecte Plata abajo
+                current_esquema = "Bronce"
+
             current_tipo = inferred_tipo
             current_estado = "No Encontrado"
             
