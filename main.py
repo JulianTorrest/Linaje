@@ -20,10 +20,11 @@ def parse_oracle_metadata(file_content):
     current_tipo = "Tabla"
     current_estado = "Activo"
 
-    # Definimos un set más amplio de tipos de datos de Oracle para robustecer el parser
-    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2'}
+    # Definimos tipos de datos de Oracle (incluyendo INTEGER y otros comunes)
+    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2', 'INTEGER'}
     
     i = 0
+    found_any_fct = False
     while i < len(lines):
         line = lines[i]
         
@@ -46,6 +47,7 @@ def parse_oracle_metadata(file_content):
             
             # Intentar detectar línea de metadatos en las siguientes 2 líneas
             # Esto permite saltar líneas intermedias como 'SQL'
+            found_header = False
             for offset in [1, 2]:
                 if i + offset < len(lines):
                     meta_line = lines[i+offset]
@@ -59,13 +61,13 @@ def parse_oracle_metadata(file_content):
                             break
                     
                     if schema_idx != -1:
-                        # El Tipo es todo lo anterior al esquema.
-                        # Si el archivo dice genéricamente "Tabla", conservamos la inferencia del prefijo (FCT/Dimensión)
+                        # Extraer Tipo de la línea de metadatos (solo si no es genérico 'Tabla')
                         raw_extracted_tipo = " ".join(parts[:schema_idx]).upper()
-                        
-                        if raw_extracted_tipo and raw_extracted_tipo not in ["TABLA", ""]:
+                        if raw_extracted_tipo in ["FCT", "FACT"]:
+                            current_tipo = "FCT"
+                        elif raw_extracted_tipo and raw_extracted_tipo not in ["TABLA", ""]:
                             current_tipo = raw_extracted_tipo.capitalize()
-                            
+
                         current_esquema = parts[schema_idx].capitalize()
                         
                         # El Estado es todo lo que sigue al esquema
@@ -111,7 +113,10 @@ def parse_oracle_metadata(file_content):
         
         i += 1
         
-    return pd.DataFrame(data)
+    df_result = pd.DataFrame(data)
+    if not df_result.empty:
+        df_result['Tipo'] = df_result['Tipo'].replace({'Fact': 'FCT', 'fct': 'FCT'})
+    return df_result
 
 def enrich_with_ai_descriptions(df):
     """
@@ -222,22 +227,26 @@ if content:
             col_esquema, col_tipo, col_estado = st.columns(3)
             
             with col_esquema:
+                esquema_options = sorted(df["Esquema"].unique())
                 esquemas_seleccionados = st.multiselect(
-                    "Esquema", options=df["Esquema"].unique(), default=df["Esquema"].unique()
+                    "Esquema", options=esquema_options, default=esquema_options
                 )
             with col_tipo:
+                # Aseguramos que FCT esté presente si existe en los datos
+                tipo_options = sorted([str(t) for t in df["Tipo"].unique()])
                 tipos_seleccionados = st.multiselect(
-                    "Tipo", options=df["Tipo"].unique(), default=df["Tipo"].unique()
+                    "Tipo", options=tipo_options, default=tipo_options
                 )
             with col_estado:
+                estado_options = sorted(df["Estado"].unique())
                 estados_seleccionados = st.multiselect(
-                    "Estado", options=df["Estado"].unique(), default=df["Estado"].unique()
+                    "Estado", options=estado_options, default=estado_options
                 )
             
             tablas_seleccionadas = st.multiselect(
                 "Tabla", 
-                options=df["Tabla"].unique(),
-                default=df["Tabla"].unique()[:min(len(df["Tabla"].unique()), 5)]
+                options=sorted(df["Tabla"].unique()),
+                default=sorted(df["Tabla"].unique())[:min(len(df["Tabla"].unique()), 5)]
             )
             
             df_filtered = df[
