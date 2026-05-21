@@ -22,7 +22,7 @@ def parse_oracle_metadata(file_content):
 
     # Diccionario de normalización de tipos
     tipo_norm = {
-        "FCT": "FCT", "FACT": "FCT",
+        "FCT": "Hechos", "FACT": "Hechos",
         "DIM": "Dimensión", "DIMENSION": "Dimensión", "DIMENSIÓN": "Dimensión",
         "AGG": "Agregado", "AGREGADO": "Agregado",
         "VST": "Vista", "VISTA": "Vista",
@@ -73,7 +73,7 @@ def parse_oracle_metadata(file_content):
                         # Extraer Tipo de la línea de metadatos (solo si no es genérico 'Tabla')
                         raw_extracted_tipo = " ".join(parts[:schema_idx]).upper()
                         if raw_extracted_tipo in ["FCT", "FACT"]:
-                            current_tipo = "FCT"
+                            current_tipo = "Hechos"
                         elif raw_extracted_tipo and raw_extracted_tipo not in ["TABLA", ""]:
                             current_tipo = raw_extracted_tipo.capitalize()
 
