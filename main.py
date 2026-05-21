@@ -34,7 +34,7 @@ def parse_oracle_metadata(file_content):
             
             # Inferencia de tipo por prefijo del nombre
             if line.startswith('DIM_'): inferred_tipo = "Dimensión"
-            elif line.startswith('FCT_'): inferred_tipo = "Fact"
+            elif line.startswith('FCT_'): inferred_tipo = "FCT"
             elif line.startswith('VST_'): inferred_tipo = "Vista"
             elif line.startswith('AGG_'): inferred_tipo = "Agregado"
             else: inferred_tipo = "Tabla"
@@ -60,10 +60,11 @@ def parse_oracle_metadata(file_content):
                     
                     if schema_idx != -1:
                         # El Tipo es todo lo anterior al esquema.
-                        # Si el archivo dice genéricamente "Tabla", conservamos la inferencia del prefijo (Fact/Dim)
-                        extracted_tipo = " ".join(parts[:schema_idx]).capitalize()
-                        if extracted_tipo and extracted_tipo != "Tabla":
-                            current_tipo = extracted_tipo
+                        # Si el archivo dice genéricamente "Tabla", conservamos la inferencia del prefijo (FCT/Dimensión)
+                        raw_extracted_tipo = " ".join(parts[:schema_idx]).upper()
+                        
+                        if raw_extracted_tipo and raw_extracted_tipo not in ["TABLA", ""]:
+                            current_tipo = raw_extracted_tipo.capitalize()
                             
                         current_esquema = parts[schema_idx].capitalize()
                         
