@@ -33,7 +33,7 @@ def parse_oracle_metadata(file_content):
             # Valores por defecto para la nueva tabla detectada
             current_esquema = "Bronce"
             current_tipo = "Tabla"
-            current_estado = "No encontrado"
+            current_estado = "No Encontrado"
             
             # Intentar detectar línea de metadatos (ej: Tabla	BRONCE	Activo)
             if i + 1 < len(lines) and any(x in lines[i+1].upper() for x in ["BRONCE", "PLATA", "ORO"]):
