@@ -1989,5 +1989,1770 @@ Pendiente de revisión
 Seleccionar
 Agregar documentación
 
+TBL_TRV_DANE_IPM
+Tabla	BRONCE	Activo
+COD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VARIABLE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VALOR
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_IPM_DANE
+Tabla	BRONCE	No encontrado
+COD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VARIABLE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VALOR
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
 
 
+TBL_TRV_DANE_NIVEL_EDUCATIVO_MAYORES
+Tabla	BRONCE	No encontrado
+
+CODIGO_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NIVEL_EDUCATIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_NIVEL_EDUCATIVO_VEJEZ
+Tabla	BRONCE	Activo
+
+DIVIPOLA_DEP
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NIVEL_EDUCATIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_PROYECCION
+Tabla	BRONCE	Activo
+
+DP
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DPNOM
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DPMP
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+AREA_GEOGRAFICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MUJERES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_0_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_1_ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_2_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_DANE_PROYECCION_DANE
+Tabla	BRONCE	No encontrado
+
+DP
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DPNOM
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DPMP
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+AREA_GEOGRAFICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MUJERES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_0_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_1_ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_2_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_TENENCIA_VIVIENDA
+Tabla	BRONCE	Activo
+DIVIPOLA_DEPART
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_TENENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOGARES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DPCFIO_CASOS_FIO
+Tabla	BRONCE	Activo
+ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+LINK
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CIUDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NOMBRE_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_DPCFIO_REGISTROS_FIO
+Tabla	BRONCE	Activo
+N
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NOMBRE_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NOMBRE_EVENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FECHA_INICIO
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FECHA_FINAL
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DURACION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+REGION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_FGN_SPOA_INDICIADOS
+Tabla	BRONCE	No encontrado
+CRIMINALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ES_ARCHIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ES_PRECLUSION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ETAPA_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+LEY
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DEPARTAMENTO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MUNICIPIO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SECCIONAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+A_O_HECHOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+A_O_ENTRADA
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_FGN_SPOA_VICTIMAS
+Tabla	BRONCE	No encontrado
+CRIMINALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ES_ARCHIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ES_PRECLUSION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ETAPA_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+LEY
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DEPARTAMENTO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MUNICIPIO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SECCIONAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+A_O_HECHOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+A_O_ENTRADA
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_LESIONES_FATALES_CAUSA_EXTERNA
+Tabla	BRONCE	No encontrado
+ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_GRUPAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MES_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_DESAPARECIDOS
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ENTIDAD_QUE_REALIZA_EL_REGISTRO_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CLASIFICACION_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_Y_MENOR_DE_EDAD_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+IDENTIDAD_DE_GENERO_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESIONES_ACCIDENTALES_2015_2024
+Tabla	BRONCE	Activo
+
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESIONES_FATALES_2025
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_GRUPAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MES_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESIONES_NO_FATALES_2025
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_LESIONES_TRANSPORTE_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_PRESUNTOS_HOMICIDIOS_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_GRUPAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_PRESUNTOS_SUICIDIOS_2015_2024
+Tabla	BRONCE	Activo
+
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_GRUPAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_PRESUNTO_DELITO_SEXUAL_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_VIOLENCIA_DE_PAREJA_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_VIOLENCIA_INTERPERSONAL_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+
+TBL_TRV_MDL_VIOLENCIA_INTRAFAMILIAR_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_UARIV
+Tabla	BRONCE	Activo
+FECHA_CORTE
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+CIUDAD_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NOM_RPT
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+COD_CIUDAD_MUNI
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PARAM_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+COD_ESTADO_DEPTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+COD_PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ETNIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_DEPTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
