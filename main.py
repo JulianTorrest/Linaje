@@ -63,8 +63,9 @@ def parse_oracle_metadata(file_content):
                     "Esquema": current_esquema,
                     "Tipo": current_tipo,
                     "Estado": current_estado,
-                    "Campo": col_name,
-                    "Tipo de Dato": col_type
+                    "Campo": col_name, # Mantener el orden para facilitar la lectura
+                    "Tipo de Dato": col_type,
+                    "Clave Primaria": "No" # Valor por defecto
                 })
                 # Avanzamos 2 líneas (nombre y tipo)
                 i += 2
@@ -83,6 +84,7 @@ def enrich_with_ai_descriptions(df):
         campo = str(row['Campo']).upper()
         tabla = str(row['Tabla']).upper()
         tipo = str(row['Tipo de Dato']).upper()
+        is_pk = "No" # Inicializar para la inferencia de PK
         
         # Valores por defecto
         desc = "Atributo técnico de la entidad."
@@ -103,13 +105,20 @@ def enrich_with_ai_descriptions(df):
             uso = "Utilizado para aplicar enfoques diferenciales y analizar el impacto en grupos vulnerables."
             obs = "Dato sensible: Su tratamiento debe cumplir con la Ley de Protección de Datos Personales."
         elif any(x in campo for x in ['PETICION', 'RADICADO', 'SOLICITUD', 'RUP', 'NUMERO', 'ID', 'EXPEDIENTE']):
-            desc = "Identificador único o número de radicado del trámite o proceso."
+            desc = "Identificador único o número de radicado del trámite o proceso o registro."
             uso = "Garantiza la trazabilidad del registro y permite realizar uniones (joins) con otros módulos."
             obs = "Actúa generalmente como llave primaria (PK) o foránea (FK)."
+            is_pk = "Sí" # Inferencia de Clave Primaria
+        elif campo.startswith('COD_'):
+            desc = "Código identificador único para una entidad (ej. código de departamento, municipio)."
+            uso = "Permite la identificación unívoca y la integración con catálogos de referencia."
+            obs = "Frecuentemente utilizado como llave primaria o parte de una llave compuesta."
+            is_pk = "Sí" # Inferencia de Clave Primaria
         elif any(x in campo for x in ['DEPENDENCIA', 'FUENTE', 'GESTIONADA_POR', 'USER_FUN']):
             desc = "Referencia a la unidad administrativa o usuario responsable de la gestión."
             uso = "Permite auditar el flujo de trabajo y medir la carga operativa por dependencias."
             obs = "Relacionado con la estructura organizacional interna."
+            
         elif any(x in campo for x in ['TITULO', 'TEXTO', 'TITULAR', 'HECHOS', 'SOLICITUD', 'CLOB']):
             desc = "Contenido narrativo, descriptivo o cuerpo del documento."
             uso = "Almacena el detalle cualitativo de la información para análisis de texto o consulta directa."
@@ -121,9 +130,9 @@ def enrich_with_ai_descriptions(df):
         elif 'NOTICIAS' in tabla:
             desc += " (Monitoreo de Medios)."
             
-        return pd.Series([desc, uso, obs])
+        return pd.Series([desc, uso, obs, is_pk])
 
-    df[['Descripción funcional', 'Para qué sirve el campo', 'Observaciones']] = df.apply(get_ai_metadata, axis=1)
+    df[['Descripción funcional', 'Para qué sirve el campo', 'Observaciones', 'Clave Primaria']] = df.apply(get_ai_metadata, axis=1)
     return df
 
 @st.cache_data
