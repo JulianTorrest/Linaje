@@ -248,7 +248,7 @@ if content:
     
     if not df.empty:
         # Crear pestañas para organizar la aplicación
-        tab_metadata, tab_lineage = st.tabs(["Estructura de Metadatos", "Linaje de Datos"])
+        tab_metadata, tab_lineage, tab_schema = st.tabs(["📋 Estructura de Metadatos", "🔗 Linaje de Datos", "📐 Modelo Dimensional"])
 
         with tab_metadata:
             st.subheader("Filtros de Metadatos")
@@ -328,6 +328,48 @@ if content:
                             dot.edge(base_node, target_node, label=f"Ref: {campo}", style='dashed', color='gray')
 
             st.graphviz_chart(dot, use_container_width=True)
+
+        with tab_schema:
+            st.subheader("Análisis de Esquema Estrella / Copo de Nieve")
+            st.markdown("""
+            Esta vista muestra la relación técnica entre entidades del esquema **Oro**. 
+            Permite identificar si el modelo es tipo estrella o si existen dimensiones normalizadas (copo de nieve).
+            """)
+            
+            # Filtrar por el esquema Oro que es donde reside el modelo dimensional
+            df_oro = df[df["Esquema"] == "Oro"]
+            
+            if df_oro.empty:
+                st.warning("No se detectaron tablas en el esquema 'Oro' para generar el modelo dimensional.")
+            else:
+                # Crear grafo para el modelo de datos
+                schema_dot = graphviz.Digraph(comment='Modelo Dimensional')
+                schema_dot.attr(rankdir='BT', nodesep='1', ranksep='1.5')
+                
+                # 1. Crear Nodos con formas distintivas por Tipo
+                unique_entities = df_oro.drop_duplicates('Tabla')
+                for _, row in unique_entities.iterrows():
+                    t_name = row['Tabla']
+                    t_tipo = row['Tipo']
+                    
+                    if t_tipo == "Hechos":
+                        schema_dot.node(t_name, f"{t_name}\n(FACT)", shape='box3d', style='filled', color='#FFD700', fontname='Arial Bold')
+                    elif t_tipo == "Dimensión":
+                        schema_dot.node(t_name, f"{t_name}\n(DIM)", shape='component', style='filled', color='#E0E0E0')
+                    else:
+                        schema_dot.node(t_name, f"{t_name}\n({t_tipo})", shape='box', style='filled', color='#F5F5F5')
+                
+                # 2. Establecer relaciones basadas en Claves Primarias que existen en otras tablas
+                # Buscamos PKs de dimensiones que se usan en Hechos u otras dimensiones
+                pks_oro = df_oro[df_oro["Clave Primaria"] == "Sí"]
+                
+                for _, pk_row in pks_oro.iterrows():
+                    # Buscar dónde se usa esta columna en otras tablas del esquema Oro
+                    matches = df_oro[(df_oro["Campo"] == pk_row["Campo"]) & (df_oro["Tabla"] != pk_row["Tabla"])]
+                    for _, match in matches.iterrows():
+                        schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
+                
+                st.graphviz_chart(schema_dot, use_container_width=True)
 
     else:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
