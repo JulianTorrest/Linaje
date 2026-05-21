@@ -41,7 +41,7 @@ def parse_oracle_metadata(file_content):
                 parts = [p.strip() for p in meta_line.replace('\t', '  ').split('  ') if p.strip()]
                 if len(parts) >= 3:
                     current_tipo = parts[0]
-                    current_esquema = parts[1]
+                    current_esquema = parts[1].capitalize()
                     current_estado = parts[2]
                     i += 2 # Saltamos el nombre de tabla y su línea de metadatos
                     continue
