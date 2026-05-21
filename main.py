@@ -35,30 +35,38 @@ def parse_oracle_metadata(file_content):
             current_tipo = "Tabla"
             current_estado = "No Encontrado"
             
-            # Intentar detectar línea de metadatos (ej: Tabla	BRONCE	Activo)
-            if i + 1 < len(lines) and "TABLA" in lines[i+1].upper():
+            # Intentar detectar línea de metadatos (ej: Vista Materializada ORO Activo)
+            if i + 1 < len(lines):
                 meta_line = lines[i+1]
-                # split() sin argumentos divide por cualquier espacio en blanco (tabs, espacios simples, etc.)
                 parts = meta_line.split()
-
-                if len(parts) >= 3:
-                    current_tipo = parts[0]
-                    current_esquema = parts[1].capitalize()
+                
+                # Buscamos la posición del esquema (Bronce, Plata, Oro) para separar Tipo de Estado
+                schema_idx = -1
+                for idx, p in enumerate(parts):
+                    if p.upper() in ["BRONCE", "PLATA", "ORO"]:
+                        schema_idx = idx
+                        break
+                
+                if schema_idx != -1:
+                    # El Tipo es todo lo anterior al esquema
+                    current_tipo = " ".join(parts[:schema_idx]).capitalize() or "Tabla"
+                    current_esquema = parts[schema_idx].capitalize()
                     
-                    # Normalización del Estado para limpiar errores del archivo fuente (ej: "Activ" o "ActivoCD_...")
-                    st_raw = parts[2].upper()
-                    if "MODIFICADO" in st_raw:
-                        current_estado = "Modificado"
-                    elif "NO" in st_raw:
-                        current_estado = "No Encontrado"
-                    elif "ACTIV" in st_raw:
-                        current_estado = "Activo"
-                    else:
-                        current_estado = "No Encontrado"
-                        
+                    # El Estado es todo lo que sigue al esquema
+                    if schema_idx + 1 < len(parts):
+                        st_raw = " ".join(parts[schema_idx+1:]).upper()
+                        if "MODIFICADO" in st_raw:
+                            current_estado = "Modificado"
+                        elif "NO" in st_raw:
+                            current_estado = "No Encontrado"
+                        elif "ACTIV" in st_raw:
+                            current_estado = "Activo"
+                        else:
+                            current_estado = "No Encontrado"
+                    
                     i += 2 # Saltamos el nombre de tabla y su línea de metadatos
                     continue
-
+                        
             i += 1
             continue
             
