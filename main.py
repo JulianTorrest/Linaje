@@ -27,9 +27,9 @@ def parse_oracle_metadata(file_content):
     while i < len(lines):
         line = lines[i]
         
-        # 1. Identificar el nombre de la entidad (Tabla, Vista, Agregado)
-        # Ahora soporta TBL_, VST_ (Vistas) y AGG_ (Agregados)
-        if any(line.startswith(prefix) for prefix in ['TBL_', 'VST_', 'AGG_']):
+        # 1. Identificar el nombre de la entidad (Tabla, Vista, Agregado, Dimensión, Fact)
+        # Ahora soporta TBL_, VST_, AGG_, DIM_ y FCT_
+        if any(line.startswith(prefix) for prefix in ['TBL_', 'VST_', 'AGG_', 'DIM_', 'FCT_']):
             current_table = line
             # Valores por defecto para la nueva tabla detectada
             current_esquema = "Bronce"
