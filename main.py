@@ -49,6 +49,58 @@ def parse_oracle_metadata(file_content):
         
     return pd.DataFrame(data)
 
+def enrich_with_ai_descriptions(df):
+    """
+    Función de IA para autocompletar metadatos funcionales basados en patrones
+    técnicos y de negocio detectados en los nombres de campos y tablas.
+    """
+    def get_ai_metadata(row):
+        campo = str(row['Campo']).upper()
+        tabla = str(row['Tabla']).upper()
+        tipo = str(row['Tipo de Dato']).upper()
+        
+        # Valores por defecto
+        desc = "Atributo técnico de la entidad."
+        uso = "Almacenamiento de información operativa."
+        obs = "Sin observaciones técnicas registradas."
+        
+        # Lógica de inferencia por patrones de nombre de campo
+        if any(x in campo for x in ['FECHA', 'ANIO', 'ANO', 'FCONCLUSION']):
+            desc = "Marca temporal o periodo de referencia del registro."
+            uso = "Permite realizar análisis de series de tiempo, tendencias y cumplimiento de términos."
+            obs = "Se recomienda validar el formato de fecha (DD/MM/YYYY) en el origen."
+        elif any(x in campo for x in ['MUNICIPIO', 'DEPTO', 'DEPARTAMENTO', 'PAIS', 'DIVIPOLA', 'LUGAR', 'LATITUD', 'LONGITUD']):
+            desc = "Atributo de ubicación geográfica o administrativa."
+            uso = "Fundamental para la territorialización de la información y creación de mapas de calor."
+            obs = "Cruzar con codificación DIVIPOLA del DANE para garantizar integridad referencial."
+        elif any(x in campo for x in ['SEXO', 'GENERO', 'ORIENTACION', 'EDAD', 'DISCAPACIDAD', 'ETNICO', 'INDIGENA', 'RANGO_EDAD']):
+            desc = "Variable sociodemográfica de caracterización poblacional."
+            uso = "Utilizado para aplicar enfoques diferenciales y analizar el impacto en grupos vulnerables."
+            obs = "Dato sensible: Su tratamiento debe cumplir con la Ley de Protección de Datos Personales."
+        elif any(x in campo for x in ['PETICION', 'RADICADO', 'SOLICITUD', 'RUP', 'NUMERO', 'ID', 'EXPEDIENTE']):
+            desc = "Identificador único o número de radicado del trámite o proceso."
+            uso = "Garantiza la trazabilidad del registro y permite realizar uniones (joins) con otros módulos."
+            obs = "Actúa generalmente como llave primaria (PK) o foránea (FK)."
+        elif any(x in campo for x in ['DEPENDENCIA', 'FUENTE', 'GESTIONADA_POR', 'USER_FUN']):
+            desc = "Referencia a la unidad administrativa o usuario responsable de la gestión."
+            uso = "Permite auditar el flujo de trabajo y medir la carga operativa por dependencias."
+            obs = "Relacionado con la estructura organizacional interna."
+        elif any(x in campo for x in ['TITULO', 'TEXTO', 'TITULAR', 'HECHOS', 'SOLICITUD', 'CLOB']):
+            desc = "Contenido narrativo, descriptivo o cuerpo del documento."
+            uso = "Almacena el detalle cualitativo de la información para análisis de texto o consulta directa."
+            obs = "Al ser un campo de texto largo (CLOB), puede impactar el rendimiento en consultas masivas."
+        
+        # Refinamiento por contexto de tabla
+        if 'SENTENCIAS' in tabla:
+            desc += " (Contexto Jurídico/Sentencias)."
+        elif 'NOTICIAS' in tabla:
+            desc += " (Monitoreo de Medios)."
+            
+        return pd.Series([desc, uso, obs])
+
+    df[['Descripción funcional', 'Para qué sirve el campo', 'Observaciones']] = df.apply(get_ai_metadata, axis=1)
+    return df
+
 @st.cache_data
 def fetch_github_data(url):
     """Descarga el archivo desde GitHub."""
@@ -85,6 +137,9 @@ with st.expander("Opciones de carga de datos"):
 if content:
     # Procesar contenido
     df = parse_oracle_metadata(content)
+    
+    # Enriquecer con IA
+    df = enrich_with_ai_descriptions(df)
     
     if not df.empty:
         # Filtros opcionales
