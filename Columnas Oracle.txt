@@ -3756,3 +3756,2690 @@ Sin comentario técnico.
 Pendiente de revisión
 Seleccionar
 Agregar documentación
+
+
+
+TBL_TRV_DANE_IPM
+Tabla	BRONCE	Activo
+COD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VARIABLE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VALOR
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_NIVEL_EDUCATIVO_VEJEZ
+Tabla	BRONCE	Activo
+DIVIPOLA_DEP
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NIVEL_EDUCATIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_PROYECCION
+Tabla	BRONCE	Activo
+DP
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DPNOM
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DPMP
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+AREA_GEOGRAFICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MUJERES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_0_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_1_ANO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOMBRES_2_ANOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_TENENCIA_VIVIENDA
+Tabla	BRONCE	Activo
+DIVIPOLA_DEPART
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_TENENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+HOGARES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_DESAPARECIDOS
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ENTIDAD_QUE_REALIZA_EL_REGISTRO_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CLASIFICACION_DE_LA_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_Y_MENOR_DE_EDAD_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+IDENTIDAD_DE_GENERO_DEL_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESIONES_ACCIDENTALES_2015_2024
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_LESIONES_FATALES_2025
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_GRUPAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MES_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESIONES_NO_FATALES_2025
+Tabla	BRONCE	Activo
+ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+A_O_DEL_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+SEXO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_DE_EDAD_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+GRUPO_MAYOR_MENOR_DE_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PAIS_DE_NACIMIENTO_DE_LA_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TIPO_DE_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+PERTENENCIA_ETNICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_ATQ_BUENFUTURO
+Tabla	PLATA	Activo
+ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ID_RUP
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_DEPENDENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPENDENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_ORIENTACION_SEXUAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_ORIENTACION_SEXUAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_GRUPO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_GRUPO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_SUBGRUPO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SUBGRUPO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_DCA_FAUNASILVESTRE
+Tabla	PLATA	Activo
+NR_FILA
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NM_CORPORACION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_SIGLA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FH_FECHA
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_CANTIDAD
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_CLASE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_ORDEN
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_FAMILIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_ESPECIE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_NOMBRECOMUN
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CAUSAINGRESO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CAUSAINGRESOHOMOLAGADA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_ATQ_ASESORIAS
+Tabla	PLATA	Activo
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NR_PETICION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FH_RECEPCION
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_PETICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPENDENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_ATQ_QUEJAS
+Tabla	PLATA	Activo
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NR_PETICION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FH_RECEPCION
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_PETICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPENDENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_ATQ_SOLICITUDES
+Tabla	PLATA	Activo
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NR_PETICION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+FH_RECEPCION
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_PETICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPENDENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_PAIS
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_DISCAPACIDAD_GENERAL
+Tabla	PLATA	ActivoCD_DIVIPOLA_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_LIMITACION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DIFICULTAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_RANGO_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_HOMBRES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MUJERES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_TOTAL_PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_DIVIPOLA_MUNICIPIO
+Tabla	PLATA	Activo
+COD_DEPTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+ID_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NOMBRE_DEPTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DIVIPOLA_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DIVIPOLA_M
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ID_DIVIPOLA_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CT_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+MPNOMBRE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_ETNICOS_GENERAL
+Tabla	PLATA	Activo
+CD_DIVIPOLA_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_RANGO_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_GRUPO_ETNICO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_IPM
+Tabla	PLATA	Activo
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_VARIABLE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_VALOR
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_TOTAL
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_NIVEL_EDUCATIVO_VEJEZ
+Tabla	PLATA	Activo
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_NIVEL_EDUCATIVO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_PERSONAS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_DANE_PROYECCION
+Tabla	PLATA	Activo
+
+CD_DIVIPOLA_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_AREA_GEOGRAFICA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_EDAD
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_POBLACION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_DANE_TENENCIA_VIVIENDA
+Tabla	PLATA	Activo
+CD_DIVIPOLA_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_TIPO_TENENCIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_HOGARES
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_FGN_SPOA_INDICIADOS
+Tabla	PLATA	Activo
+IN_CRIMINALIDAD
+CHAR
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+IN_ES_ARCHIVO
+CHAR
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+IN_ES_PRECLUSION
+CHAR
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ST_ESTADO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_ETAPA_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_LEY
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_PAIS_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_SECCIONAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO_HECHOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO_ENTRADA
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_FGN_SPOA_VICTIMAS
+Tabla	PLATA	Activo
+IN_CRIMINALIDAD
+CHAR
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+IN_ES_ARCHIVO
+CHAR
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+IN_ES_PRECLUSION
+CHAR
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ST_ESTADO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_ETAPA_CASO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_LEY
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_PAIS_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_SECCIONAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO_HECHOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANIO_ENTRADA
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_DELITO_SEXUAL
+Tabla	PLATA	Activo
+NR_ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_DESAPARECIDO
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_ENTIDAD_REGISTRO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+ST_DESAPARICION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CLASIFICACION
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_DESAPARECIDO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_GRUPO_MAYOR_MENOR
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_GRUPO_EDAD_QUINQUENAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_GRUPO_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_ESTADO_CIVIL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_ESCOLARIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_HOMICIDIO
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESION_ACCIDENTAL
+Tabla	PLATA	Activ
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_LESION_TRANSPORTE
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_MUERTE_ACCIDENTAL
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_MUERTE_TRANSPORTE
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_SUICIDIO
+Tabla	PLATA	Activo
+NR_ID
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TBL_TRV_MDL_VIOLENCIA_INTERPERSONAL
+Tabla	PLATA	Activo
+ID_REGISTRO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NR_ID
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NR_ANO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_GRUPO_EDAD_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_GRUPO_MAYOR_MENOR_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+
+TBL_TRV_MDL_VIOLENCIA_INTRAFAMILIAR
+Tabla	PLATA	Activo
+ID_REGISTRO
+NUMBER
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+NR_ID
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NR_ANO_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_GRUPO_EDAD_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_GRUPO_MAYOR_MENOR_EDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_EDAD_JUDICIAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_MDL_VIOLENCIA_PAREJA
+Tabla	PLATA	Activo
+NR_ID
+VARCHAR2
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+DS_FUENTE
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_ANO_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_MES_HECHO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_DIA_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_DEPARTAMENTO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_DEPARTAMENTO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+CD_MUNICIPIO
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+NM_MUNICIPIO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_LOCALIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO_VICTIMA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+DS_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+
+TBL_TRV_UARIV
+Tabla	PLATA	Activo
+FH_CORTE
+DATE
+Sin comentario técnico.
+
+Columna activa
+Seleccionada
+Agregar documentación
+CD_PARAM_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_HECHO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_SEXO
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_ETNIA
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_DISCAPACIDAD
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TP_CICLO_VITAL
+VARCHAR2
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_PERSONAS_OCURRENCIA
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_PERSONAS_SUJETOS_ATENCION
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+VL_EVENTOS
+NUMBER
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_LOAD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
+TS_UPD
+DATE
+Sin comentario técnico.
+
+Pendiente de revisión
+Seleccionar
+Agregar documentación
