@@ -168,14 +168,46 @@ if content:
     
     if not df.empty:
         # Filtros opcionales
-        st.sidebar.header("Filtros")
-        tablas_seleccionadas = st.sidebar.multiselect(
-            "Seleccionar Tablas", 
+        st.subheader("Filtros de Metadatos")
+        
+        # Usamos st.columns para organizar los filtros en el centro
+        col_esquema, col_tipo, col_estado = st.columns(3)
+        
+        with col_esquema:
+            esquemas_seleccionados = st.multiselect(
+                "Esquema",
+                options=df["Esquema"].unique(),
+                default=df["Esquema"].unique()
+            )
+        
+        with col_tipo:
+            tipos_seleccionados = st.multiselect(
+                "Tipo",
+                options=df["Tipo"].unique(),
+                default=df["Tipo"].unique()
+            )
+            
+        with col_estado:
+            estados_seleccionados = st.multiselect(
+                "Estado",
+                options=df["Estado"].unique(),
+                default=df["Estado"].unique()
+            )
+            
+        # El filtro de tablas lo dejamos debajo de los otros para mayor espacio
+        tablas_seleccionadas = st.multiselect(
+            "Tabla", 
             options=df["Tabla"].unique(),
-            default=df["Tabla"].unique()[:2] # Por defecto las primeras 2
+            default=df["Tabla"].unique()[:min(len(df["Tabla"].unique()), 5)] # Por defecto las primeras 5 tablas
         )
         
-        df_filtered = df[df["Tabla"].isin(tablas_seleccionadas)]
+        # Aplicar todos los filtros
+        df_filtered = df[
+            (df["Esquema"].isin(esquemas_seleccionados)) &
+            (df["Tipo"].isin(tipos_seleccionados)) &
+            (df["Estado"].isin(estados_seleccionados)) &
+            (df["Tabla"].isin(tablas_seleccionadas))
+        ]
         
         # Mostrar métricas rápidas
         col1, col2 = st.columns(2)
