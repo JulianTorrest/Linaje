@@ -130,7 +130,7 @@ def parse_oracle_metadata(file_content):
                     "Estado": current_estado,
                     "Campo": col_name, # Mantener el orden para facilitar la lectura
                     "Tipo de Dato": col_type,
-                    "Clave Primaria": "No" # Valor por defecto
+                    "Clave Primaria": "No", # Valor por defecto
                     "Origen del Dato": "No especificado",
                     "Lógica de Transformación": "No aplica (dato original)",
                     "Sensibilidad del Dato": "Público"
