@@ -342,34 +342,64 @@ if content:
             if df_oro.empty:
                 st.warning("No se detectaron tablas en el esquema 'Oro' para generar el modelo dimensional.")
             else:
+                # --- Mejorar legibilidad mediante filtros por Hechos ---
+                st.info("💡 **Consejo de Visualización**: Seleccione una o dos tablas de Hechos para que el diagrama sea legible y los cuadros se vean grandes.")
+                
+                lista_hechos = sorted(df_oro[df_oro["Tipo"] == "Hechos"]["Tabla"].unique())
+                
+                col_f1, col_f2 = st.columns([2, 1])
+                with col_f1:
+                    hechos_seleccionados = st.multiselect(
+                        "Filtrar por Tablas de Hechos (Fact):",
+                        options=lista_hechos,
+                        default=lista_hechos[:1] if lista_hechos else []
+                    )
+                
+                # Lógica para identificar qué mostrar: Hechos seleccionados + Dimensiones relacionadas
+                if hechos_seleccionados:
+                    # Campos (llaves) presentes en los hechos seleccionados
+                    campos_en_hechos = df_oro[df_oro["Tabla"].isin(hechos_seleccionados)]["Campo"].unique()
+                    # Dimensiones que tienen su PK presente en esos hechos
+                    dimensiones_relacionadas = df_oro[
+                        (df_oro["Tipo"] == "Dimensión") & 
+                        (df_oro["Clave Primaria"] == "Sí") & 
+                        (df_oro["Campo"].isin(campos_en_hechos))
+                    ]["Tabla"].unique()
+                    
+                    entidades_visibles = list(hechos_seleccionados) + list(dimensiones_relacionadas)
+                    df_display = df_oro[df_oro["Tabla"].isin(entidades_visibles)]
+                else:
+                    st.warning("Seleccione al menos una tabla de Hechos para visualizar el modelo.")
+                    st.stop()
+
                 # Crear grafo para el modelo de datos
                 schema_dot = graphviz.Digraph(comment='Modelo Dimensional')
                 # Ajustamos la orientación a LR y aumentamos significativamente el espaciado
-                schema_dot.attr(rankdir='LR', nodesep='1.2', ranksep='2.5')
-                # Configuramos fuentes y tamaños globales para máxima legibilidad
-                schema_dot.attr('node', fontsize='24', fontname='Arial', width='3.5', height='1.5')
-                schema_dot.attr('edge', fontsize='18', fontname='Arial')
+                schema_dot.attr(rankdir='LR', nodesep='1.5', ranksep='3.0')
+                # Configuramos fuentes masivas y tamaños para legibilidad en pantallas grandes
+                schema_dot.attr('node', fontsize='30', fontname='Arial Bold', width='4.5', height='2')
+                schema_dot.attr('edge', fontsize='20', fontname='Arial', penwidth='2.5')
                 
                 # 1. Crear Nodos con formas distintivas por Tipo
-                unique_entities = df_oro.drop_duplicates('Tabla')
+                unique_entities = df_display.drop_duplicates('Tabla')
                 for _, row in unique_entities.iterrows():
                     t_name = row['Tabla']
                     t_tipo = row['Tipo']
                     
                     if t_tipo == "Hechos":
-                        schema_dot.node(t_name, f"{t_name}\n(HECHOS)", shape='box3d', style='filled', color='#FFD700')
+                        schema_dot.node(t_name, f"{t_name}\n(HECHOS)", shape='box3d', style='filled', color='#FFD700', margin='0.3')
                     elif t_tipo == "Dimensión":
-                        schema_dot.node(t_name, f"{t_name}\n(DIMENSIÓN)", shape='component', style='filled', color='#E0E0E0')
+                        schema_dot.node(t_name, f"{t_name}\n(DIMENSIÓN)", shape='component', style='filled', color='#E0E0E0', margin='0.3')
                     else:
-                        schema_dot.node(t_name, f"{t_name}\n({t_tipo})", shape='box', style='filled', color='#F5F5F5')
+                        schema_dot.node(t_name, f"{t_name}\n({t_tipo})", shape='box', style='filled', color='#F5F5F5', margin='0.3')
                 
                 # 2. Establecer relaciones basadas en Claves Primarias que existen en otras tablas
-                # Buscamos PKs de dimensiones que se usan en Hechos u otras dimensiones
-                pks_oro = df_oro[df_oro["Clave Primaria"] == "Sí"]
+                # Buscamos PKs de las entidades visibles para trazar uniones
+                pks_visibles = df_display[df_display["Clave Primaria"] == "Sí"]
                 
-                for _, pk_row in pks_oro.iterrows():
-                    # Buscar dónde se usa esta columna en otras tablas del esquema Oro
-                    matches = df_oro[(df_oro["Campo"] == pk_row["Campo"]) & (df_oro["Tabla"] != pk_row["Tabla"])]
+                for _, pk_row in pks_visibles.iterrows():
+                    # Buscar dónde se usa esta columna en otras tablas visibles
+                    matches = df_display[(df_display["Campo"] == pk_row["Campo"]) & (df_display["Tabla"] != pk_row["Tabla"])]
                     for _, match in matches.iterrows():
                         schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
                 
