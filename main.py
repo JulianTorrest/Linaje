@@ -36,13 +36,11 @@ def parse_oracle_metadata(file_content):
             current_estado = "No Encontrado"
             
             # Intentar detectar línea de metadatos (ej: Tabla	BRONCE	Activo)
-            if i + 1 < len(lines) and any(x in lines[i+1].upper() for x in ["BRONCE", "PLATA", "ORO"]):
+            if i + 1 < len(lines) and "TABLA" in lines[i+1].upper():
                 meta_line = lines[i+1]
-                # Dividir por tabulaciones primero, luego por múltiples espacios para mayor robustez
-                parts = [p.strip() for p in meta_line.split('\t') if p.strip()]
-                if len(parts) < 3:
-                    parts = [p.strip() for p in meta_line.split('  ') if p.strip()]
-                
+                # split() sin argumentos divide por cualquier espacio en blanco (tabs, espacios simples, etc.)
+                parts = meta_line.split()
+
                 if len(parts) >= 3:
                     current_tipo = parts[0]
                     current_esquema = parts[1].capitalize()
