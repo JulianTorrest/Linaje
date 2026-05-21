@@ -131,6 +131,9 @@ def parse_oracle_metadata(file_content):
                     "Campo": col_name, # Mantener el orden para facilitar la lectura
                     "Tipo de Dato": col_type,
                     "Clave Primaria": "No" # Valor por defecto
+                    "Origen del Dato": "No especificado",
+                    "Lógica de Transformación": "No aplica (dato original)",
+                    "Sensibilidad del Dato": "Público"
                 })
                 # Avanzamos 2 líneas (nombre y tipo)
                 i += 2
@@ -161,6 +164,9 @@ def enrich_with_ai_descriptions(df):
         desc = "Atributo técnico de la entidad."
         uso = "Almacenamiento de información operativa."
         obs = "Sin observaciones técnicas registradas."
+        origen = "Sistema fuente no identificado"
+        logica_transf = "Dato original (sin transformación)"
+        sensibilidad = "Público"
         
         # Lógica de inferencia por patrones de nombre de campo
         if any(x in campo for x in ['FECHA', 'ANIO', 'ANO', 'FCONCLUSION']):
@@ -171,29 +177,43 @@ def enrich_with_ai_descriptions(df):
             desc = "Atributo de ubicación geográfica o administrativa."
             uso = "Fundamental para la territorialización de la información y creación de mapas de calor."
             obs = "Cruzar con codificación DIVIPOLA del DANE para garantizar integridad referencial."
+            origen = "DANE - Geografía"
         elif any(x in campo for x in ['SEXO', 'GENERO', 'ORIENTACION', 'EDAD', 'DISCAPACIDAD', 'ETNICO', 'INDIGENA', 'RANGO_EDAD']):
             desc = "Variable sociodemográfica de caracterización poblacional."
             uso = "Utilizado para aplicar enfoques diferenciales y analizar el impacto en grupos vulnerables."
             obs = "Dato sensible: Su tratamiento debe cumplir con la Ley de Protección de Datos Personales."
+            sensibilidad = "PII - Sensible"
+            origen = "Sistema de Registro Poblacional"
         elif any(x in campo for x in ['PETICION', 'RADICADO', 'SOLICITUD', 'RUP', 'NUMERO', 'ID', 'EXPEDIENTE']):
             desc = "Identificador único o número de radicado del trámite o proceso o registro."
             uso = "Garantiza la trazabilidad del registro y permite realizar uniones (joins) con otros módulos."
             obs = "Actúa generalmente como llave primaria (PK) o foránea (FK)."
             is_pk = "Sí" # Inferencia de Clave Primaria
+            origen = "Sistema de Gestión de Casos/Peticiones"
         elif campo.startswith('COD_'):
             desc = "Código identificador único para una entidad (ej. código de departamento, municipio)."
             uso = "Permite la identificación unívoca y la integración con catálogos de referencia."
             obs = "Frecuentemente utilizado como llave primaria o parte de una llave compuesta."
             is_pk = "Sí" # Inferencia de Clave Primaria
+            origen = "Catálogo de Referencia (ej. DANE)"
         elif any(x in campo for x in ['DEPENDENCIA', 'FUENTE', 'GESTIONADA_POR', 'USER_FUN']):
             desc = "Referencia a la unidad administrativa o usuario responsable de la gestión."
             uso = "Permite auditar el flujo de trabajo y medir la carga operativa por dependencias."
             obs = "Relacionado con la estructura organizacional interna."
+            origen = "Sistema de Gestión Interna"
             
         elif any(x in campo for x in ['TITULO', 'TEXTO', 'TITULAR', 'HECHOS', 'SOLICITUD', 'CLOB']):
             desc = "Contenido narrativo, descriptivo o cuerpo del documento."
             uso = "Almacena el detalle cualitativo de la información para análisis de texto o consulta directa."
             obs = "Al ser un campo de texto largo (CLOB), puede impactar el rendimiento en consultas masivas."
+            sensibilidad = "Confidencial (si contiene detalles de casos)"
+            origen = "Sistema de Documentación/Noticias"
+
+        # Lógica de transformación basada en el esquema
+        if row['Esquema'] == 'Plata':
+            logica_transf = "Limpieza y estandarización de datos"
+        elif row['Esquema'] == 'Oro':
+            logica_transf = "Agregación y transformación para análisis de negocio"
         
         # Refinamiento por contexto de tabla
         if 'SENTENCIAS' in tabla:
@@ -201,9 +221,9 @@ def enrich_with_ai_descriptions(df):
         elif 'NOTICIAS' in tabla:
             desc += " (Monitoreo de Medios)."
             
-        return pd.Series([desc, uso, obs, is_pk])
+        return pd.Series([desc, uso, obs, is_pk, origen, logica_transf, sensibilidad])
 
-    df[['Descripción funcional', 'Para qué sirve el campo', 'Observaciones', 'Clave Primaria']] = df.apply(get_ai_metadata, axis=1)
+    df[['Descripción funcional', 'Para qué sirve el campo', 'Observaciones', 'Clave Primaria', 'Origen del Dato', 'Lógica de Transformación', 'Sensibilidad del Dato']] = df.apply(get_ai_metadata, axis=1)
     return df
 
 @st.cache_data
