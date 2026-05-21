@@ -14,6 +14,11 @@ def parse_oracle_metadata(file_content):
     lines = [line.strip() for line in file_content.splitlines() if line.strip()]
     
     current_table = None
+    # Variables para almacenar metadatos de nivel de tabla
+    current_esquema = "Bronce"
+    current_tipo = "Tabla"
+    current_estado = "Activo"
+
     # Definimos un set más amplio de tipos de datos de Oracle para robustecer el parser
     oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2'}
     
@@ -24,6 +29,23 @@ def parse_oracle_metadata(file_content):
         # 1. Identificar el nombre de la tabla
         if line.startswith('TBL_'):
             current_table = line
+            # Valores por defecto para la nueva tabla detectada
+            current_esquema = "Bronce"
+            current_tipo = "Tabla"
+            current_estado = "No encontrado"
+            
+            # Intentar detectar línea de metadatos (ej: Tabla	BRONCE	Activo)
+            if i + 1 < len(lines) and any(x in lines[i+1].upper() for x in ["BRONCE", "PLATA", "ORO"]):
+                meta_line = lines[i+1]
+                # Dividir por tabulaciones o múltiples espacios
+                parts = [p.strip() for p in meta_line.replace('\t', '  ').split('  ') if p.strip()]
+                if len(parts) >= 3:
+                    current_tipo = parts[0]
+                    current_esquema = parts[1]
+                    current_estado = parts[2]
+                    i += 2 # Saltamos el nombre de tabla y su línea de metadatos
+                    continue
+
             i += 1
             continue
             
@@ -38,6 +60,9 @@ def parse_oracle_metadata(file_content):
                 
                 data.append({
                     "Tabla": current_table,
+                    "Esquema": current_esquema,
+                    "Tipo": current_tipo,
+                    "Estado": current_estado,
                     "Campo": col_name,
                     "Tipo de Dato": col_type
                 })
