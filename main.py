@@ -298,7 +298,8 @@ if content:
             st.info("Este gráfico muestra cómo viajan los datos entre capas y cómo se relacionan los procesos.")
             
             dot = graphviz.Digraph(comment='Linaje Defensoria')
-            dot.attr(rankdir='LR', size='10,10')
+            # Optimizamos el espacio: LR (Izquierda a Derecha), aumentamos separación entre nodos y niveles
+            dot.attr(rankdir='LR', nodesep='0.5', ranksep='1.5')
             
             # 1. Nodos por tabla y esquema
             for _, row in df.drop_duplicates(['Tabla', 'Esquema']).iterrows():
@@ -326,7 +327,7 @@ if content:
                         if base_node != target_node:
                             dot.edge(base_node, target_node, label=f"Ref: {campo}", style='dashed', color='gray')
 
-            st.graphviz_chart(dot)
+            st.graphviz_chart(dot, use_container_width=True)
 
     else:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
