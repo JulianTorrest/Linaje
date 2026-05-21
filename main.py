@@ -72,10 +72,21 @@ def parse_oracle_metadata(file_content):
                     if schema_idx != -1:
                         # Extraer Tipo de la línea de metadatos (solo si no es genérico 'Tabla')
                         raw_extracted_tipo = " ".join(parts[:schema_idx]).upper()
-                        if raw_extracted_tipo in ["FCT", "FACT"]:
-                            current_tipo = "Hechos"
-                        elif raw_extracted_tipo and raw_extracted_tipo not in ["TABLA", ""]:
-                            current_tipo = raw_extracted_tipo.capitalize()
+                        
+                        # Attempt to normalize the extracted type from the metadata line
+                        normalized_from_metadata = tipo_norm.get(raw_extracted_tipo, None)
+                        
+                        if normalized_from_metadata:
+                            # If metadata explicitly states a type (e.g., "VISTA", "AGREGADO", "HECHOS", "DIMENSION", "TABLA")
+                            # We use it, unless it's "Tabla" and our inferred_tipo is more specific (Hechos, Dimensión, etc.)
+                            if normalized_from_metadata == "Tabla" and inferred_tipo != "Tabla":
+                                # Metadata says "Tabla", but prefix says something more specific (FCT_, DIM_, AGG_, VST_).
+                                # Keep the more specific inferred_tipo.
+                                current_tipo = inferred_tipo
+                            else:
+                                # Metadata says something specific (Vista, Hechos, Dimensión, Agregado)
+                                # OR metadata says "Tabla" and inferred_tipo is also "Tabla".
+                                current_tipo = normalized_from_metadata
 
                         current_esquema = parts[schema_idx].capitalize()
                         
