@@ -344,7 +344,11 @@ if content:
             else:
                 # Crear grafo para el modelo de datos
                 schema_dot = graphviz.Digraph(comment='Modelo Dimensional')
-                schema_dot.attr(rankdir='BT', nodesep='1', ranksep='1.5')
+                # Ajustamos la orientación a LR y aumentamos significativamente el espaciado
+                schema_dot.attr(rankdir='LR', nodesep='1.2', ranksep='2.5')
+                # Configuramos fuentes y tamaños globales para máxima legibilidad
+                schema_dot.attr('node', fontsize='24', fontname='Arial', width='3.5', height='1.5')
+                schema_dot.attr('edge', fontsize='18', fontname='Arial')
                 
                 # 1. Crear Nodos con formas distintivas por Tipo
                 unique_entities = df_oro.drop_duplicates('Tabla')
@@ -353,9 +357,9 @@ if content:
                     t_tipo = row['Tipo']
                     
                     if t_tipo == "Hechos":
-                        schema_dot.node(t_name, f"{t_name}\n(FACT)", shape='box3d', style='filled', color='#FFD700', fontname='Arial Bold')
+                        schema_dot.node(t_name, f"{t_name}\n(HECHOS)", shape='box3d', style='filled', color='#FFD700')
                     elif t_tipo == "Dimensión":
-                        schema_dot.node(t_name, f"{t_name}\n(DIM)", shape='component', style='filled', color='#E0E0E0')
+                        schema_dot.node(t_name, f"{t_name}\n(DIMENSIÓN)", shape='component', style='filled', color='#E0E0E0')
                     else:
                         schema_dot.node(t_name, f"{t_name}\n({t_tipo})", shape='box', style='filled', color='#F5F5F5')
                 
