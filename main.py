@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import io
 import requests
+import graphviz
 
 # URL del archivo en formato Raw para poder leerlo directamente
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/JulianTorrest/Linaje/main/Columnas%20Oracle.txt"
@@ -176,64 +177,82 @@ if content:
     df = enrich_with_ai_descriptions(df)
     
     if not df.empty:
-        # Filtros opcionales
-        st.subheader("Filtros de Metadatos")
-        
-        # Usamos st.columns para organizar los filtros en el centro
-        col_esquema, col_tipo, col_estado = st.columns(3)
-        
-        with col_esquema:
-            esquemas_seleccionados = st.multiselect(
-                "Esquema",
-                options=df["Esquema"].unique(),
-                default=df["Esquema"].unique()
-            )
-        
-        with col_tipo:
-            tipos_seleccionados = st.multiselect(
-                "Tipo",
-                options=df["Tipo"].unique(),
-                default=df["Tipo"].unique()
+        # Crear pestañas para organizar la aplicación
+        tab_metadata, tab_lineage = st.tabs(["📋 Estructura de Metadatos", "🔗 Linaje de Datos"])
+
+        with tab_metadata:
+            st.subheader("Filtros de Metadatos")
+            col_esquema, col_tipo, col_estado = st.columns(3)
+            
+            with col_esquema:
+                esquemas_seleccionados = st.multiselect(
+                    "Esquema", options=df["Esquema"].unique(), default=df["Esquema"].unique()
+                )
+            with col_tipo:
+                tipos_seleccionados = st.multiselect(
+                    "Tipo", options=df["Tipo"].unique(), default=df["Tipo"].unique()
+                )
+            with col_estado:
+                estados_seleccionados = st.multiselect(
+                    "Estado", options=df["Estado"].unique(), default=df["Estado"].unique()
+                )
+            
+            tablas_seleccionadas = st.multiselect(
+                "Tabla", 
+                options=df["Tabla"].unique(),
+                default=df["Tabla"].unique()[:min(len(df["Tabla"].unique()), 5)]
             )
             
-        with col_estado:
-            estados_seleccionados = st.multiselect(
-                "Estado",
-                options=df["Estado"].unique(),
-                default=df["Estado"].unique()
-            )
+            df_filtered = df[
+                (df["Esquema"].isin(esquemas_seleccionados)) &
+                (df["Tipo"].isin(tipos_seleccionados)) &
+                (df["Estado"].isin(estados_seleccionados)) &
+                (df["Tabla"].isin(tablas_seleccionadas))
+            ]
             
-        # El filtro de tablas lo dejamos debajo de los otros para mayor espacio
-        tablas_seleccionadas = st.multiselect(
-            "Tabla", 
-            options=df["Tabla"].unique(),
-            default=df["Tabla"].unique()[:min(len(df["Tabla"].unique()), 5)] # Por defecto las primeras 5 tablas
-        )
-        
-        # Aplicar todos los filtros
-        df_filtered = df[
-            (df["Esquema"].isin(esquemas_seleccionados)) &
-            (df["Tipo"].isin(tipos_seleccionados)) &
-            (df["Estado"].isin(estados_seleccionados)) &
-            (df["Tabla"].isin(tablas_seleccionadas))
-        ]
-        
-        # Mostrar métricas rápidas
-        col1, col2 = st.columns(2)
-        col1.metric("Total Tablas", df_filtered["Tabla"].nunique())
-        col2.metric("Total Campos", len(df_filtered))
-        
-        # Mostrar tabla principal
-        st.subheader("Estructura de Metadatos")
-        st.dataframe(df_filtered, use_container_width=True, height=600)
-        
-        # Botón para descargar como CSV
-        csv = df_filtered.to_csv(index=False).encode('utf-8')
-        st.download_button(
-            label="Descargar esta vista como CSV",
-            data=csv,
-            file_name="metadatos_oracle.csv",
-            mime="text/csv",
-        )
+            col1, col2 = st.columns(2)
+            col1.metric("Total Tablas", df_filtered["Tabla"].nunique())
+            col2.metric("Total Campos", len(df_filtered))
+            
+            st.dataframe(df_filtered, use_container_width=True, height=600)
+            
+            csv = df_filtered.to_csv(index=False).encode('utf-8')
+            st.download_button("Descargar como CSV", csv, "metadatos.csv", "text/csv")
+
+        with tab_lineage:
+            st.subheader("Mapa de Linaje Medallion y Relacional")
+            st.info("Este gráfico muestra cómo viajan los datos entre capas y cómo se relacionan los procesos.")
+            
+            dot = graphviz.Digraph(comment='Linaje Defensoria')
+            dot.attr(rankdir='LR', size='10,10')
+            
+            # 1. Nodos por tabla y esquema
+            for _, row in df.drop_duplicates(['Tabla', 'Esquema']).iterrows():
+                label = f"{row['Tabla']}\n({row['Esquema']})"
+                color = 'lightblue' if row['Esquema'] == 'Bronce' else 'lightgreen' if row['Esquema'] == 'Plata' else 'gold'
+                dot.node(f"{row['Tabla']}_{row['Esquema']}", label, style='filled', color=color, shape='box')
+
+            # 2. Aristas: Linaje Medallion (Misma tabla entre capas)
+            tables = df['Tabla'].unique()
+            for t in tables:
+                layers = df[df['Tabla'] == t]['Esquema'].unique()
+                if 'Bronce' in layers and 'Plata' in layers:
+                    dot.edge(f"{t}_Bronce", f"{t}_Plata", label="ETL Plata", color='blue')
+                if 'Plata' in layers and 'Oro' in layers:
+                    dot.edge(f"{t}_Plata", f"{t}_Oro", label="ETL Oro", color='darkgreen')
+
+            # 3. Aristas: Linaje Relacional (Comparten Clave Primaria)
+            pk_fields = df[df['Clave Primaria'] == 'Sí'][['Tabla', 'Esquema', 'Campo']]
+            for campo in pk_fields['Campo'].unique():
+                relevant_tables = pk_fields[pk_fields['Campo'] == campo]
+                if len(relevant_tables) > 1:
+                    base_node = f"{relevant_tables.iloc[0]['Tabla']}_{relevant_tables.iloc[0]['Esquema']}"
+                    for idx in range(1, len(relevant_tables)):
+                        target_node = f"{relevant_tables.iloc[idx]['Tabla']}_{relevant_tables.iloc[idx]['Esquema']}"
+                        if base_node != target_node:
+                            dot.edge(base_node, target_node, label=f"Ref: {campo}", style='dashed', color='gray')
+
+            st.graphviz_chart(dot)
+
     else:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
