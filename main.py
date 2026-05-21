@@ -31,9 +31,17 @@ def parse_oracle_metadata(file_content):
         # Ahora soporta TBL_, VST_, AGG_, DIM_ y FCT_
         if any(line.startswith(prefix) for prefix in ['TBL_', 'VST_', 'AGG_', 'DIM_', 'FCT_']):
             current_table = line
+            
+            # Inferencia de tipo por prefijo del nombre
+            if line.startswith('DIM_'): inferred_tipo = "Dimensión"
+            elif line.startswith('FCT_'): inferred_tipo = "Fact"
+            elif line.startswith('VST_'): inferred_tipo = "Vista"
+            elif line.startswith('AGG_'): inferred_tipo = "Agregado"
+            else: inferred_tipo = "Tabla"
+
             # Valores por defecto para la nueva tabla detectada
             current_esquema = "Bronce"
-            current_tipo = "Tabla"
+            current_tipo = inferred_tipo
             current_estado = "No Encontrado"
             
             # Intentar detectar línea de metadatos en las siguientes 2 líneas
@@ -51,8 +59,12 @@ def parse_oracle_metadata(file_content):
                             break
                     
                     if schema_idx != -1:
-                        # El Tipo es todo lo anterior al esquema
-                        current_tipo = " ".join(parts[:schema_idx]).capitalize() or "Tabla"
+                        # El Tipo es todo lo anterior al esquema.
+                        # Si el archivo dice genéricamente "Tabla", conservamos la inferencia del prefijo (Fact/Dim)
+                        extracted_tipo = " ".join(parts[:schema_idx]).capitalize()
+                        if extracted_tipo and extracted_tipo != "Tabla":
+                            current_tipo = extracted_tipo
+                            
                         current_esquema = parts[schema_idx].capitalize()
                         
                         # El Estado es todo lo que sigue al esquema
