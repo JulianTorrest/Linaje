@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import io
+import requests
+
+# URL del archivo en formato Raw para poder leerlo directamente
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/JulianTorrest/Linaje/main/Columnas%20Oracle.txt"
 
 def parse_oracle_metadata(file_content):
     """
@@ -45,23 +49,41 @@ def parse_oracle_metadata(file_content):
         
     return pd.DataFrame(data)
 
+@st.cache_data
+def fetch_github_data(url):
+    """Descarga el archivo desde GitHub."""
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.text
+        return None
+    except Exception:
+        return None
+
 # --- Interfaz de Streamlit ---
 st.set_page_config(page_title="Linaje de Datos - Defensoría", layout="wide")
 
 st.title("📊 Diccionario de Datos Oracle")
 st.markdown("""
-Esta aplicación procesa el archivo de metadatos para organizar la información de las tablas de la capa **BRONCE**.
+Esta aplicación organiza la información de las tablas de la capa **BRONCE**.
 """)
 
-# Opción de cargar el archivo
-uploaded_file = st.file_uploader("Cargar archivo 'Columnas Oracle.txt'", type=["txt"])
+# 1. Intentar cargar desde GitHub automáticamente
+content = fetch_github_data(GITHUB_RAW_URL)
 
-if uploaded_file is not None:
-    # Leer el contenido del archivo cargado
-    stringio = io.StringIO(uploaded_file.getvalue().decode("utf-8"))
-    content = stringio.read()
-    
-    # Procesar
+# 2. Opción de carga manual (sobreescribe el de GitHub si se sube algo)
+with st.expander("Opciones de carga de datos"):
+    if content:
+        st.success("✅ Datos cargados automáticamente desde GitHub.")
+    else:
+        st.warning("⚠️ No se pudo cargar automáticamente desde GitHub.")
+        
+    uploaded_file = st.file_uploader("Subir una versión local de 'Columnas Oracle.txt'", type=["txt"])
+    if uploaded_file is not None:
+        content = uploaded_file.getvalue().decode("utf-8")
+
+if content:
+    # Procesar contenido
     df = parse_oracle_metadata(content)
     
     if not df.empty:
@@ -94,5 +116,3 @@ if uploaded_file is not None:
         )
     else:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
-else:
-    st.info("Por favor, sube el archivo .txt para comenzar el análisis.")
