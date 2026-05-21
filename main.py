@@ -38,12 +38,26 @@ def parse_oracle_metadata(file_content):
             # Intentar detectar línea de metadatos (ej: Tabla	BRONCE	Activo)
             if i + 1 < len(lines) and any(x in lines[i+1].upper() for x in ["BRONCE", "PLATA", "ORO"]):
                 meta_line = lines[i+1]
-                # Dividir por tabulaciones o múltiples espacios
-                parts = [p.strip() for p in meta_line.replace('\t', '  ').split('  ') if p.strip()]
+                # Dividir por tabulaciones primero, luego por múltiples espacios para mayor robustez
+                parts = [p.strip() for p in meta_line.split('\t') if p.strip()]
+                if len(parts) < 3:
+                    parts = [p.strip() for p in meta_line.split('  ') if p.strip()]
+                
                 if len(parts) >= 3:
                     current_tipo = parts[0]
                     current_esquema = parts[1].capitalize()
-                    current_estado = parts[2]
+                    
+                    # Normalización del Estado para limpiar errores del archivo fuente (ej: "Activ" o "ActivoCD_...")
+                    st_raw = parts[2].upper()
+                    if "MODIFICADO" in st_raw:
+                        current_estado = "Modificado"
+                    elif "NO" in st_raw:
+                        current_estado = "No Encontrado"
+                    elif "ACTIV" in st_raw:
+                        current_estado = "Activo"
+                    else:
+                        current_estado = "No Encontrado"
+                        
                     i += 2 # Saltamos el nombre de tabla y su línea de metadatos
                     continue
 
