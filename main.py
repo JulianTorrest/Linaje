@@ -164,7 +164,7 @@ st.set_page_config(page_title="Linaje de Datos - Defensoría", layout="wide")
 
 st.title("Diccionario de Datos Oracle")
 st.markdown("""
-Esta aplicación organiza la información de las tablas de la capa **BRONCE**.
+Esta aplicación organiza la información de las tablas de la capa **BRONCE - PLATA Y ORO**.
 """)
 
 # 1. Intentar cargar desde GitHub automáticamente
