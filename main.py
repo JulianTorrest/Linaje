@@ -20,11 +20,20 @@ def parse_oracle_metadata(file_content):
     current_tipo = "Tabla"
     current_estado = "Activo"
 
-    # Definimos tipos de datos de Oracle (incluyendo INTEGER y otros comunes)
-    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2', 'INTEGER'}
+    # Diccionario de normalización de tipos
+    tipo_norm = {
+        "FCT": "FCT", "FACT": "FCT",
+        "DIM": "Dimensión", "DIMENSION": "Dimensión", "DIMENSIÓN": "Dimensión",
+        "AGG": "Agregado", "AGREGADO": "Agregado",
+        "VST": "Vista", "VISTA": "Vista",
+        "TBL": "Tabla", "TABLA": "Tabla"
+    }
+
+    # Tipos de datos de Oracle
+    oracle_types = {'VARCHAR2', 'NUMBER', 'DATE', 'CLOB', 'TIMESTAMP', 'VARCHAR', 
+                    'CHAR', 'BLOB', 'RAW', 'FLOAT', 'LONG', 'NVARCHAR2', 'INTEGER'}
     
     i = 0
-    found_any_fct = False
     while i < len(lines):
         line = lines[i]
         
@@ -34,10 +43,10 @@ def parse_oracle_metadata(file_content):
             current_table = line
             
             # Inferencia de tipo por prefijo del nombre
-            if line.startswith('DIM_'): inferred_tipo = "Dimensión"
-            elif line.startswith('FCT_'): inferred_tipo = "FCT"
-            elif line.startswith('VST_'): inferred_tipo = "Vista"
-            elif line.startswith('AGG_'): inferred_tipo = "Agregado"
+            if line.startswith('DIM_'): inferred_tipo = tipo_norm["DIM"]
+            elif line.startswith('FCT_'): inferred_tipo = tipo_norm["FCT"]
+            elif line.startswith('VST_'): inferred_tipo = tipo_norm["VST"]
+            elif line.startswith('AGG_'): inferred_tipo = tipo_norm["AGG"]
             else: inferred_tipo = "Tabla"
 
             # Valores por defecto para la nueva tabla detectada
@@ -115,7 +124,10 @@ def parse_oracle_metadata(file_content):
         
     df_result = pd.DataFrame(data)
     if not df_result.empty:
-        df_result['Tipo'] = df_result['Tipo'].replace({'Fact': 'FCT', 'fct': 'FCT'})
+        # Normalización final de seguridad para la columna Tipo
+        df_result['Tipo'] = df_result['Tipo'].apply(
+            lambda x: tipo_norm.get(str(x).upper(), x)
+        )
     return df_result
 
 def enrich_with_ai_descriptions(df):
