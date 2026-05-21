@@ -27,47 +27,51 @@ def parse_oracle_metadata(file_content):
     while i < len(lines):
         line = lines[i]
         
-        # 1. Identificar el nombre de la tabla
-        if line.startswith('TBL_'):
+        # 1. Identificar el nombre de la entidad (Tabla, Vista, Agregado)
+        # Ahora soporta TBL_, VST_ (Vistas) y AGG_ (Agregados)
+        if any(line.startswith(prefix) for prefix in ['TBL_', 'VST_', 'AGG_']):
             current_table = line
             # Valores por defecto para la nueva tabla detectada
             current_esquema = "Bronce"
             current_tipo = "Tabla"
             current_estado = "No Encontrado"
             
-            # Intentar detectar línea de metadatos (ej: Vista Materializada ORO Activo)
-            if i + 1 < len(lines):
-                meta_line = lines[i+1]
-                parts = meta_line.split()
-                
-                # Buscamos la posición del esquema (Bronce, Plata, Oro) para separar Tipo de Estado
-                schema_idx = -1
-                for idx, p in enumerate(parts):
-                    if p.upper() in ["BRONCE", "PLATA", "ORO"]:
-                        schema_idx = idx
-                        break
-                
-                if schema_idx != -1:
-                    # El Tipo es todo lo anterior al esquema
-                    current_tipo = " ".join(parts[:schema_idx]).capitalize() or "Tabla"
-                    current_esquema = parts[schema_idx].capitalize()
+            # Intentar detectar línea de metadatos en las siguientes 2 líneas
+            # Esto permite saltar líneas intermedias como 'SQL'
+            for offset in [1, 2]:
+                if i + offset < len(lines):
+                    meta_line = lines[i+offset]
+                    parts = meta_line.split()
                     
-                    # El Estado es todo lo que sigue al esquema
-                    if schema_idx + 1 < len(parts):
-                        st_raw = " ".join(parts[schema_idx+1:]).upper()
-                        if "MODIFICADO" in st_raw:
-                            current_estado = "Modificado"
-                        elif "NO" in st_raw:
-                            current_estado = "No Encontrado"
-                        elif "ACTIV" in st_raw:
-                            current_estado = "Activo"
-                        else:
-                            current_estado = "No Encontrado"
+                    # Buscamos la posición del esquema (Bronce, Plata, Oro)
+                    schema_idx = -1
+                    for idx, p in enumerate(parts):
+                        if p.upper() in ["BRONCE", "PLATA", "ORO"]:
+                            schema_idx = idx
+                            break
                     
-                    i += 2 # Saltamos el nombre de tabla y su línea de metadatos
-                    continue
+                    if schema_idx != -1:
+                        # El Tipo es todo lo anterior al esquema
+                        current_tipo = " ".join(parts[:schema_idx]).capitalize() or "Tabla"
+                        current_esquema = parts[schema_idx].capitalize()
                         
-            i += 1
+                        # El Estado es todo lo que sigue al esquema
+                        if schema_idx + 1 < len(parts):
+                            st_raw = " ".join(parts[schema_idx+1:]).upper()
+                            if "MODIFICADO" in st_raw:
+                                current_estado = "Modificado"
+                            elif "NO" in st_raw:
+                                current_estado = "No Encontrado"
+                            elif "ACTIV" in st_raw:
+                                current_estado = "Activo"
+                            else:
+                                current_estado = "No Encontrado"
+                        
+                        i += offset + 1 # Saltamos el nombre y las líneas de metadatos/SQL
+                        found_header = True
+                        break
+            else:
+                i += 1
             continue
             
         # 2. Identificar pares de Columna y Tipo
