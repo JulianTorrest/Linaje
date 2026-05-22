@@ -1229,7 +1229,7 @@ def get_layer_pattern_stats(df_patterns):
     
     return general_stats, layer_stats, object_stats
 
-def identify_field_type(field_name):
+def identify_field_type(field_name, field_type="VARCHAR2"):
     """
     Identifica el tipo de campo basado en su prefijo de nomenclatura
     """
@@ -1237,15 +1237,16 @@ def identify_field_type(field_name):
         if field_name.upper().startswith(prefix + "_"):
             return prefix, field_info
     
-    # Si no coincide con ningún prefijo conocido
-    return "UNKNOWN", {
-        "descripcion": "Campo sin clasificación estándar",
-        "tipo_dato": "VARCHAR2",
-        "patron": "SIN_PATRON",
+    # Si no hay prefijo de gobierno, el tipo de campo es el tipo técnico detectado
+    tech_type = field_type.split('(')[0].upper()
+    return tech_type, {
+        "descripcion": "Campo con nomenclatura técnica original",
+        "tipo_dato": tech_type,
+        "patron": "TECNICO",
         "ejemplo": field_name,
-        "notas": "Campo sin nomenclatura definida",
-        "longitud_recomendada": 100,
-        "oracle_type": "VARCHAR2(100)"
+        "notas": "Este campo no utiliza los prefijos de gobierno pero tiene un tipo técnico válido.",
+        "longitud_recomendada": "N/A",
+        "oracle_type": field_type
     }
 
 def validate_field_nomenclature(field_name, field_type):
