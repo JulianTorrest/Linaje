@@ -27,7 +27,7 @@ BUSINESS_GLOSSARY = {
 # Taxonomías de clasificación
 DATA_TAXONOMY = {
     "Dominio": ["Jurídico", "Administrativo", "Geográfico", "Demográfico", "Financiero"],
-    "Criticidad": ["Alta", "Media", "Baja"],
+    "Criticialidad": ["Alta", "Media", "Baja"],
     "Confidencialidad": ["Público", "Interno", "Confidencial", "Secreto"],
     "Actualización": ["Diaria", "Semanal", "Mensual", "Trimestral", "Anual"]
 }
@@ -302,7 +302,10 @@ TABLE_PREFIX_TO_ORG_DOMAIN_MAPPING = {
     "DPCFIO": "CADDDH",    # Proyectos específicos de casos FIO, analizados por CADDDH
     "NOTICIAS": "DN-PYD",  # Monitoreo de medios, para Promoción y Divulgación
     "FAUNA": "DD-DCA",     # Fauna Silvestre, para Derechos Colectivos y del Ambiente
-    "SENTENCIAS": "DN-RAJ" # Sentencias Judiciales, para Recursos y Acciones Judiciales
+    "SENTENCIAS": "DN-RAJ", # Sentencias Judiciales, para Recursos y Acciones Judiciales
+    "DPU": "DN-DPU",       # Defensoría Pública
+    "DNP": "DN-DPU",       # Defensoría Nacional Pública
+    "PUBLICA": "DN-DPU"    # Palabra clave para Defensoría Pública
 }
 
 
@@ -1229,7 +1232,7 @@ def get_layer_pattern_stats(df_patterns):
     
     return general_stats, layer_stats, object_stats
 
-def identify_field_type(field_name, field_type="VARCHAR2"):
+def identify_field_type(field_name):
     """
     Identifica el tipo de campo basado en su prefijo de nomenclatura
     """
@@ -1237,16 +1240,15 @@ def identify_field_type(field_name, field_type="VARCHAR2"):
         if field_name.upper().startswith(prefix + "_"):
             return prefix, field_info
     
-    # Si no hay prefijo de gobierno, el tipo de campo es el tipo técnico detectado
-    tech_type = field_type.split('(')[0].upper()
-    return tech_type, {
-        "descripcion": "Campo con nomenclatura técnica original",
-        "tipo_dato": tech_type,
-        "patron": "TECNICO",
+    # Si no coincide con ningún prefijo conocido
+    return "UNKNOWN", {
+        "descripcion": "Campo sin clasificación estándar",
+        "tipo_dato": "VARCHAR2",
+        "patron": "SIN_PATRON",
         "ejemplo": field_name,
-        "notas": "Este campo no utiliza los prefijos de gobierno pero tiene un tipo técnico válido.",
-        "longitud_recomendada": "N/A",
-        "oracle_type": field_type
+        "notas": "Campo sin nomenclatura definida",
+        "longitud_recomendada": 100,
+        "oracle_type": "VARCHAR2(100)"
     }
 
 def validate_field_nomenclature(field_name, field_type):
@@ -1264,12 +1266,12 @@ def validate_field_nomenclature(field_name, field_type):
     }
     
     # Identificar tipo de campo por nomenclatura
-    field_prefix, field_info = identify_field_type(field_name, field_type)
+    field_prefix, field_info = identify_field_type(field_name)
     results['tipo_campo'] = field_prefix
     results['tipo_recomendado'] = field_info['tipo_dato']
     
     # Verificar si cumple nomenclatura
-    if field_prefix in FIELD_NOMENCLATURE:
+    if field_prefix != "UNKNOWN":
         results['cumple_nomenclatura'] = True
     else:
         results['recomendaciones'].append('Usar prefijo estándar: ID_, CD_, NM_, DS_, FH_, VL_, TP_, FL_')
@@ -1548,7 +1550,7 @@ if content:
                 
                 with col1:
                     dominios_sel = st.multiselect("Dominio", options=DATA_TAXONOMY["Dominio"], default=DATA_TAXONOMY["Dominio"])
-                    criticidad_sel = st.multiselect("Criticidad", options=DATA_TAXONOMY["Criticidad"], default=DATA_TAXONOMY["Criticidad"])
+                    criticidad_sel = st.multiselect("Criticidad", options=DATA_TAXONOMY["Criticialidad"], default=DATA_TAXONOMY["Criticialidad"])
                 
                 with col2:
                     confidencialidad_sel = st.multiselect("Confidencialidad", options=DATA_TAXONOMY["Confidencialidad"], default=DATA_TAXONOMY["Confidencialidad"])
@@ -1714,6 +1716,34 @@ if content:
             st.subheader("Asignacion de Productos por Tabla")
             product_assignment = df_with_products[['Tabla', 'Esquema', 'Tipo', 'Productos_Potenciales']].drop_duplicates('Tabla')
             st.dataframe(product_assignment, use_container_width=True)
+            
+            # Análisis de productos por tipo
+            st.subheader("Analisis de Productos por Tipo")
+            product_types = {}
+            for product_code, product_info in DATA_PRODUCTS.items():
+                tipo = product_info['tipo']
+                product_types[tipo] = product_types.get(tipo, 0) + 1
+            
+            if product_types:
+                st.bar_chart(product_types)
+            
+            # Filtros de productos
+            st.subheader("Explorar por Tipo de Producto")
+            selected_type = st.selectbox(
+                "Seleccione un tipo de producto para ver detalles:",
+                options=["Todos"] + list(set(p['tipo'] for p in DATA_PRODUCTS.values())),
+                index=0
+            )
+            
+            if selected_type != "Todos":
+                filtered_products = {k: v for k, v in DATA_PRODUCTS.items() if v['tipo'] == selected_type}
+                st.write(f"**{len(filtered_products)} productos de tipo '{selected_type}':**")
+                
+                for product_code, product_info in filtered_products.items():
+                    with st.expander(f"{product_code}"):
+                        st.write(f"**Descripción:** {product_info['descripcion']}")
+                        st.write(f"**Frecuencia:** {product_info['frecuencia']}")
+                        st.write(f"**Tecnología:** {product_info['tecnologia']}")
 
         with tab_objetos:
             st.subheader("Catalogo de Tipos de Objetos")
@@ -1742,13 +1772,13 @@ if content:
                 
                 with col1:
                     st.subheader("Tablas por Estructura")
-                    estructura_data = df_obj_stats.groupby('Estructura')['Total_Tablas'].sum()
-                    st.bar_chart(estructura_data)
+                    estructura_counts = df_obj_stats['Estructura'].value_counts()
+                    st.bar_chart(estructura_counts)
                 
                 with col2:
                     st.subheader("Tablas por Tipo")
-                    tipo_data = df_obj_stats.set_index('Nombre')['Total_Tablas']
-                    st.bar_chart(tipo_data)
+                    tipo_counts = df_obj_stats['Tipo_Objeto'].value_counts()
+                    st.bar_chart(tipo_counts)
             
             # Catálogo completo de tipos de objetos
             st.subheader("Catalogo Completo de Tipos de Objetos")
@@ -1934,13 +1964,13 @@ if content:
                 with st.expander(f"{field_type} - {field_info['descripcion']}"):
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.write(f"**Patron:** {field_info['patron']}")
-                        st.write(f"**Tipo Dato:** {field_info['tipo_dato']}")
-                        st.write(f"**Longitud:** {field_info['longitud_recomendada']}")
+                        st.write(f"**📝 Patrón:** {field_info['patron']}")
+                        st.write(f"**🔤 Tipo Dato:** {field_info['tipo_dato']}")
+                        st.write(f"**📏 Longitud:** {field_info['longitud_recomendada']}")
                     with col2:
-                        st.write(f"**Ejemplo:** `{field_info['ejemplo']}`")
-                        st.write(f"**Oracle Type:** `{field_info['oracle_type']}`")
-                        st.write(f"**Notas:** {field_info['notas']}")
+                        st.write(f"**📋 Ejemplo:** `{field_info['ejemplo']}`")
+                        st.write(f"**💾 Oracle Type:** `{field_info['oracle_type']}`")
+                        st.write(f"**📝 Notas:** {field_info['notas']}")
                     
                     # Estadísticas de uso
                     campos_tipo = df_fields[df_fields['tipo_campo'] == field_type]
@@ -1970,8 +2000,8 @@ if content:
             
             with col2:
                 cumplimiento_promedio = governance_stats.get('cumplimiento_promedio', 0)
-                estado_texto = "Alto" if cumplimiento_promedio >= 80 else "Medio" if cumplimiento_promedio >= 60 else "Bajo"
-                st.metric(f"Cumplimiento Promedio ({estado_texto})", f"{cumplimiento_promedio:.1f}%")
+                status_text = "Alto" if cumplimiento_promedio >= 80 else "Medio" if cumplimiento_promedio >= 60 else "Bajo"
+                st.metric(f"{status_text} Cumplimiento Promedio", f"{cumplimiento_promedio:.1f}%")
             
             with col3:
                 calidad_general = "Excelente" if cumplimiento_promedio >= 90 else "Bueno" if cumplimiento_promedio >= 70 else "Regular" if cumplimiento_promedio >= 50 else "Requiere Mejora"
@@ -2080,7 +2110,7 @@ if content:
                 with st.expander(f"{rule_code}: {rule_info['nombre']}"):
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.write(f"**Descripcion:** {rule_info['descripcion']}")
+                        st.write(f"**📝 Descripción:** {rule_info['descripcion']}")
                         st.write(f"**Ejemplo Correcto:** `{rule_info['ejemplo_correcto']}`")
                     with col2:
                         st.write(f"**Ejemplo Incorrecto:** `{rule_info['ejemplo_incorrecto']}`")
@@ -2217,11 +2247,11 @@ if content:
                     for pattern_name, pattern_info in patterns.items():
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.write(f"**Patron:** {pattern_name}")
-                            st.write(f"**Descripcion:** {pattern_info['descripcion']}")
-                            st.write(f"**Aplica Para:** {pattern_info['aplica_para']}")
+                            st.write(f"**📝 Patrón:** {pattern_name}")
+                            st.write(f"**📋 Descripción:** {pattern_info['descripcion']}")
+                            st.write(f"**🎯 Aplica Para:** {pattern_info['aplica_para']}")
                         with col2:
-                            st.write(f"**Expresion:** `{pattern_info['patron']}`")
+                            st.write(f"**🔤 Expresión:** `{pattern_info['patron']}`")
                             st.write(f"**Ejemplos:**")
                             for ejemplo in pattern_info['ejemplos']:
                                 st.write(f"• `{ejemplo}`")
@@ -2304,7 +2334,7 @@ if content:
             # Tablas sin clasificar
             sin_clasificar = df[df['Dominio_Org'] == 'SIN_DOMINIO']
             if not sin_clasificar.empty:
-                st.warning(f"**{len(sin_clasificar)} campos sin clasificacion organizacional**")
+                st.warning(f"⚠️ **{len(sin_clasificar)} campos sin clasificación organizacional**")
                 with st.expander("Ver tablas sin dominio asignado"):
                     tablas_sin_dom = sin_clasificar['Tabla'].unique()
                     for tabla in tablas_sin_dom[:10]:  # Limitar a 10
@@ -2473,3 +2503,6 @@ if content:
                         schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
                 
                 st.graphviz_chart(schema_dot, use_container_width=True)
+
+    else:
+        st.warning("No se pudo extraer información. Verifica el formato del archivo.")
