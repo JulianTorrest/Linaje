@@ -1769,13 +1769,13 @@ if content:
                 
                 with col1:
                     st.subheader("Tablas por Estructura")
-                    estructura_counts = df_obj_stats['Estructura'].value_counts()
-                    st.bar_chart(estructura_counts)
+                    estructura_data = df_obj_stats.groupby('Estructura')['Total_Tablas'].sum()
+                    st.bar_chart(estructura_data)
                 
                 with col2:
                     st.subheader("Tablas por Tipo")
-                    tipo_counts = df_obj_stats['Tipo_Objeto'].value_counts()
-                    st.bar_chart(tipo_counts)
+                    tipo_data = df_obj_stats.set_index('Nombre')['Total_Tablas']
+                    st.bar_chart(tipo_data)
             
             # Catálogo completo de tipos de objetos
             st.subheader("Catalogo Completo de Tipos de Objetos")
@@ -2500,6 +2500,3 @@ if content:
                         schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
                 
                 st.graphviz_chart(schema_dot, use_container_width=True)
-
-    else:
-        st.warning("No se pudo extraer información. Verifica el formato del archivo.")
