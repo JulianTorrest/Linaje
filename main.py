@@ -1920,6 +1920,20 @@ if content:
                     index=0
                 )
             
+            col3, col4 = st.columns(2)
+            with col3:
+                filtro_tipo = st.selectbox(
+                    "Filtrar por Tipo de Entidad:",
+                    options=["Todos"] + sorted(df['Tipo'].unique().tolist()),
+                    index=0
+                )
+            with col4:
+                filtro_esquema = st.selectbox(
+                    "Filtrar por Esquema:",
+                    options=["Todos"] + sorted(df['Esquema'].unique().tolist()),
+                    index=0
+                )
+            
             # Aplicar filtros
             df_campos_filtrado = df_fields.copy()
             
@@ -1932,6 +1946,12 @@ if content:
                 df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_tipificacion'] == True]
             elif filtro_tipificacion == "No Cumplen Tipificación":
                 df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_tipificacion'] == False]
+
+            if filtro_tipo != "Todos":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['Tipo'] == filtro_tipo]
+            
+            if filtro_esquema != "Todos":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['Esquema'] == filtro_esquema]
             
             # Mostrar resultados
             if not df_campos_filtrado.empty:
