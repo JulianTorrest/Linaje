@@ -1614,8 +1614,15 @@ if content:
                 
                 # Productos de datos potenciales
                 st.subheader("🏪 Productos de Datos Potenciales")
-                productos_potenciales = tabla_data['Productos_Potenciales'].iloc[0]
-                productos_lista = productos_potenciales.split(", ")
+                
+                # Verificar si la columna existe antes de usarla
+                if 'Productos_Potenciales' in tabla_data.columns:
+                    productos_potenciales = tabla_data['Productos_Potenciales'].iloc[0]
+                    productos_lista = productos_potenciales.split(", ")
+                else:
+                    # Si no existe la columna, asignar productos automáticamente
+                    productos_potenciales = assign_data_products(pd.DataFrame({'Tabla': [tabla_sel]}))['Productos_Potenciales'].iloc[0]
+                    productos_lista = productos_potenciales.split(", ")
                 
                 col1, col2 = st.columns(2)
                 for i, producto in enumerate(productos_lista):
