@@ -41,6 +41,506 @@ DATA_OWNERS = {
     "Financiero": "Dirección Financiera"
 }
 
+# Catálogo de productos de datos
+DATA_PRODUCTS = {
+    "TBL": {
+        "nombre": "Tablero",
+        "descripcion": "Tablero de visualización interactivo (Power BI u otra herramienta)",
+        "tipo": "Visualización",
+        "frecuencia": "Diaria",
+        "formato": "Interactivo",
+        "tecnologia": "Power BI/Tableau/Looker"
+    },
+    "INF": {
+        "nombre": "Informe",
+        "descripcion": "Documento de informe técnico o de gestión",
+        "tipo": "Documento",
+        "frecuencia": "Mensual/Trimestral",
+        "formato": "PDF/Word",
+        "tecnologia": "Office/LaTeX"
+    },
+    "BLT": {
+        "nombre": "Boletín",
+        "descripcion": "Boletín estadístico o de divulgación",
+        "tipo": "Publicación",
+        "frecuencia": "Semanal/Mensual",
+        "formato": "PDF/HTML",
+        "tecnologia": "InDesign/HTML"
+    },
+    "MAP": {
+        "nombre": "Mapa",
+        "descripcion": "Producto cartográfico o de georreferenciación",
+        "tipo": "Geovisualización",
+        "frecuencia": "Variable",
+        "formato": "Interactive/Static",
+        "tecnologia": "ArcGIS/QGIS/Leaflet"
+    },
+    "MOD": {
+        "nombre": "Modelo",
+        "descripcion": "Modelo estadístico o matemático",
+        "tipo": "Analítico",
+        "frecuencia": "Periódica",
+        "formato": "Python/R/Excel",
+        "tecnologia": "Python/R/SAS"
+    },
+    "LPG": {
+        "nombre": "Landing Page",
+        "descripcion": "Página web de presentación de resultados o información",
+        "tipo": "Web",
+        "frecuencia": "Continua",
+        "formato": "HTML/CSS/JS",
+        "tecnologia": "React/Angular/Vue"
+    },
+    "API": {
+        "nombre": "API",
+        "descripcion": "Interfaz de programación para consumo de datos",
+        "tipo": "Servicio",
+        "frecuencia": "24/7",
+        "formato": "JSON/XML",
+        "tecnologia": "REST/GraphQL"
+    }
+}
+
+# Relación entre tablas y productos (ejemplo)
+TABLE_PRODUCT_MAPPING = {
+    # Tablas de hechos -> Productos comunes
+    "FCT_": ["TBL", "INF", "API"],
+    "PCT_": ["TBL", "INF", "API"],  # Nuevo: Tabla de Hechos
+    "DIM_": ["TBL", "MAP", "API"],
+    "AGG_": ["INF", "BLT", "MOD"],
+    "VST_": ["API", "LPG"],
+    "TBL_": ["API"],
+    "TMP_": ["API"],  # Nuevo: Tabla Temporal
+    "TRV_": ["API", "INF"]  # Nuevo: Transversal
+}
+
+# Catálogo de tipos de objetos de base de datos
+OBJECT_TYPES = {
+    "TBL": {
+        "nombre": "Tabla",
+        "descripcion": "Estructura principal de almacenamiento de datos",
+        "capas": ["Bronce", "Plata", "Oro"],
+        "estructura": "Relacional",
+        "ejemplo": "TBL_CLIENTES_V1",
+        "observaciones": "Objeto principal para almacenamiento persistente"
+    },
+    "TMP": {
+        "nombre": "Tabla Temporal",
+        "descripcion": "Almacenamiento temporal de datos durante procesos",
+        "capas": ["Bronce", "Plata"],
+        "estructura": "Relacional",
+        "ejemplo": "TMP_CARGA_20231201",
+        "observaciones": "Datos temporales, normalmente con ciclo de vida corto"
+    },
+    "IND": {
+        "nombre": "Índice",
+        "descripcion": "Estructura de optimización para consultas",
+        "capas": ["Bronce", "Plata", "Oro"],
+        "estructura": "Árbol B+",
+        "ejemplo": "IND_TBL_CLIENTES_PK",
+        "observaciones": "Mejora rendimiento de consultas específicas"
+    },
+    "PRC": {
+        "nombre": "Procedimiento Almacenado",
+        "descripcion": "Lógica de negocio ejecutable en base de datos",
+        "capas": ["Plata", "Oro"],
+        "estructura": "Procedimental",
+        "ejemplo": "PRC_CALCULAR_INDICADORES",
+        "observaciones": "Contiene lógica de transformación compleja"
+    },
+    "PKG": {
+        "nombre": "Paquete",
+        "descripcion": "Colección de procedimientos y funciones relacionados",
+        "capas": ["Plata", "Oro"],
+        "estructura": "Modular",
+        "ejemplo": "PKG_TRANSFORMACIONES",
+        "observaciones": "Organiza código lógico por funcionalidad"
+    },
+    "DIM": {
+        "nombre": "Dimensión",
+        "descripcion": "Tabla de características descriptivas para análisis",
+        "capas": ["Oro"],
+        "estructura": "Estrella",
+        "ejemplo": "DIM_TIEMPO_V1",
+        "observaciones": "Componente clave del modelo dimensional"
+    },
+    "PCT": {
+        "nombre": "Tabla de Hechos",
+        "descripcion": "Tabla con métricas y medidas numéricas",
+        "capas": ["Oro"],
+        "estructura": "Hechos",
+        "ejemplo": "PCT_VENTAS_DIARIAS",
+        "observaciones": "Contiene datos cuantitativos para análisis"
+    },
+    "AGG": {
+        "nombre": "Tabla Agregada",
+        "descripcion": "Datos pre-agregados para mejorar rendimiento",
+        "capas": ["Oro"],
+        "estructura": "Agregada",
+        "ejemplo": "AGG_VENTAS_MENSUALES",
+        "observaciones": "Optimiza consultas de análisis agregado"
+    },
+    "VST": {
+        "nombre": "Vista",
+        "descripcion": "Consulta virtualizada sobre tablas base",
+        "capas": ["Plata", "Oro"],
+        "estructura": "Virtual",
+        "ejemplo": "VST_CLIENTES_ACTIVOS",
+        "observaciones": "Simplifica acceso y oculta complejidad"
+    },
+    "FNC": {
+        "nombre": "Función",
+        "descripcion": "Lógica reutilizable que retorna valores",
+        "capas": ["Plata", "Oro"],
+        "estructura": "Funcional",
+        "ejemplo": "FNC_CALCULAR_EDAD",
+        "observaciones": "Encapsula lógica de cálculo reusable"
+    },
+    "LOG": {
+        "nombre": "LOG",
+        "descripcion": "Registro de eventos y auditoría",
+        "capas": ["Bronce", "Plata"],
+        "estructura": "Secuencial",
+        "ejemplo": "LOG_ERRORES_ETL",
+        "observaciones": "Trazabilidad de procesos y errores"
+    },
+    "TRV": {
+        "nombre": "Transversal",
+        "descripcion": "Objeto compartido entre múltiples dominios",
+        "capas": ["Bronce", "Plata", "Oro"],
+        "estructura": "Compartida",
+        "ejemplo": "TRV_PARAMETROS_GLOBALES",
+        "observaciones": "Datos comunes a múltiples procesos"
+    }
+}
+
+# Dominios organizacionales de la Defensoría del Pueblo
+ORGANIZATIONAL_DOMAINS = {
+    # Despachos y Centros de Analítica
+    "DVDP": {"nombre": "Despacho del Vice Defensor del Pueblo", "tipo": "Despacho", "nivel": "Alto"},
+    "CADDDH": {"nombre": "Centro de Analítica de Datos de Derechos Humanos", "tipo": "Centro Analítica", "nivel": "Alto"},
+    
+    # Direcciones Nacionales
+    "DN-ATQ": {"nombre": "Dirección Nacional de Atención y Trámite de Quejas", "tipo": "Dirección Nacional", "nivel": "Alto"},
+    "DN-DPU": {"nombre": "Dirección Nacional de Defensoría Pública", "tipo": "Dirección Nacional", "nivel": "Alto"},
+    "DN-PYD": {"nombre": "Dirección Nacional de Promoción y Divulgación de Derechos Humanos", "tipo": "Dirección Nacional", "nivel": "Alto"},
+    "DN-RAJ": {"nombre": "Dirección Nacional de Recursos y Acciones Judiciales", "tipo": "Dirección Nacional", "nivel": "Alto"},
+    
+    # Defensorías Delegadas (Subdominio DD-)
+    "DD-AAT": {"nombre": "Defensoría Delegada para Asuntos Agrarios y Tierras", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-ACL": {"nombre": "Defensoría Delegada para Asuntos Constitucionales y Legales", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-SSS": {"nombre": "Defensoría Delegada para el Derecho a la Salud y Seguridad Social", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-DCA": {"nombre": "Defensoría Delegada para los Derechos Colectivos y del Ambiente", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-PMH": {"nombre": "Defensoría Delegada para los Derechos de la Población en Movilidad Humana", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-MAG": {"nombre": "Defensoría Delegada para los Derechos de las Mujeres y Asuntos de Género", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-ESC": {"nombre": "Defensoría Delegada para los Derechos Económicos, Sociales y Culturales", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-GE": {"nombre": "Defensoría Delegada para los Grupos Étnicos", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-IV": {"nombre": "Defensoría Delegada para La Infancia y la Vejez", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-JTDP": {"nombre": "Defensoría Delegada para la Justicia Transicional y el Derecho a la Paz", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-VCAI": {"nombre": "Defensoría Delegada para la Orientación y Asesoría de las Víctimas del Conflicto Armado", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-PCP": {"nombre": "Defensoría Delegada para la Política Criminal y Penitenciaria", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-SAT": {"nombre": "Defensoría Delegada para la Prevención de Riesgos y Sistema de Alertas Tempranas", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-PTCS": {"nombre": "Defensoría Delegada para la Prevención y la Transformación de la Conflictividad Social", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-ADLE": {"nombre": "Defensoría Delegada para la Protección de Derechos en Ambientes Digitales y Libertad de Expresión", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-PAD": {"nombre": "Defensoría Delegada para la Protección del Derecho a la Prevención y Atención de Desastres", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-BJPDD": {"nombre": "Defensoría Delegada para el Buen Futuro de las Juventudes y la Protección del Derecho al Deporte", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "DD-RAT": {"nombre": "Defensoría Delegada para las Regiones y la Articulación Territorial en materia de DDHH y DIH", "tipo": "Defensoría Delegada", "nivel": "Medio"},
+    "OAI": {"nombre": "Oficina de Asuntos de Internacionales", "tipo": "Oficina", "nivel": "Medio"},
+    
+    # Defensorías Regionales (Subdominio DR-)
+    "DR-AMA": {"nombre": "Defensoría Regional Amazonas", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-ANT": {"nombre": "Defensoría Regional Antioquia", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-ARA": {"nombre": "Defensoría Regional Arauca", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-ATL": {"nombre": "Defensoría Regional Atlántico", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-BCA": {"nombre": "Defensoría Regional Bajo Cauca Antioqueño", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-BOG": {"nombre": "Defensoría Regional Bogotá", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-BOL": {"nombre": "Defensoría Regional Bolívar", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-BOY": {"nombre": "Defensoría Regional Boyacá", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CAL": {"nombre": "Defensoría Regional Caldas", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CAQ": {"nombre": "Defensoría Regional Caquetá", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CAS": {"nombre": "Defensoría Regional Casanare", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CAU": {"nombre": "Defensoría Regional Cauca", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CES": {"nombre": "Defensoría Regional Cesar", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CHO": {"nombre": "Defensoría Regional Chocó", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-COR": {"nombre": "Defensoría Regional Córdoba", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-CUN": {"nombre": "Defensoría Regional Cundinamarca", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-GUA": {"nombre": "Defensoría Regional Guainía", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-GUV": {"nombre": "Defensoría Regional Guaviare", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-HUI": {"nombre": "Defensoría Regional Huila", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-LGU": {"nombre": "Defensoría Regional La Guajira", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-MAG": {"nombre": "Defensoría Regional Magdalena", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-MAGM": {"nombre": "Defensoría Regional Magdalena Medio", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-MET": {"nombre": "Defensoría Regional Meta", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-NAR": {"nombre": "Defensoría Regional Nariño", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-NSAN": {"nombre": "Defensoría Regional Norte de Santander", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-OCA": {"nombre": "Defensoría Regional Ocaña", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-PAC": {"nombre": "Defensoría Regional Pacífico", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-PUT": {"nombre": "Defensoría Regional Putumayo", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-QUI": {"nombre": "Defensoría Regional Quindío", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-RIS": {"nombre": "Defensoría Regional Risaralda", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SAP": {"nombre": "Defensoría Regional San Andrés y Providencia", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SAN": {"nombre": "Defensoría Regional Santander", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SOA": {"nombre": "Defensoría Regional Soacha", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SUC": {"nombre": "Defensoría Regional Sucre", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SBOL": {"nombre": "Defensoría Regional Sur de Bolívar", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-SCOR": {"nombre": "Defensoría Regional Sur de Córdoba", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-TOL": {"nombre": "Defensoría Regional Tolima", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-TUM": {"nombre": "Defensoría Regional Tumaco", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-URDA": {"nombre": "Defensoría Regional Urabá – Darién", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-VCAU": {"nombre": "Defensoría Regional Valle del Cauca", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-VAU": {"nombre": "Defensoría Regional Vaupés", "tipo": "Defensoría Regional", "nivel": "Bajo"},
+    "DR-VIC": {"nombre": "Defensoría Regional Vichada", "tipo": "Defensoría Regional", "nivel": "Bajo"}
+}
+
+# Reglas generales de nombramiento para gobierno de datos
+NAMING_RULES = {
+    "RULE_1": {
+        "nombre": "Sin números al inicio",
+        "descripcion": "No comenzar el nombre con dígitos",
+        "ejemplo_correcto": "TBLPYDVICTIMA",
+        "ejemplo_incorrecto": "1TBLPYDVICTIMA"
+    },
+    "RULE_2": {
+        "nombre": "Sin caracteres especiales",
+        "descripcion": "Solo se permite guion bajo (_) como separador entre componentes",
+        "ejemplo_correcto": "TBL_PYD_VICTIMA",
+        "ejemplo_incorrecto": "TBL-PYD-VICTIMA"
+    },
+    "RULE_3": {
+        "nombre": "Nombre en singular y sin artículos ni preposiciones",
+        "descripcion": "Usar nombres simples y directos",
+        "ejemplo_correcto": "ATENCIONVICTIMA",
+        "ejemplo_incorrecto": "ATENCION_DE_VICTIMAS"
+    },
+    "RULE_4": {
+        "nombre": "Máximo 40 caracteres para el Nombre del Objeto",
+        "descripcion": "Aplica al componente 'Nombre' sin contar el prefijo ni el dominio",
+        "ejemplo_correcto": "TBL_PYD_ATENCIONCIUDADANA",
+        "ejemplo_incorrecto": "TBL_PYD_ATENCIONCIUDADANAMUYLARGO"
+    },
+    "RULE_5": {
+        "nombre": "IND, PRC y PKG toman el nombre de la tabla a la que pertenecen",
+        "descripcion": "Estos objetos deben referenciar su tabla principal",
+        "ejemplo_correcto": "IND_PYD_ATENCIONVICTIMA",
+        "ejemplo_incorrecto": "IND_PYD_OTRATABLA"
+    },
+    "RULE_6": {
+        "nombre": "Patrón con {FUENTE}_Prefijo_DOMINIO_FUENTE_NOMBRE",
+        "descripcion": "Solo aplica cuando DOMINIO es TRANSVERSAL",
+        "ejemplo_correcto": "FCT_TRV_SPDA_CONSOLIDADOVICTIMA",
+        "ejemplo_incorrecto": "FCT_SPDA_CONSOLIDADOVICTIMA"
+    }
+}
+
+# Palabras prohibidas en nombres (artículos y preposiciones)
+FORBIDDEN_WORDS = {
+    'DE', 'DEL', 'LA', 'EL', 'LOS', 'LAS', 'UN', 'UNA', 'UNOS', 'UNAS',
+    'EN', 'CON', 'POR', 'PARA', 'A', 'ANTE', 'BAJO', 'CABE', 'CONTRA',
+    'DE', 'DESDE', 'DURANTE', 'ENTRE', 'HACIA', 'HASTA', 'MEDIANTE',
+    'PARA', 'POR', 'SEGUN', 'SIN', 'SOBRE', 'TRAS', 'DURANTE', 'MEDIANTE'
+}
+
+# Patrones de nomenclatura por capa
+LAYER_NAMING_PATTERNS = {
+    "Bronce": {
+        "TBL_[SUBDOMINIO]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas generales",
+            "patron": r"^TBL_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["TBL_AFC_SD_ENTIDAD_OBLIGADA", "TBL_PYD_IND_RESERVA"],
+            "aplica_para": "Tablas"
+        },
+        "TBL_TRV_[SUBDOMINIO]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas transversales",
+            "patron": r"^TBL_TRV_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["TBL_TRV_DDHH_VICTIMAS_SOCIALES", "TBL_TRV_IND_POBLACION_VICTIMA_DEL_CONFLICTO_ARMADO"],
+            "aplica_para": "Tablas Transversales"
+        }
+    },
+    "Plata": {
+        "TBL_[SUBDOMINIO]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas generales",
+            "patron": r"^TBL_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["TBL_AFC_SD_ENTIDAD_OBLIGADA", "TBL_PYD_IND_RESERVA"],
+            "aplica_para": "Tablas"
+        },
+        "TBL_TRV_[SUBDOMINIO]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas transversales",
+            "patron": r"^TBL_TRV_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["TBL_TRV_DDHH_VICTIMAS_SOCIALES", "TBL_TRV_IND_POBLACION_VICTIMA_DEL_CONFLICTO_ARMADO"],
+            "aplica_para": "Tablas Transversales"
+        },
+        "PKG_[SUBDOMINIO]_[AREA ASOCIADA]": {
+            "descripcion": "Definiciones para paquetes en Plata y Oro",
+            "patron": r"^PKG_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["PKG_DDHH_VICTIMAS_SOCIALES", "PKG_DDHH_DERECHO_HUMANOS"],
+            "aplica_para": "Paquetes"
+        }
+    },
+    "Oro": {
+        "PKG_[SUBDOMINIO]_[AREA ASOCIADA]": {
+            "descripcion": "Definiciones para paquetes en Plata y Oro",
+            "patron": r"^PKG_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["PKG_DDHH_VICTIMAS_SOCIALES", "PKG_DDHH_DERECHO_HUMANOS"],
+            "aplica_para": "Paquetes"
+        },
+        "PRC_[SUBDOMINIO]_[AREA ASOCIADA]": {
+            "descripcion": "Definiciones para procedimientos almacenados en Plata y Oro",
+            "patron": r"^PRC_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["PRC_DDHH_VICTIMAS_SOCIALES", "PRC_DDHH_DERECHO_HUMANOS"],
+            "aplica_para": "Procedimientos"
+        },
+        "VST_[SUBDOMINIO]_[AREA ASOCIADA]": {
+            "descripcion": "Definiciones para vistas en Plata y Oro",
+            "patron": r"^VST_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["VST_DDHH_VICTIMAS_SOCIALES", "VST_DDHH_DERECHO_HUMANOS"],
+            "aplica_para": "Vistas"
+        },
+        "[PREFIJO]_[DOMINIO]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas generales",
+            "patron": r"^(TBL|DIM|FCT|AGG)_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["DIM_RUC_DDP_DNI_CUI", "FCT_PYD_ATENCION_CIUDADANA"],
+            "aplica_para": "Tablas Dimensionales/Hechos/Agregadas"
+        },
+        "[PREFIJO]_TRV_[PUENTE]_[NOMBRE]": {
+            "descripcion": "Definiciones de tablas transversales",
+            "patron": r"^(TBL|DIM|FCT|AGG)_TRV_[A-Z]+_[A-Z_]+$",
+            "ejemplos": ["DIM_TRV_DDHH_VICTIMAS", "FCT_TRV_POBLACION_VICTIMA_DEL_CONFLICTO_ARMADO"],
+            "aplica_para": "Tablas Transversales Dimensionales/Hechos/Agregadas"
+        }
+    }
+}
+
+# Mapeo de prefijos a patrones aplicables
+PREFIX_PATTERN_MAPPING = {
+    "TBL": ["TBL_[SUBDOMINIO]_[NOMBRE]", "TBL_TRV_[SUBDOMINIO]_[NOMBRE]", "[PREFIJO]_[DOMINIO]_[NOMBRE]", "[PREFIJO]_TRV_[PUENTE]_[NOMBRE]"],
+    "DIM": ["[PREFIJO]_[DOMINIO]_[NOMBRE]", "[PREFIJO]_TRV_[PUENTE]_[NOMBRE]"],
+    "FCT": ["[PREFIJO]_[DOMINIO]_[NOMBRE]", "[PREFIJO]_TRV_[PUENTE]_[NOMBRE]"],
+    "AGG": ["[PREFIJO]_[DOMINIO]_[NOMBRE]", "[PREFIJO]_TRV_[PUENTE]_[NOMBRE]"],
+    "TMP": ["TBL_[SUBDOMINIO]_[NOMBRE]"],
+    "IND": ["TBL_[SUBDOMINIO]_[NOMBRE]"],
+    "PKG": ["PKG_[SUBDOMINIO]_[AREA ASOCIADA]"],
+    "PRC": ["PRC_[SUBDOMINIO]_[AREA ASOCIADA]"],
+    "VST": ["VST_[SUBDOMINIO]_[AREA ASOCIADA]"]
+}
+
+# Nomenclatura y tipificación de campos gobernados
+FIELD_NOMENCLATURE = {
+    "ID": {
+        "descripcion": "Identificador único principal de la entidad",
+        "tipo_dato": "VARCHAR2",
+        "patron": "ID_[ENTIDAD]",
+        "ejemplo": "ID_PERSONA",
+        "notas": "Primary key de la tabla. No nulo, único",
+        "longitud_recomendada": 20,
+        "oracle_type": "VARCHAR2(20)"
+    },
+    "CD": {
+        "descripcion": "Código de referencia externa o catálogo",
+        "tipo_dato": "VARCHAR2",
+        "patron": "CD_[ENTIDAD_REFERENCIA]",
+        "ejemplo": "CD_DEPARTAMENTO",
+        "notas": "Código de catálogo maestro. Referencia a tablas de parámetros",
+        "longitud_recomendada": 10,
+        "oracle_type": "VARCHAR2(10)"
+    },
+    "NM": {
+        "descripcion": "Nombre descriptivo de la entidad",
+        "tipo_dato": "VARCHAR2",
+        "patron": "NM_[ENTIDAD]",
+        "ejemplo": "NM_PERSONA",
+        "notas": "Nombre completo o descriptivo. Puede contener espacios",
+        "longitud_recomendada": 200,
+        "oracle_type": "VARCHAR2(200)"
+    },
+    "DS": {
+        "descripcion": "Descripción detallada o texto largo",
+        "tipo_dato": "CLOB",
+        "patron": "DS_[DESCRIPCION]",
+        "ejemplo": "DS_OBSERVACIONES",
+        "notas": "Texto largo con descripciones detalladas. Permite formato libre",
+        "longitud_recomendada": "CLOB",
+        "oracle_type": "CLOB"
+    },
+    "FH": {
+        "descripcion": "Fecha y hora del evento o registro",
+        "tipo_dato": "TIMESTAMP",
+        "patron": "FH_[EVENTO]",
+        "ejemplo": "FH_CREACION",
+        "notas": "Fecha y hora completa. Incluir zona horaria si es necesario",
+        "longitud_recomendada": "TIMESTAMP",
+        "oracle_type": "TIMESTAMP"
+    },
+    "VL": {
+        "descripcion": "Valor numérico o métrica",
+        "tipo_dato": "NUMBER",
+        "patron": "VL_[MEDIDA]",
+        "ejemplo": "VL_MONTO",
+        "notas": "Valor numérico. Definir precisión y escala según negocio",
+        "longitud_recomendada": "NUMBER(18,2)",
+        "oracle_type": "NUMBER(18,2)"
+    },
+    "TP": {
+        "descripcion": "Tipo o clasificación del dato",
+        "tipo_dato": "VARCHAR2",
+        "patron": "TP_[CLASIFICACION]",
+        "ejemplo": "TP_DOCUMENTO",
+        "notas": "Tipo o categoría. Valores controlados por catálogo",
+        "longitud_recomendada": 50,
+        "oracle_type": "VARCHAR2(50)"
+    },
+    "FL": {
+        "descripcion": "Bandera o indicador booleano",
+        "tipo_dato": "CHAR",
+        "patron": "FL_[INDICADOR]",
+        "ejemplo": "FL_ACTIVO",
+        "notas": "S/N o 1/0. Indicador de estado o condición",
+        "longitud_recomendada": 1,
+        "oracle_type": "CHAR(1)"
+    },
+    "TS_CARGA": {
+        "descripcion": "Timestamp de carga del dato",
+        "tipo_dato": "TIMESTAMP",
+        "patron": "TS_CARGA",
+        "ejemplo": "TS_CARGA",
+        "notas": "Fecha y hora de carga ETL. Auditoría de procesos",
+        "longitud_recomendada": "TIMESTAMP",
+        "oracle_type": "TIMESTAMP"
+    },
+    "TS_ACT": {
+        "descripcion": "Timestamp de última actualización",
+        "tipo_dato": "TIMESTAMP",
+        "patron": "TS_ACT",
+        "ejemplo": "TS_ACT",
+        "notas": "Fecha y hora de última modificación. Control de cambios",
+        "longitud_recomendada": "TIMESTAMP",
+        "oracle_type": "TIMESTAMP"
+    }
+}
+
+# Reglas de validación de campos
+FIELD_VALIDATION_RULES = {
+    "longitud_maxima": {
+        "VARCHAR2": 4000,
+        "CHAR": 2000,
+        "NUMBER": 38
+    },
+    "patrones_obligatorios": {
+        "timestamps": ["TS_CARGA", "TS_ACT"],
+        "identificadores": ["ID"],
+        "banderas": ["FL"]
+    },
+    "tipos_por_patron": {
+        "^ID_.*": "VARCHAR2",
+        "^CD_.*": "VARCHAR2",
+        "^NM_.*": "VARCHAR2",
+        "^DS_.*": "CLOB",
+        "^FH_.*": "TIMESTAMP",
+        "^VL_.*": "NUMBER",
+        "^TP_.*": "VARCHAR2",
+        "^FL_.*": "CHAR"
+    }
+}
+
 def parse_oracle_metadata(file_content):
     """
     Parsea el contenido del archivo de texto para extraer Tablas, Columnas y Tipos.
@@ -308,6 +808,536 @@ def get_data_owner(dominio):
     """
     return DATA_OWNERS.get(dominio, "Sin dueño asignado")
 
+def assign_data_products(df):
+    """
+    Asigna productos de datos potenciales a cada tabla según su tipo
+    """
+    def get_products_for_table(row):
+        tabla = str(row['Tabla']).upper()
+        
+        # Buscar productos según prefijo de la tabla
+        for prefix, products in TABLE_PRODUCT_MAPPING.items():
+            if tabla.startswith(prefix):
+                return ", ".join(products)
+        
+        # Si no coincide con ningún prefijo, asignar productos genéricos
+        return "API"
+    
+    df['Productos_Potenciales'] = df.drop_duplicates('Tabla').apply(get_products_for_table, axis=1)
+    return df
+
+def get_product_details(product_code):
+    """
+    Obtiene detalles completos de un producto de datos
+    """
+    return DATA_PRODUCTS.get(product_code, {
+        "nombre": "Desconocido",
+        "descripcion": "Producto no identificado",
+        "tipo": "Sin clasificar",
+        "frecuencia": "No especificada",
+        "formato": "Desconocido",
+        "tecnologia": "N/A"
+    })
+
+def identify_organizational_domain(table_name):
+    """
+    Identifica el dominio organizacional basado en el nombre de la tabla
+    usando la nomenclatura proporcionada (ej: 2026_001_HU_TBL_DVDP_V1)
+    """
+    # Patrón para extraer sigla de la nomenclatura
+    import re
+    
+    # Buscar patrones comunes en nombres de tablas
+    for domain_code, domain_info in ORGANIZATIONAL_DOMAINS.items():
+        # Buscar la sigla en el nombre de la tabla
+        if domain_code in table_name.upper():
+            return domain_code, domain_info
+    
+    return None, None
+
+def classify_by_organizational_domain(df):
+    """
+    Clasifica las tablas según dominio organizacional
+    """
+    def get_domain_info(row):
+        tabla = str(row['Tabla'])
+        domain_code, domain_info = identify_organizational_domain(tabla)
+        
+        if domain_code:
+            return pd.Series([
+                domain_code,
+                domain_info['nombre'],
+                domain_info['tipo'],
+                domain_info['nivel']
+            ])
+        else:
+            return pd.Series([
+                'SIN_DOMINIO',
+                'Sin dominio asignado',
+                'No clasificado',
+                'Bajo'
+            ])
+    
+    df[['Dominio_Org', 'Nombre_Dominio', 'Tipo_Org', 'Nivel_Org']] = df.apply(get_domain_info, axis=1)
+    return df
+
+def get_organizational_stats(df):
+    """
+    Calcula estadísticas por dominio organizacional
+    """
+    if 'Dominio_Org' not in df.columns:
+        return pd.DataFrame()
+    
+    stats = []
+    for domain_code in df['Dominio_Org'].unique():
+        if domain_code == 'SIN_DOMINIO':
+            continue
+            
+        domain_data = df[df['Dominio_Org'] == domain_code]
+        domain_info = ORGANIZATIONAL_DOMAINS.get(domain_code, {})
+        
+        stats.append({
+            'Dominio': domain_code,
+            'Nombre': domain_info.get('nombre', domain_code),
+            'Tipo': domain_info.get('tipo', 'Desconocido'),
+            'Nivel': domain_info.get('nivel', 'Bajo'),
+            'Total_Tablas': domain_data['Tabla'].nunique(),
+            'Total_Campos': len(domain_data),
+            'Esquemas': ', '.join(sorted(domain_data['Esquema'].unique()))
+        })
+    
+    return pd.DataFrame(stats)
+
+def identify_object_type(table_name):
+    """
+    Identifica el tipo de objeto basado en el prefijo del nombre
+    """
+    for prefix, obj_info in OBJECT_TYPES.items():
+        if table_name.upper().startswith(prefix + "_"):
+            return prefix, obj_info
+    
+    # Si no coincide con ningún prefijo conocido
+    return "TBL", OBJECT_TYPES["TBL"]  # Default a Tabla
+
+def classify_by_object_type(df):
+    """
+    Clasifica las tablas según tipo de objeto de base de datos
+    """
+    def get_object_type_info(row):
+        tabla = str(row['Tabla'])
+        obj_code, obj_info = identify_object_type(tabla)
+        
+        return pd.Series([
+            obj_code,
+            obj_info['nombre'],
+            obj_info['descripcion'],
+            obj_info['estructura'],
+            ", ".join(obj_info['capas'])
+        ])
+    
+    df[['Tipo_Objeto', 'Nombre_Objeto', 'Desc_Objeto', 'Estructura_Objeto', 'Capas_Objeto']] = df.apply(get_object_type_info, axis=1)
+    return df
+
+def get_object_type_stats(df):
+    """
+    Calcula estadísticas por tipo de objeto
+    """
+    if 'Tipo_Objeto' not in df.columns:
+        return pd.DataFrame()
+    
+    stats = []
+    for obj_code in df['Tipo_Objeto'].unique():
+        obj_data = df[df['Tipo_Objeto'] == obj_code]
+        obj_info = OBJECT_TYPES.get(obj_code, {})
+        
+        stats.append({
+            'Tipo_Objeto': obj_code,
+            'Nombre': obj_info.get('nombre', obj_code),
+            'Estructura': obj_info.get('estructura', 'Desconocida'),
+            'Total_Tablas': obj_data['Tabla'].nunique(),
+            'Total_Campos': len(obj_data),
+            'Esquemas': ', '.join(sorted(obj_data['Esquema'].unique())),
+            'Capas': obj_info.get('capas', [])
+        })
+    
+    return pd.DataFrame(stats)
+
+def check_naming_rules(table_name):
+    """
+    Verifica si un nombre de tabla cumple con todas las reglas de nombramiento
+    """
+    results = {
+        'tabla': table_name,
+        'reglas_cumplidas': [],
+        'reglas_violadas': [],
+        'puntaje_gobierno': 0,
+        'recomendaciones': []
+    }
+    
+    total_rules = len(NAMING_RULES)
+    
+    # Regla 1: Sin números al inicio
+    if not table_name or not table_name[0].isdigit():
+        results['reglas_cumplidas'].append('RULE_1')
+        results['puntaje_gobierno'] += 1
+    else:
+        results['reglas_violadas'].append('RULE_1')
+        results['recomendaciones'].append('Eliminar números al inicio del nombre')
+    
+    # Regla 2: Sin caracteres especiales (solo guion bajo)
+    invalid_chars = re.findall(r'[^A-Z_]', table_name)
+    if not invalid_chars:
+        results['reglas_cumplidas'].append('RULE_2')
+        results['puntaje_gobierno'] += 1
+    else:
+        results['reglas_violadas'].append('RULE_2')
+        results['recomendaciones'].append(f'Remover caracteres especiales: {invalid_chars}')
+    
+    # Regla 3: Nombre en singular y sin artículos ni preposiciones
+    words = re.findall(r'[A-Z]+', table_name)
+    forbidden_found = [word for word in words if word in FORBIDDEN_WORDS]
+    if not forbidden_found:
+        results['reglas_cumplidas'].append('RULE_3')
+        results['puntaje_gobierno'] += 1
+    else:
+        results['reglas_violadas'].append('RULE_3')
+        results['recomendaciones'].append(f'Remover artículos/preposiciones: {forbidden_found}')
+    
+    # Regla 4: Máximo 40 caracteres para el nombre
+    # Extraer el nombre (quitar prefijos y dominios)
+    parts = table_name.split('_')
+    if len(parts) >= 3:
+        # Patrón: PREFIJO_DOMINIO_NOMBRE
+        nombre_part = '_'.join(parts[2:]) if len(parts) > 2 else parts[-1]
+    else:
+        nombre_part = parts[-1] if parts else table_name
+    
+    if len(nombre_part) <= 40:
+        results['reglas_cumplidas'].append('RULE_4')
+        results['puntaje_gobierno'] += 1
+    else:
+        results['reglas_violadas'].append('RULE_4')
+        results['recomendaciones'].append(f'Reducir nombre a menos de 40 caracteres (actual: {len(nombre_part)})')
+    
+    # Regla 5: IND, PRC y PKG toman el nombre de la tabla
+    prefixes_check = ['IND', 'PRC', 'PKG']
+    for prefix in prefixes_check:
+        if table_name.startswith(prefix + '_'):
+            # Debe contener el nombre de la tabla
+            if len(parts) >= 3:
+                results['reglas_cumplidas'].append('RULE_5')
+                results['puntaje_gobierno'] += 1
+            else:
+                results['reglas_violadas'].append('RULE_5')
+                results['recomendaciones'].append(f'{prefix} debe incluir nombre de tabla principal')
+            break
+    else:
+        # No es IND/PRC/PKG, regla no aplica
+        results['reglas_cumplidas'].append('RULE_5')
+        results['puntaje_gobierno'] += 1
+    
+    # Regla 6: Patrón con TRANSVERSAL
+    if 'TRV' in parts:
+        # Debe tener el patrón completo
+        if len(parts) >= 5 and parts[0] in ['FCT', 'DIM', 'AGG', 'TBL']:
+            results['reglas_cumplidas'].append('RULE_6')
+            results['puntaje_gobierno'] += 1
+        else:
+            results['reglas_violadas'].append('RULE_6')
+            results['recomendaciones'].append('TRANSVERSAL debe seguir patrón {FUENTE}_Prefijo_DOMINIO_FUENTE_NOMBRE')
+    else:
+        # No es TRANSVERSAL, regla no aplica
+        results['reglas_cumplidas'].append('RULE_6')
+        results['puntaje_gobierno'] += 1
+    
+    # Calcular porcentaje de cumplimiento
+    results['porcentaje_cumplimiento'] = (results['puntaje_gobierno'] / total_rules) * 100
+    
+    return results
+
+def validate_naming_governance(df):
+    """
+    Valida el gobierno de nombramiento para todas las tablas
+    """
+    validation_results = []
+    
+    for table_name in df['Tabla'].unique():
+        result = check_naming_rules(table_name)
+        validation_results.append(result)
+    
+    return pd.DataFrame(validation_results)
+
+def get_governance_stats(df_validation):
+    """
+    Calcula estadísticas de gobierno de datos
+    """
+    if df_validation.empty:
+        return pd.DataFrame()
+    
+    stats = {
+        'total_tablas': len(df_validation),
+        'tablas_cumplen': len(df_validation[df_validation['porcentaje_cumplimiento'] == 100]),
+        'tablas_parciales': len(df_validation[(df_validation['porcentaje_cumplimiento'] > 0) & (df_validation['porcentaje_cumplimiento'] < 100)]),
+        'tablas_no_cumplen': len(df_validation[df_validation['porcentaje_cumplimiento'] == 0]),
+        'puntaje_promedio': df_validation['puntaje_gobierno'].mean(),
+        'cumplimiento_promedio': df_validation['porcentaje_cumplimiento'].mean()
+    }
+    
+    # Estadísticas por regla
+    rule_stats = {}
+    for rule_code in NAMING_RULES.keys():
+        cumplen = sum(df_validation['reglas_cumplidas'].apply(lambda x: rule_code in x))
+        violan = sum(df_validation['reglas_violadas'].apply(lambda x: rule_code in x))
+        
+        rule_stats[rule_code] = {
+            'nombre': NAMING_RULES[rule_code]['nombre'],
+            'cumplen': cumplen,
+            'violan': violan,
+            'porcentaje_cumplimiento': (cumplen / len(df_validation)) * 100 if len(df_validation) > 0 else 0
+        }
+    
+    return stats, rule_stats
+
+def check_layer_naming_pattern(table_name, layer, object_type):
+    """
+    Verifica si un nombre de tabla cumple con los patrones de nomenclatura de su capa
+    """
+    results = {
+        'tabla': table_name,
+        'capa': layer,
+        'tipo_objeto': object_type,
+        'patron_cumplido': None,
+        'patrones_aplicables': [],
+        'patrones_violados': [],
+        'recomendaciones_patron': [],
+        'cumple_patron': False
+    }
+    
+    # Obtener patrones para la capa
+    if layer not in LAYER_NAMING_PATTERNS:
+        results['recomendaciones_patron'].append(f'Capa "{layer}" no tiene patrones definidos')
+        return results
+    
+    layer_patterns = LAYER_NAMING_PATTERNS[layer]
+    
+    # Obtener prefijo del nombre
+    prefix = table_name.split('_')[0] if '_' in table_name else table_name
+    
+    # Obtener patrones aplicables para este prefijo
+    applicable_patterns = PREFIX_PATTERN_MAPPING.get(prefix, [])
+    
+    # Filtrar patrones que existen en la capa
+    valid_patterns = []
+    for pattern_name in applicable_patterns:
+        if pattern_name in layer_patterns:
+            valid_patterns.append(pattern_name)
+    
+    results['patrones_aplicables'] = valid_patterns
+    
+    # Verificar cada patrón aplicable
+    for pattern_name in valid_patterns:
+        pattern_info = layer_patterns[pattern_name]
+        pattern_regex = pattern_info['patron']
+        
+        if re.match(pattern_regex, table_name):
+            results['patron_cumplido'] = pattern_name
+            results['cumple_patron'] = True
+            break
+    
+    # Si no cumple ningún patrón, generar recomendaciones
+    if not results['cumple_patron'] and valid_patterns:
+        results['patrones_violados'] = valid_patterns
+        
+        for pattern_name in valid_patterns:
+            pattern_info = layer_patterns[pattern_name]
+            results['recomendaciones_patron'].append(
+                f"Debe seguir patrón: {pattern_name}. "
+                f"Ejemplo: {pattern_info['ejemplos'][0] if pattern_info['ejemplos'] else 'N/A'}"
+            )
+    
+    return results
+
+def validate_layer_patterns(df):
+    """
+    Valida los patrones de nomenclatura por capa para todas las tablas
+    """
+    validation_results = []
+    
+    for _, row in df.iterrows():
+        table_name = row['Tabla']
+        layer = row['Esquema']
+        object_type = row.get('Tipo_Objeto', 'TBL')
+        
+        result = check_layer_naming_pattern(table_name, layer, object_type)
+        validation_results.append(result)
+    
+    return pd.DataFrame(validation_results)
+
+def get_layer_pattern_stats(df_patterns):
+    """
+    Calcula estadísticas de patrones de nomenclatura por capa
+    """
+    if df_patterns.empty:
+        return {}, {}
+    
+    # Estadísticas generales
+    general_stats = {
+        'total_objetos': len(df_patterns),
+        'cumplen_patron': len(df_patterns[df_patterns['cumple_patron'] == True]),
+        'no_cumplen_patron': len(df_patterns[df_patterns['cumple_patron'] == False]),
+        'porcentaje_cumplimiento': (len(df_patterns[df_patterns['cumple_patron'] == True]) / len(df_patterns)) * 100
+    }
+    
+    # Estadísticas por capa
+    layer_stats = {}
+    for layer in df_patterns['capa'].unique():
+        layer_data = df_patterns[df_patterns['capa'] == layer]
+        
+        layer_stats[layer] = {
+            'total_objetos': len(layer_data),
+            'cumplen_patron': len(layer_data[layer_data['cumple_patron'] == True]),
+            'no_cumplen_patron': len(layer_data[layer_data['cumple_patron'] == False]),
+            'porcentaje_cumplimiento': (len(layer_data[layer_data['cumple_patron'] == True]) / len(layer_data)) * 100,
+            'patrones_mas_usados': layer_data['patron_cumplido'].value_counts().to_dict() if not layer_data['patron_cumplido'].isna().all() else {}
+        }
+    
+    # Estadísticas por tipo de objeto
+    object_stats = {}
+    for obj_type in df_patterns['tipo_objeto'].unique():
+        obj_data = df_patterns[df_patterns['tipo_objeto'] == obj_type]
+        
+        object_stats[obj_type] = {
+            'total_objetos': len(obj_data),
+            'cumplen_patron': len(obj_data[obj_data['cumple_patron'] == True]),
+            'no_cumplen_patron': len(obj_data[obj_data['cumple_patron'] == False]),
+            'porcentaje_cumplimiento': (len(obj_data[obj_data['cumple_patron'] == True]) / len(obj_data)) * 100
+        }
+    
+    return general_stats, layer_stats, object_stats
+
+def identify_field_type(field_name):
+    """
+    Identifica el tipo de campo basado en su prefijo de nomenclatura
+    """
+    for prefix, field_info in FIELD_NOMENCLATURE.items():
+        if field_name.upper().startswith(prefix + "_"):
+            return prefix, field_info
+    
+    # Si no coincide con ningún prefijo conocido
+    return "UNKNOWN", {
+        "descripcion": "Campo sin clasificación estándar",
+        "tipo_dato": "VARCHAR2",
+        "patron": "SIN_PATRON",
+        "ejemplo": field_name,
+        "notas": "Campo sin nomenclatura definida",
+        "longitud_recomendada": 100,
+        "oracle_type": "VARCHAR2(100)"
+    }
+
+def validate_field_nomenclature(field_name, field_type):
+    """
+    Valida si un campo cumple con la nomenclatura y tipificación definida
+    """
+    results = {
+        'campo': field_name,
+        'tipo_actual': field_type,
+        'tipo_campo': None,
+        'cumple_nomenclatura': False,
+        'cumple_tipificacion': False,
+        'tipo_recomendado': None,
+        'recomendaciones': []
+    }
+    
+    # Identificar tipo de campo por nomenclatura
+    field_prefix, field_info = identify_field_type(field_name)
+    results['tipo_campo'] = field_prefix
+    results['tipo_recomendado'] = field_info['tipo_dato']
+    
+    # Verificar si cumple nomenclatura
+    if field_prefix != "UNKNOWN":
+        results['cumple_nomenclatura'] = True
+    else:
+        results['recomendaciones'].append('Usar prefijo estándar: ID_, CD_, NM_, DS_, FH_, VL_, TP_, FL_')
+    
+    # Verificar si cumple tipificación
+    if field_type.upper() == field_info['tipo_dato'].upper():
+        results['cumple_tipificacion'] = True
+    else:
+        results['recomendaciones'].append(
+            f"Tipo recomendado: {field_info['oracle_type']} (actual: {field_type})"
+        )
+    
+    # Validaciones adicionales
+    if field_prefix == "ID" and "PRIMARY" not in field_type.upper():
+        results['recomendaciones'].append('Los campos ID deberían ser PRIMARY KEY')
+    
+    if field_prefix in ["TS_CARGA", "TS_ACT"] and "TIMESTAMP" not in field_type.upper():
+        results['recomendaciones'].append('Los campos de timestamp deben ser TIMESTAMP')
+    
+    if field_prefix == "FL" and field_type.upper() not in ["CHAR", "VARCHAR2"]:
+        results['recomendaciones'].append('Los campos de bandera deben ser CHAR(1) o VARCHAR2(1)')
+    
+    return results
+
+def validate_all_fields(df):
+    """
+    Valida la nomenclatura y tipificación de todos los campos
+    """
+    validation_results = []
+    
+    for _, row in df.iterrows():
+        field_name = row['Campo']
+        field_type = row['Tipo de Dato']
+        
+        result = validate_field_nomenclature(field_name, field_type)
+        validation_results.append(result)
+    
+    return pd.DataFrame(validation_results)
+
+def get_field_validation_stats(df_fields):
+    """
+    Calcula estadísticas de validación de campos
+    """
+    if df_fields.empty:
+        return {}, {}
+    
+    # Estadísticas generales
+    general_stats = {
+        'total_campos': len(df_fields),
+        'cumplen_nomenclatura': len(df_fields[df_fields['cumple_nomenclatura'] == True]),
+        'cumplen_tipificacion': len(df_fields[df_fields['cumple_tipificacion'] == True]),
+        'campos_sin_clasificar': len(df_fields[df_fields['tipo_campo'] == 'UNKNOWN'])
+    }
+    
+    # Estadísticas por tipo de campo
+    type_stats = {}
+    for field_type in df_fields['tipo_campo'].unique():
+        if field_type == 'UNKNOWN':
+            continue
+            
+        type_data = df_fields[df_fields['tipo_campo'] == field_type]
+        field_info = FIELD_NOMENCLATURE.get(field_type, {})
+        
+        type_stats[field_type] = {
+            'descripcion': field_info.get('descripcion', 'Sin descripción'),
+            'total_campos': len(type_data),
+            'cumplen_nomenclatura': len(type_data[type_data['cumple_nomenclatura'] == True]),
+            'cumplen_tipificacion': len(type_data[type_data['cumple_tipificacion'] == True]),
+            'tipo_recomendado': field_info.get('oracle_type', 'VARCHAR2'),
+            'ejemplo': field_info.get('ejemplo', 'N/A')
+        }
+    
+    # Estadísticas de problemas comunes
+    issue_stats = {
+        'campos_sin_prefijo': len(df_fields[df_fields['tipo_campo'] == 'UNKNOWN']),
+        'tipificacion_incorrecta': len(df_fields[df_fields['cumple_tipificacion'] == False]),
+        'problemas_criticos': len(df_fields[
+            (df_fields['cumple_nomenclatura'] == False) | (df_fields['cumple_tipificacion'] == False)
+        ])
+    }
+    
+    return general_stats, type_stats, issue_stats
+
 def enrich_with_ai_descriptions(df):
     """
     Función de IA para autocompletar metadatos funcionales basados en patrones
@@ -428,14 +1458,38 @@ if content:
     # Clasificar automáticamente
     df = classify_data_automatically(df)
     
+    # Clasificación organizacional
+    df = classify_by_organizational_domain(df)
+    
+    # Clasificación por tipo de objeto
+    df = classify_by_object_type(df)
+    
     # Calcular estadísticas
     df_stats = calculate_dataset_statistics(df)
     
+    # Calcular estadísticas organizacionales
+    df_org_stats = get_organizational_stats(df)
+    
+    # Calcular estadísticas por tipo de objeto
+    df_obj_stats = get_object_type_stats(df)
+    
+    # Validar gobierno de nombramiento
+    df_governance = validate_naming_governance(df)
+    governance_stats, rule_stats = get_governance_stats(df_governance)
+    
+    # Validar patrones de nomenclatura por capa
+    df_patterns = validate_layer_patterns(df)
+    pattern_general_stats, pattern_layer_stats, pattern_object_stats = get_layer_pattern_stats(df_patterns)
+    
+    # Validar nomenclatura y tipificación de campos
+    df_fields = validate_all_fields(df)
+    field_general_stats, field_type_stats, field_issue_stats = get_field_validation_stats(df_fields)
+    
     if not df.empty:
         # Crear pestañas para organizar la aplicación
-        tab_catalogo, tab_busqueda, tab_perfiles, tab_glosario, tab_lineage, tab_schema = st.tabs([
+        tab_catalogo, tab_busqueda, tab_perfiles, tab_productos, tab_objetos, tab_campos, tab_gobierno, tab_dominios, tab_glosario, tab_lineage, tab_schema = st.tabs([
             "📋 Catálogo Central", "🔍 Búsqueda Avanzada", "📊 Perfiles de Datasets", 
-            "📚 Glosario de Negocios", "🔗 Linaje de Datos", "📐 Modelo Dimensional"
+            "🏪 Catálogo de Productos", "🗃️ Tipos de Objetos", "🔍 Validación de Campos", "⚖️ Gobierno de Datos", "🏢 Dominios Org.", "📚 Glosario de Negocios", "🔗 Linaje de Datos", "📐 Modelo Dimensional"
         ])
 
         with tab_catalogo:
@@ -558,6 +1612,20 @@ if content:
                 campos_display = tabla_data[['Campo', 'Tipo de Dato', 'Clave Primaria', 'Descripción funcional', 'Sensibilidad del Dato', 'Para qué sirve el campo']]
                 st.dataframe(campos_display, use_container_width=True)
                 
+                # Productos de datos potenciales
+                st.subheader("🏪 Productos de Datos Potenciales")
+                productos_potenciales = tabla_data['Productos_Potenciales'].iloc[0]
+                productos_lista = productos_potenciales.split(", ")
+                
+                col1, col2 = st.columns(2)
+                for i, producto in enumerate(productos_lista):
+                    with col1 if i % 2 == 0 else col2:
+                        producto_info = get_product_details(producto.strip())
+                        with st.expander(f"🏷️ {producto.strip()} - {producto_info['nombre']}"):
+                            st.write(f"**📝 Descripción:** {producto_info['descripcion']}")
+                            st.write(f"**⏰ Frecuencia:** {producto_info['frecuencia']}")
+                            st.write(f"**💻 Tecnología:** {producto_info['tecnologia']}")
+                
                 # Estadísticas de calidad
                 st.subheader("📈 Métricas de Calidad")
                 col1, col2, col3, col4 = st.columns(4)
@@ -574,6 +1642,694 @@ if content:
                 with col4:
                     data_types = tabla_stat['Tipos_Datos']
                     st.metric("💾 Tipos de Datos", data_types)
+
+        with tab_productos:
+            st.subheader("🏪 Catálogo de Productos de Datos")
+            st.markdown("""
+            **Productos de Datos** - Transformación de datos brutos en productos de valor para el negocio.
+            *Explore los diferentes tipos de productos que se pueden generar a partir de sus datasets.*
+            """)
+            
+            # Asignar productos a las tablas
+            df_with_products = assign_data_products(df)
+            
+            # Métricas generales de productos
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("🏪 Total Productos", len(DATA_PRODUCTS))
+            col2.metric("📊 Tablas con Productos", df_with_products['Tabla'].nunique())
+            col3.metric("🔗 Productos por Tabla", f"{len(DATA_PRODUCTS) / max(df_with_products['Tabla'].nunique(), 1):.1f}")
+            col4.metric("📈 Tipos de Producto", len(set(p['tipo'] for p in DATA_PRODUCTS.values())))
+            
+            # Catálogo de productos
+            st.subheader("📋 Catálogo Completo de Productos")
+            
+            for product_code, product_info in DATA_PRODUCTS.items():
+                with st.expander(f"🏷️ {product_code} - {product_info['nombre']}"):
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        st.write(f"**📝 Descripción:** {product_info['descripcion']}")
+                        st.write(f"**🏷️ Tipo:** {product_info['tipo']}")
+                        st.write(f"**⏰ Frecuencia:** {product_info['frecuencia']}")
+                    
+                    with col2:
+                        st.write(f"**📄 Formato:** {product_info['formato']}")
+                        st.write(f"**💻 Tecnología:** {product_info['tecnologia']}")
+                        
+                        # Encontrar tablas que pueden generar este producto
+                        related_tables = []
+                        for prefix, products in TABLE_PRODUCT_MAPPING.items():
+                            if product_code in products:
+                                tables_with_prefix = [t for t in df['Tabla'].unique() if t.upper().startswith(prefix)]
+                                related_tables.extend(tables_with_prefix[:3])  # Limitar a 3 ejemplos
+                        
+                        if related_tables:
+                            st.write("**📊 Tablas relacionadas:**")
+                            for table in related_tables:
+                                st.write(f"• {table}")
+            
+            # Tabla de asignación de productos
+            st.subheader("🔗 Asignación de Productos por Tabla")
+            product_assignment = df_with_products[['Tabla', 'Esquema', 'Tipo', 'Productos_Potenciales']].drop_duplicates('Tabla')
+            st.dataframe(product_assignment, use_container_width=True)
+            
+            # Análisis de productos por tipo
+            st.subheader("📊 Análisis de Productos por Tipo")
+            product_types = {}
+            for product_code, product_info in DATA_PRODUCTS.items():
+                tipo = product_info['tipo']
+                product_types[tipo] = product_types.get(tipo, 0) + 1
+            
+            if product_types:
+                st.bar_chart(product_types)
+            
+            # Filtros de productos
+            st.subheader("🎛️ Explorar por Tipo de Producto")
+            selected_type = st.selectbox(
+                "Seleccione un tipo de producto para ver detalles:",
+                options=["Todos"] + list(set(p['tipo'] for p in DATA_PRODUCTS.values())),
+                index=0
+            )
+            
+            if selected_type != "Todos":
+                filtered_products = {k: v for k, v in DATA_PRODUCTS.items() if v['tipo'] == selected_type}
+                st.write(f"**{len(filtered_products)} productos de tipo '{selected_type}':**")
+                
+                for product_code, product_info in filtered_products.items():
+                    with st.expander(f"🏷️ {product_code}"):
+                        st.write(f"**Descripción:** {product_info['descripcion']}")
+                        st.write(f"**Frecuencia:** {product_info['frecuencia']}")
+                        st.write(f"**Tecnología:** {product_info['tecnologia']}")
+
+        with tab_objetos:
+            st.subheader("🗃️ Catálogo de Tipos de Objetos")
+            st.markdown("""
+            **Tipos de Objetos de BD** - Clasificación técnica según estructura y función.
+            *Explore los diferentes tipos de objetos y su distribución en la arquitectura.*
+            """)
+            
+            # Métricas de objetos
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("🗃️ Total Tipos", len(OBJECT_TYPES))
+            col2.metric("📊 Objetos Clasificados", len(df[df['Tipo_Objeto'] != 'SIN_TIPO']))
+            col3.metric("📈 Tipos con Datos", df_obj_stats['Tipo_Objeto'].nunique() if not df_obj_stats.empty else 0)
+            col4.metric("🎯 Cobertura Técnica", f"{len(df[df['Tipo_Objeto'] != 'SIN_TIPO']) / max(len(df), 1) * 100:.1f}%")
+            
+            # Estadísticas por tipo de objeto
+            if not df_obj_stats.empty:
+                st.subheader("📊 Estadísticas por Tipo de Objeto")
+                
+                # Tabla de estadísticas
+                display_cols = ['Tipo_Objeto', 'Nombre', 'Estructura', 'Total_Tablas', 'Total_Campos']
+                st.dataframe(df_obj_stats[display_cols], use_container_width=True)
+                
+                # Gráficos de distribución
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("📈 Tablas por Estructura")
+                    estructura_counts = df_obj_stats['Estructura'].value_counts()
+                    st.bar_chart(estructura_counts)
+                
+                with col2:
+                    st.subheader("🎯 Tablas por Tipo")
+                    tipo_counts = df_obj_stats['Tipo_Objeto'].value_counts()
+                    st.bar_chart(tipo_counts)
+            
+            # Catálogo completo de tipos de objetos
+            st.subheader("📋 Catálogo Completo de Tipos de Objetos")
+            
+            # Filtros por estructura
+            estructura_sel = st.selectbox(
+                "Filtrar por tipo de estructura:",
+                options=["Todos"] + list(set(obj['estructura'] for obj in OBJECT_TYPES.values())),
+                index=0
+            )
+            
+            # Mostrar objetos filtrados
+            objetos_filtrados = {}
+            for code, info in OBJECT_TYPES.items():
+                if estructura_sel == "Todos" or info['estructura'] == estructura_sel:
+                    objetos_filtrados[code] = info
+            
+            # Organizar en columnas
+            cols = st.columns(3)
+            for i, (code, info) in enumerate(objetos_filtrados.items()):
+                with cols[i % 3]:
+                    with st.expander(f"🗃️ {code} - {info['nombre']}"):
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.write(f"**📝 Descripción:** {info['descripcion']}")
+                            st.write(f"**🏗️ Estructura:** {info['estructura']}")
+                        with col2:
+                            # Buscar objetos asociados
+                            objetos_asociados = df[df['Tipo_Objeto'] == code]['Tabla'].nunique()
+                            campos_asociados = len(df[df['Tipo_Objeto'] == code])
+                            st.write(f"**📊 Tablas:** {objetos_asociados}")
+                            st.write(f"**🔢 Campos:** {campos_asociados}")
+                        
+                        st.write(f"**🏢 Capas Aplicables:** {', '.join(info['capas'])}")
+                        st.write(f"**📝 Ejemplo:** `{info['ejemplo']}`")
+                        st.write(f"**💡 Observaciones:** {info['observaciones']}")
+            
+            # Análisis por capas
+            st.subheader("🏗️ Distribución por Capas Arquitectónicas")
+            
+            # Contar objetos por capa
+            capa_counts = {'Bronce': 0, 'Plata': 0, 'Oro': 0}
+            for obj_code, obj_info in OBJECT_TYPES.items():
+                for capa in obj_info['capas']:
+                    capa_counts[capa] += 1
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("🟫 Objetos en Bronce", capa_counts['Bronce'])
+            with col2:
+                st.metric("🟩 Objetos en Plata", capa_counts['Plata'])
+            with col3:
+                st.metric("🟨 Objetos en Oro", capa_counts['Oro'])
+            
+            # Matriz de tipos vs capas
+            st.subheader("🗺️ Matriz de Tipos por Capa")
+            
+            matriz_data = []
+            for obj_code, obj_info in OBJECT_TYPES.items():
+                row = {'Tipo_Objeto': obj_code, 'Nombre': obj_info['nombre']}
+                for capa in ['Bronce', 'Plata', 'Oro']:
+                    row[capa] = '✅' if capa in obj_info['capas'] else '❌'
+                matriz_data.append(row)
+            
+            matriz_df = pd.DataFrame(matriz_data)
+            st.dataframe(matriz_df, use_container_width=True)
+            
+            # Objetos sin clasificar
+            sin_clasificar_obj = df[df['Tipo_Objeto'] == 'SIN_TIPO'] if 'SIN_TIPO' in df['Tipo_Objeto'].values else pd.DataFrame()
+            if not sin_clasificar_obj.empty:
+                st.warning(f"⚠️ **{len(sin_clasificar_obj)} objetos sin clasificación técnica**")
+                with st.expander("Ver objetos sin tipo asignado"):
+                    tablas_sin_tipo = sin_clasificar_obj['Tabla'].unique()
+                    for tabla in tablas_sin_tipo[:10]:
+                        st.write(f"• {tabla}")
+                    if len(tablas_sin_tipo) > 10:
+                        st.write(f"... y {len(tablas_sin_tipo) - 10} más")
+
+        with tab_campos:
+            st.subheader("🔍 Validación de Nomenclatura y Tipificación de Campos")
+            st.markdown("""
+            **Control de Calidad de Campos** - Validación de nomenclatura y tipos de datos.
+            *Asegure que cada campo sigue los estándares definidos de nomenclatura y tipificación.*
+            """)
+            
+            # Métricas generales de campos
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("📊 Total Campos", field_general_stats.get('total_campos', 0))
+            col2.metric("✅ Cumplen Nomenclatura", field_general_stats.get('cumplen_nomenclatura', 0))
+            col3.metric("✅ Cumplen Tipificación", field_general_stats.get('cumplen_tipificacion', 0))
+            col4.metric("❌ Sin Clasificar", field_general_stats.get('campos_sin_clasificar', 0))
+            
+            # Análisis por tipo de campo
+            st.subheader("📋 Análisis por Tipo de Campo")
+            
+            if field_type_stats:
+                type_data = []
+                for field_type, stats in field_type_stats.items():
+                    type_data.append({
+                        'Tipo Campo': field_type,
+                        'Descripción': stats['descripcion'][:50] + '...' if len(stats['descripcion']) > 50 else stats['descripcion'],
+                        'Total': stats['total_campos'],
+                        'Cumplen Nomenclatura': stats['cumplen_nomenclatura'],
+                        'Cumplen Tipificación': stats['cumplen_tipificacion'],
+                        'Tipo Recomendado': stats['tipo_recomendado'],
+                        'Ejemplo': stats['ejemplo']
+                    })
+                
+                type_df = pd.DataFrame(type_data)
+                st.dataframe(type_df, use_container_width=True)
+            
+            # Problemas comunes
+            st.subheader("🚨 Problemas Comunes Identificados")
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("❌ Campos sin Prefijo", field_issue_stats.get('campos_sin_prefijo', 0))
+            with col2:
+                st.metric("⚠️ Tipificación Incorrecta", field_issue_stats.get('tipificacion_incorrecta', 0))
+            with col3:
+                st.metric("🔥 Problemas Críticos", field_issue_stats.get('problemas_criticos', 0))
+            
+            # Validación detallada por campo
+            st.subheader("🔍 Análisis Detallado por Campo")
+            
+            # Filtros
+            col1, col2 = st.columns(2)
+            with col1:
+                filtro_nomenclatura = st.selectbox(
+                    "Filtrar por nomenclatura:",
+                    options=["Todos", "Cumplen Nomenclatura", "No Cumplen Nomenclatura"],
+                    index=0
+                )
+            
+            with col2:
+                filtro_tipificacion = st.selectbox(
+                    "Filtrar por tipificación:",
+                    options=["Todos", "Cumplen Tipificación", "No Cumplen Tipificación"],
+                    index=0
+                )
+            
+            # Aplicar filtros
+            df_campos_filtrado = df_fields.copy()
+            
+            if filtro_nomenclatura == "Cumplen Nomenclatura":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_nomenclatura'] == True]
+            elif filtro_nomenclatura == "No Cumplen Nomenclatura":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_nomenclatura'] == False]
+            
+            if filtro_tipificacion == "Cumplen Tipificación":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_tipificacion'] == True]
+            elif filtro_tipificacion == "No Cumplen Tipificación":
+                df_campos_filtrado = df_campos_filtrado[df_campos_filtrado['cumple_tipificacion'] == False]
+            
+            # Mostrar resultados
+            if not df_campos_filtrado.empty:
+                for _, row in df_campos_filtrado.iterrows():
+                    with st.expander(f"🔍 {row['campo']} - {'✅' if row['cumple_nomenclatura'] and row['cumple_tipificacion'] else '❌'}"):
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            st.write(f"**📝 Campo:** {row['campo']}")
+                            st.write(f"**🔤 Tipo Actual:** {row['tipo_actual']}")
+                            st.write(f"**🏷️ Tipo Campo:** {row['tipo_campo']}")
+                        
+                        with col2:
+                            st.write(f"**✅ Nomenclatura:** {'Sí' if row['cumple_nomenclatura'] else 'No'}")
+                            st.write(f"**✅ Tipificación:** {'Sí' if row['cumple_tipificacion'] else 'No'}")
+                            st.write(f"**🎯 Tipo Recomendado:** {row['tipo_recomendado']}")
+                        
+                        # Recomendaciones
+                        if row['recomendaciones']:
+                            st.write("**💡 Recomendaciones:**")
+                            for rec in row['recomendaciones']:
+                                st.write(f"• {rec}")
+            else:
+                st.info("No hay campos que coincidan con los filtros seleccionados")
+            
+            # Catálogo de tipos de campos
+            st.subheader("📚 Catálogo de Tipos de Campos Gobernados")
+            
+            for field_type, field_info in FIELD_NOMENCLATURE.items():
+                with st.expander(f"🏷️ {field_type} - {field_info['descripcion']}"):
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.write(f"**📝 Patrón:** {field_info['patron']}")
+                        st.write(f"**🔤 Tipo Dato:** {field_info['tipo_dato']}")
+                        st.write(f"**📏 Longitud:** {field_info['longitud_recomendada']}")
+                    with col2:
+                        st.write(f"**📋 Ejemplo:** `{field_info['ejemplo']}`")
+                        st.write(f"**💾 Oracle Type:** `{field_info['oracle_type']}`")
+                        st.write(f"**📝 Notas:** {field_info['notas']}")
+                    
+                    # Estadísticas de uso
+                    campos_tipo = df_fields[df_fields['tipo_campo'] == field_type]
+                    st.write(f"**📊 Uso Actual:** {len(campos_tipo)} campos")
+
+        with tab_gobierno:
+            st.subheader("⚖️ Gobierno de Datos - Validación de Nombramiento")
+            st.markdown("""
+            **Control de Calidad de Nomenclatura** - Verificación del cumplimiento de reglas de gobierno.
+            *Asegure consistencia y estándares en el nombramiento de objetos de datos.*
+            """)
+            
+            # Métricas generales de gobierno
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("📊 Total Tablas", governance_stats.get('total_tablas', 0))
+            col2.metric("✅ Cumplen 100%", governance_stats.get('tablas_cumplen', 0))
+            col3.metric("⚠️ Cumplen Parcial", governance_stats.get('tablas_parciales', 0))
+            col4.metric("❌ No Cumplen", governance_stats.get('tablas_no_cumplen', 0))
+            
+            # Puntaje general de gobierno
+            st.subheader("📈 Índice de Madurez de Gobierno")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                puntaje_promedio = governance_stats.get('puntaje_promedio', 0)
+                st.metric("🎯 Puntaje Promedio", f"{puntaje_promedio:.1f}/6.0")
+            
+            with col2:
+                cumplimiento_promedio = governance_stats.get('cumplimiento_promedio', 0)
+                color = "🟢" if cumplimiento_promedio >= 80 else "🟡" if cumplimiento_promedio >= 60 else "🔴"
+                st.metric(f"{color} Cumplimiento Promedio", f"{cumplimiento_promedio:.1f}%")
+            
+            with col3:
+                calidad_general = "Excelente" if cumplimiento_promedio >= 90 else "Bueno" if cumplimiento_promedio >= 70 else "Regular" if cumplimiento_promedio >= 50 else "Requiere Mejora"
+                st.metric("📊 Calidad General", calidad_general)
+            
+            # Análisis por regla
+            st.subheader("📋 Cumplimiento por Regla de Nombramiento")
+            
+            if rule_stats:
+                # Crear tabla de reglas
+                rule_data = []
+                for rule_code, stats in rule_stats.items():
+                    rule_info = NAMING_RULES[rule_code]
+                    rule_data.append({
+                        'Regla': f"{rule_code}: {rule_info['nombre']}",
+                        'Descripción': rule_info['descripcion'],
+                        'Cumplen': stats['cumplen'],
+                        'Violan': stats['violan'],
+                        '% Cumplimiento': f"{stats['porcentaje_cumplimiento']:.1f}%",
+                        'Estado': '✅' if stats['porcentaje_cumplimiento'] >= 90 else '⚠️' if stats['porcentaje_cumplimiento'] >= 70 else '❌'
+                    })
+                
+                rule_df = pd.DataFrame(rule_data)
+                st.dataframe(rule_df, use_container_width=True)
+                
+                # Gráfico de cumplimiento por regla
+                st.subheader("📊 Visualización de Cumplimiento")
+                rule_chart_data = {stats['nombre']: stats['porcentaje_cumplimiento'] for stats in rule_stats.values()}
+                st.bar_chart(rule_chart_data)
+            
+            # Validación detallada por tabla
+            st.subheader("🔍 Análisis Detallado por Tabla")
+            
+            # Filtros
+            col1, col2 = st.columns(2)
+            with col1:
+                filtro_cumplimiento = st.selectbox(
+                    "Filtrar por nivel de cumplimiento:",
+                    options=["Todas", "Cumplen 100%", "Cumplen Parcialmente", "No Cumplen"],
+                    index=0
+                )
+            
+            with col2:
+                ordenar_por = st.selectbox(
+                    "Ordenar por:",
+                    options=["Nombre de Tabla", "Puntaje de Gobierno", "% Cumplimiento"],
+                    index=1
+                )
+            
+            # Aplicar filtros
+            df_filtrado = df_governance.copy()
+            
+            if filtro_cumplimiento == "Cumplen 100%":
+                df_filtrado = df_filtrado[df_filtrado['porcentaje_cumplimiento'] == 100]
+            elif filtro_cumplimiento == "Cumplen Parcialmente":
+                df_filtrado = df_filtrado[(df_filtrado['porcentaje_cumplimiento'] > 0) & (df_filtrado['porcentaje_cumplimiento'] < 100)]
+            elif filtro_cumplimiento == "No Cumplen":
+                df_filtrado = df_filtrado[df_filtrado['porcentaje_cumplimiento'] == 0]
+            
+            # Ordenar
+            if ordenar_por == "Nombre de Tabla":
+                df_filtrado = df_filtrado.sort_values('tabla')
+            elif ordenar_por == "Puntaje de Gobierno":
+                df_filtrado = df_filtrado.sort_values('puntaje_gobierno', ascending=False)
+            else:
+                df_filtrado = df_filtrado.sort_values('porcentaje_cumplimiento', ascending=False)
+            
+            # Mostrar resultados
+            if not df_filtrado.empty:
+                for _, row in df_filtrado.iterrows():
+                    with st.expander(f"📋 {row['tabla']} - {row['porcentaje_cumplimiento']:.1f}%"):
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            st.write(f"**🎯 Puntaje:** {row['puntaje_gobierno']}/6")
+                            st.write(f"**✅ Reglas Cumplidas:** {len(row['reglas_cumplidas'])}")
+                            st.write(f"**❌ Reglas Violadas:** {len(row['reglas_violadas'])}")
+                        
+                        with col2:
+                            # Estado visual
+                            if row['porcentaje_cumplimiento'] == 100:
+                                st.success("✅ Cumple todas las reglas")
+                            elif row['porcentaje_cumplimiento'] >= 70:
+                                st.warning("⚠️ Cumple parcialmente")
+                            else:
+                                st.error("❌ Requiere corrección")
+                        
+                        # Detalles de reglas
+                        if row['reglas_violadas']:
+                            st.write("**🚨 Reglas Violadas:**")
+                            for rule_code in row['reglas_violadas']:
+                                rule_info = NAMING_RULES[rule_code]
+                                st.write(f"• ❌ {rule_info['nombre']}: {rule_info['descripcion']}")
+                        
+                        if row['recomendaciones']:
+                            st.write("**💡 Recomendaciones:**")
+                            for rec in row['recomendaciones']:
+                                st.write(f"• {rec}")
+            else:
+                st.info("No hay tablas que coincidan con los filtros seleccionados")
+            
+            # Reglas de nombramiento
+            st.subheader("📚 Reglas de Nombramiento Definidas")
+            
+            for rule_code, rule_info in NAMING_RULES.items():
+                with st.expander(f"📖 {rule_code}: {rule_info['nombre']}"):
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.write(f"**📝 Descripción:** {rule_info['descripcion']}")
+                        st.write(f"**✅ Ejemplo Correcto:** `{rule_info['ejemplo_correcto']}`")
+                    with col2:
+                        st.write(f"**❌ Ejemplo Incorrecto:** `{rule_info['ejemplo_incorrecto']}`")
+                        
+                        # Estadísticas de esta regla
+                        if rule_code in rule_stats:
+                            stats = rule_stats[rule_code]
+                            st.write(f"**📊 Estadísticas:**")
+                            st.write(f"• Cumplen: {stats['cumplen']}")
+                            st.write(f"• Violan: {stats['violan']}")
+                            st.write(f"• % Cumplimiento: {stats['porcentaje_cumplimiento']:.1f}%")
+            
+            # Validación de Patrones de Nomenclatura por Capa
+            st.subheader("🏗️ Patrones de Nomenclatura por Capa")
+            st.markdown("""
+            **Validación de Patrones Arquitectónicos** - Verificación de cumplimiento de patrones por capa.
+            *Asegure que cada objeto sigue la estructura definida para su capa arquitectónica.*
+            """)
+            
+            # Métricas generales de patrones
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("📊 Total Objetos", pattern_general_stats.get('total_objetos', 0))
+            col2.metric("✅ Cumplen Patrón", pattern_general_stats.get('cumplen_patron', 0))
+            col3.metric("❌ No Cumplen", pattern_general_stats.get('no_cumplen_patron', 0))
+            col4.metric("📈 % Cumplimiento", f"{pattern_general_stats.get('porcentaje_cumplimiento', 0):.1f}%")
+            
+            # Análisis por capa
+            st.subheader("📊 Cumplimiento por Capa Arquitectónica")
+            
+            if pattern_layer_stats:
+                layer_data = []
+                for layer, stats in pattern_layer_stats.items():
+                    layer_data.append({
+                        'Capa': layer,
+                        'Total Objetos': stats['total_objetos'],
+                        'Cumplen Patrón': stats['cumplen_patron'],
+                        'No Cumplen': stats['no_cumplen_patron'],
+                        '% Cumplimiento': f"{stats['porcentaje_cumplimiento']:.1f}%",
+                        'Estado': '✅' if stats['porcentaje_cumplimiento'] >= 80 else '⚠️' if stats['porcentaje_cumplimiento'] >= 60 else '❌'
+                    })
+                
+                layer_df = pd.DataFrame(layer_data)
+                st.dataframe(layer_df, use_container_width=True)
+                
+                # Gráfico de cumplimiento por capa
+                st.subheader("📈 Visualización por Capa")
+                layer_chart_data = {layer: stats['porcentaje_cumplimiento'] for layer, stats in pattern_layer_stats.items()}
+                st.bar_chart(layer_chart_data)
+            
+            # Análisis por tipo de objeto
+            st.subheader("🗃️ Cumplimiento por Tipo de Objeto")
+            
+            if pattern_object_stats:
+                object_data = []
+                for obj_type, stats in pattern_object_stats.items():
+                    object_data.append({
+                        'Tipo Objeto': obj_type,
+                        'Total': stats['total_objetos'],
+                        'Cumplen': stats['cumplen_patron'],
+                        'No Cumplen': stats['no_cumplen_patron'],
+                        '% Cumplimiento': f"{stats['porcentaje_cumplimiento']:.1f}%"
+                    })
+                
+                object_df = pd.DataFrame(object_data)
+                st.dataframe(object_df, use_container_width=True)
+            
+            # Validación detallada por objeto
+            st.subheader("🔍 Análisis Detallado de Patrones")
+            
+            # Filtros
+            col1, col2 = st.columns(2)
+            with col1:
+                filtro_patron = st.selectbox(
+                    "Filtrar por cumplimiento de patrón:",
+                    options=["Todos", "Cumplen Patrón", "No Cumplen Patrón"],
+                    index=0
+                )
+            
+            with col2:
+                filtro_capa = st.selectbox(
+                    "Filtrar por capa:",
+                    options=["Todas"] + list(df_patterns['capa'].unique()),
+                    index=0
+                )
+            
+            # Aplicar filtros
+            df_pat_filtrado = df_patterns.copy()
+            
+            if filtro_patron == "Cumplen Patrón":
+                df_pat_filtrado = df_pat_filtrado[df_pat_filtrado['cumple_patron'] == True]
+            elif filtro_patron == "No Cumplen Patrón":
+                df_pat_filtrado = df_pat_filtrado[df_pat_filtrado['cumple_patron'] == False]
+            
+            if filtro_capa != "Todas":
+                df_pat_filtrado = df_pat_filtrado[df_pat_filtrado['capa'] == filtro_capa]
+            
+            # Mostrar resultados
+            if not df_pat_filtrado.empty:
+                for _, row in df_pat_filtrado.iterrows():
+                    with st.expander(f"🏗️ {row['tabla']} ({row['capa']}) - {'✅' if row['cumple_patron'] else '❌'}"):
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            st.write(f"**📊 Capa:** {row['capa']}")
+                            st.write(f"**🗃️ Tipo Objeto:** {row['tipo_objeto']}")
+                            st.write(f"**✅ Cumple Patrón:** {'Sí' if row['cumple_patron'] else 'No'}")
+                        
+                        with col2:
+                            if row['cumple_patron']:
+                                st.success(f"✅ Patrón: {row['patron_cumplido']}")
+                            else:
+                                st.error("❌ No cumple ningún patrón aplicable")
+                        
+                        # Patrones aplicables
+                        if row['patrones_aplicables']:
+                            st.write("**🎯 Patrones Aplicables:**")
+                            for pattern in row['patrones_aplicables']:
+                                pattern_info = LAYER_NAMING_PATTERNS.get(row['capa'], {}).get(pattern, {})
+                                st.write(f"• {pattern}: {pattern_info.get('descripcion', 'Sin descripción')}")
+                        
+                        # Recomendaciones
+                        if row['recomendaciones_patron']:
+                            st.write("**💡 Recomendaciones:**")
+                            for rec in row['recomendaciones_patron']:
+                                st.write(f"• {rec}")
+            else:
+                st.info("No hay objetos que coincidan con los filtros seleccionados")
+            
+            # Catálogo de patrones por capa
+            st.subheader("📚 Catálogo de Patrones por Capa")
+            
+            for layer, patterns in LAYER_NAMING_PATTERNS.items():
+                with st.expander(f"🏗️ {layer} - {len(patterns)} patrones definidos"):
+                    for pattern_name, pattern_info in patterns.items():
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.write(f"**📝 Patrón:** {pattern_name}")
+                            st.write(f"**📋 Descripción:** {pattern_info['descripcion']}")
+                            st.write(f"**🎯 Aplica Para:** {pattern_info['aplica_para']}")
+                        with col2:
+                            st.write(f"**🔤 Expresión:** `{pattern_info['patron']}`")
+                            st.write(f"**✅ Ejemplos:**")
+                            for ejemplo in pattern_info['ejemplos']:
+                                st.write(f"• `{ejemplo}`")
+                        
+                        # Estadísticas de este patrón
+                        pattern_usage = sum(1 for _, row in df_patterns.iterrows() 
+                                          if row['patron_cumplido'] == pattern_name)
+                        st.write(f"**📊 Uso Actual:** {pattern_usage} objetos")
+
+        with tab_dominios:
+            st.subheader("🏢 Dominios Organizacionales")
+            st.markdown("""
+            **Dominios de la Defensoría** - Clasificación de datos según estructura organizacional.
+            *Explore cómo se distribuyen los datos por despachos, direcciones y defensorías.*
+            """)
+            
+            # Métricas organizacionales
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("🏢 Total Dominios", len(ORGANIZATIONAL_DOMAINS))
+            col2.metric("📊 Tablas Clasificadas", len(df[df['Dominio_Org'] != 'SIN_DOMINIO']))
+            col3.metric("📈 Dominios con Datos", df_org_stats['Dominio'].nunique() if not df_org_stats.empty else 0)
+            col4.metric("🗺️ Cobertura Org.", f"{len(df[df['Dominio_Org'] != 'SIN_DOMINIO']) / max(len(df), 1) * 100:.1f}%")
+            
+            # Estadísticas por dominio
+            if not df_org_stats.empty:
+                st.subheader("📊 Estadísticas por Dominio Organizacional")
+                
+                # Tabla de estadísticas
+                display_cols = ['Dominio', 'Nombre', 'Tipo', 'Nivel', 'Total_Tablas', 'Total_Campos']
+                st.dataframe(df_org_stats[display_cols], use_container_width=True)
+                
+                # Gráficos de distribución
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("📈 Tablas por Tipo de Org")
+                    tipo_counts = df_org_stats['Tipo'].value_counts()
+                    st.bar_chart(tipo_counts)
+                
+                with col2:
+                    st.subheader("🎯 Tablas por Nivel")
+                    nivel_counts = df_org_stats['Nivel'].value_counts()
+                    st.bar_chart(nivel_counts)
+            
+            # Catálogo completo de dominios
+            st.subheader("📋 Catálogo Completo de Dominios")
+            
+            # Filtros por tipo de organización
+            tipo_org_sel = st.selectbox(
+                "Filtrar por tipo de organización:",
+                options=["Todos"] + list(set(org['tipo'] for org in ORGANIZATIONAL_DOMAINS.values())),
+                index=0
+            )
+            
+            # Mostrar dominios filtrados
+            dominios_filtrados = {}
+            for code, info in ORGANIZATIONAL_DOMAINS.items():
+                if tipo_org_sel == "Todos" or info['tipo'] == tipo_org_sel:
+                    dominios_filtrados[code] = info
+            
+            # Organizar en columnas
+            cols = st.columns(3)
+            for i, (code, info) in enumerate(dominios_filtrados.items()):
+                with cols[i % 3]:
+                    with st.expander(f"🏢 {code} - {info['nombre']}"):
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.write(f"**📝 Tipo:** {info['tipo']}")
+                            st.write(f"**🎯 Nivel:** {info['nivel']}")
+                        with col2:
+                            # Buscar tablas asociadas
+                            tablas_asociadas = df[df['Dominio_Org'] == code]['Tabla'].nunique()
+                            campos_asociados = len(df[df['Dominio_Org'] == code])
+                            st.write(f"**📊 Tablas:** {tablas_asociadas}")
+                            st.write(f"**🔢 Campos:** {campos_asociados}")
+            
+            # Análisis de cobertura
+            st.subheader("📈 Análisis de Cobertura Organizacional")
+            
+            # Tablas sin clasificar
+            sin_clasificar = df[df['Dominio_Org'] == 'SIN_DOMINIO']
+            if not sin_clasificar.empty:
+                st.warning(f"⚠️ **{len(sin_clasificar)} campos sin clasificación organizacional**")
+                with st.expander("Ver tablas sin dominio asignado"):
+                    tablas_sin_dom = sin_clasificar['Tabla'].unique()
+                    for tabla in tablas_sin_dom[:10]:  # Limitar a 10
+                        st.write(f"• {tabla}")
+                    if len(tablas_sin_dom) > 10:
+                        st.write(f"... y {len(tablas_sin_dom) - 10} más")
+            
+            # Mapa de dominios por esquema
+            st.subheader("🗺️ Distribución por Esquema y Dominio")
+            if not df_org_stats.empty:
+                # Crear matriz de dominios vs esquemas
+                pivot_data = df[df['Dominio_Org'] != 'SIN_DOMINIO'].pivot_table(
+                    index='Dominio_Org', 
+                    columns='Esquema', 
+                    values='Tabla', 
+                    aggfunc='nunique', 
+                    fill_value=0
+                )
+                st.dataframe(pivot_data, use_container_width=True)
 
         with tab_glosario:
             st.subheader("📚 Glosario de Negocios")
