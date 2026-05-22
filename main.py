@@ -475,7 +475,7 @@ if content:
             
             # Filtros avanzados
             with st.expander("🎛️ Filtros Avanzados"):
-                col1, col2 = st.columns(2)
+                col1, col2, col3 = st.columns(3)
                 
                 with col1:
                     dominios_sel = st.multiselect("Dominio", options=DATA_TAXONOMY["Dominio"], default=DATA_TAXONOMY["Dominio"])
@@ -484,6 +484,10 @@ if content:
                 with col2:
                     confidencialidad_sel = st.multiselect("Confidencialidad", options=DATA_TAXONOMY["Confidencialidad"], default=DATA_TAXONOMY["Confidencialidad"])
                     esquemas_sel = st.multiselect("Esquema", options=sorted(df["Esquema"].unique()), default=sorted(df["Esquema"].unique()))
+                
+                with col3:
+                    tipos_sel = st.multiselect("Tipo", options=sorted(df["Tipo"].unique()), default=sorted(df["Tipo"].unique()))
+                    estados_sel = st.multiselect("Estado", options=sorted(df["Estado"].unique()), default=sorted(df["Estado"].unique()))
             
             # Ejecutar búsqueda
             if search_query or search_button:
@@ -491,7 +495,9 @@ if content:
                     'Dominio': dominios_sel,
                     'Criticidad': criticidad_sel,
                     'Confidencialidad': confidencialidad_sel,
-                    'Esquema': esquemas_sel
+                    'Esquema': esquemas_sel,
+                    'Tipo': tipos_sel,
+                    'Estado': estados_sel
                 }
                 
                 results = advanced_search(df, search_query, filters)
