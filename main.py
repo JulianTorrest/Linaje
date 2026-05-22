@@ -2503,11 +2503,3 @@ if content:
 
     else:
         st.warning("No se pudo extraer información. Verifica el formato del archivo.")
-                    matches = df_display[(df_display["Campo"] == pk_row["Campo"]) & (df_display["Tabla"] != pk_row["Tabla"])]
-                    for _, match in matches.iterrows():
-                        schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
-                
-                st.graphviz_chart(schema_dot, use_container_width=True)
-
-    else:
-        st.warning("No se pudo extraer información. Verifica el formato del archivo.")
