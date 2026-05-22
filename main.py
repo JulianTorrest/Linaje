@@ -1934,13 +1934,13 @@ if content:
                 with st.expander(f"{field_type} - {field_info['descripcion']}"):
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.write(f"**📝 Patrón:** {field_info['patron']}")
-                        st.write(f"**🔤 Tipo Dato:** {field_info['tipo_dato']}")
-                        st.write(f"**📏 Longitud:** {field_info['longitud_recomendada']}")
+                        st.write(f"**Patron:** {field_info['patron']}")
+                        st.write(f"**Tipo Dato:** {field_info['tipo_dato']}")
+                        st.write(f"**Longitud:** {field_info['longitud_recomendada']}")
                     with col2:
-                        st.write(f"**📋 Ejemplo:** `{field_info['ejemplo']}`")
-                        st.write(f"**💾 Oracle Type:** `{field_info['oracle_type']}`")
-                        st.write(f"**📝 Notas:** {field_info['notas']}")
+                        st.write(f"**Ejemplo:** `{field_info['ejemplo']}`")
+                        st.write(f"**Oracle Type:** `{field_info['oracle_type']}`")
+                        st.write(f"**Notas:** {field_info['notas']}")
                     
                     # Estadísticas de uso
                     campos_tipo = df_fields[df_fields['tipo_campo'] == field_type]
@@ -2080,7 +2080,7 @@ if content:
                 with st.expander(f"{rule_code}: {rule_info['nombre']}"):
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.write(f"**📝 Descripción:** {rule_info['descripcion']}")
+                        st.write(f"**Descripcion:** {rule_info['descripcion']}")
                         st.write(f"**Ejemplo Correcto:** `{rule_info['ejemplo_correcto']}`")
                     with col2:
                         st.write(f"**Ejemplo Incorrecto:** `{rule_info['ejemplo_incorrecto']}`")
@@ -2217,11 +2217,11 @@ if content:
                     for pattern_name, pattern_info in patterns.items():
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.write(f"**📝 Patrón:** {pattern_name}")
-                            st.write(f"**📋 Descripción:** {pattern_info['descripcion']}")
-                            st.write(f"**🎯 Aplica Para:** {pattern_info['aplica_para']}")
+                            st.write(f"**Patron:** {pattern_name}")
+                            st.write(f"**Descripcion:** {pattern_info['descripcion']}")
+                            st.write(f"**Aplica Para:** {pattern_info['aplica_para']}")
                         with col2:
-                            st.write(f"**🔤 Expresión:** `{pattern_info['patron']}`")
+                            st.write(f"**Expresion:** `{pattern_info['patron']}`")
                             st.write(f"**Ejemplos:**")
                             for ejemplo in pattern_info['ejemplos']:
                                 st.write(f"• `{ejemplo}`")
