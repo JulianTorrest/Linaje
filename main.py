@@ -3,9 +3,43 @@ import pandas as pd
 import io
 import requests
 import graphviz
+import re
+from datetime import datetime
+import json
+from fuzzywuzzy import fuzz
 
 # URL del archivo en formato Raw para poder leerlo directamente
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/JulianTorrest/Linaje/main/Columnas%20Oracle.txt"
+
+# Base de datos de glosario de negocios
+BUSINESS_GLOSSARY = {
+    "CLIENTE": "Persona natural o jurídica que utiliza los servicios de la Defensoría",
+    "EXPEDIENTE": "Conjunto de documentos y actuaciones que conforman un caso",
+    "SENTENCIA": "Decisión judicial que resuelve un caso",
+    "ABOGADO": "Profesional del derecho que representa a las partes",
+    "DEPENDENCIA": "Unidad administrativa con funciones específicas",
+    "MUNICIPIO": "División geográfica administrativa básica",
+    "DEPARTAMENTO": "División geográfica administrativa superior",
+    "PETICION": "Solicitud formal realizada por un ciudadano",
+    "RADICADO": "Número único que identifica una comunicación oficial"
+}
+
+# Taxonomías de clasificación
+DATA_TAXONOMY = {
+    "Dominio": ["Jurídico", "Administrativo", "Geográfico", "Demográfico", "Financiero"],
+    "Criticialidad": ["Alta", "Media", "Baja"],
+    "Confidencialidad": ["Público", "Interno", "Confidencial", "Secreto"],
+    "Actualización": ["Diaria", "Semanal", "Mensual", "Trimestral", "Anual"]
+}
+
+# Dueños de datos por área
+DATA_OWNERS = {
+    "Jurídico": "Dirección Jurídica",
+    "Administrativo": "Secretaría General", 
+    "Geográfico": "Oficina de Estadística",
+    "Demográfico": "Dirección de Población",
+    "Financiero": "Dirección Financiera"
+}
 
 def parse_oracle_metadata(file_content):
     """
@@ -149,6 +183,131 @@ def parse_oracle_metadata(file_content):
         )
     return df_result
 
+def classify_data_automatically(df):
+    """
+    Clasifica automáticamente los datos según taxonomías predefinidas
+    """
+    def get_classification(row):
+        tabla = str(row['Tabla']).upper()
+        campo = str(row['Campo']).upper()
+        
+        # Clasificación por dominio
+        dominio = "Administrativo"  # Default
+        if any(x in tabla for x in ['SENTENCIAS', 'JURIDICO', 'PROCESO']):
+            dominio = "Jurídico"
+        elif any(x in tabla for x in ['MUNICIPIO', 'DEPARTAMENTO', 'DIVIPOLA']):
+            dominio = "Geográfico"
+        elif any(x in tabla for x in ['PERSONA', 'CLIENTE', 'EDAD', 'SEXO']):
+            dominio = "Demográfico"
+        elif any(x in tabla for x in ['PRESUPUESTO', 'FINANCIERO', 'PAGO']):
+            dominio = "Financiero"
+            
+        # Clasificación por criticidad
+        criticidad = "Media"  # Default
+        if any(x in campo for x in ['ID', 'PK', 'CLAVE', 'RADICADO']):
+            criticidad = "Alta"
+        elif any(x in campo for x in ['OBSERVACION', 'NOTA', 'COMENTARIO']):
+            criticidad = "Baja"
+            
+        # Clasificación por confidencialidad
+        confidencialidad = "Público"  # Default
+        if any(x in campo for x in ['NOMBRE', 'IDENTIFICACION', 'TELEFONO', 'EMAIL']):
+            confidencialidad = "Confidencial"
+        elif any(x in campo for x in ['SALARIO', 'INGRESO', 'PENSION']):
+            confidencialidad = "Secreto"
+        elif 'INTERNO' in campo or 'SISTEMA' in campo:
+            confidencialidad = "Interno"
+            
+        # Frecuencia de actualización
+        actualizacion = "Mensual"  # Default
+        if 'DIARIO' in tabla or 'DAILY' in tabla:
+            actualizacion = "Diaria"
+        elif 'SEMANAL' in tabla or 'WEEKLY' in tabla:
+            actualizacion = "Semanal"
+        elif 'ANUAL' in tabla or 'YEAR' in tabla:
+            actualizacion = "Anual"
+            
+        return pd.Series([dominio, criticidad, confidencialidad, actualizacion])
+    
+    df[['Dominio', 'Criticidad', 'Confidencialidad', 'Frecuencia_Actualizacion']] = df.apply(get_classification, axis=1)
+    return df
+
+def calculate_dataset_statistics(df):
+    """
+    Calcula estadísticas por dataset (tabla)
+    """
+    stats = []
+    for tabla in df['Tabla'].unique():
+        tabla_data = df[df['Tabla'] == tabla]
+        
+        # Estadísticas básicas
+        total_campos = len(tabla_data)
+        campos_pk = len(tabla_data[tabla_data['Clave Primaria'] == 'Sí'])
+        tipos_datos = tabla_data['Tipo de Dato'].nunique()
+        
+        # Métricas de calidad
+        calidad_general = 0
+        if campos_pk > 0:
+            calidad_general += 25  # Tiene PK
+        if total_campos > 5:
+            calidad_general += 25  # Buena cantidad de campos
+        if tabla_data['Descripción funcional'].notna().sum() > total_campos * 0.8:
+            calidad_general += 25  # Buena documentación
+        if tabla_data['Sensibilidad del Dato'].nunique() > 1:
+            calidad_general += 25  # Clasificación de sensibilidad
+            
+        # Última actualización (simulada)
+        ultima_actualizacion = datetime.now().strftime('%Y-%m-%d')
+        
+        stats.append({
+            'Tabla': tabla,
+            'Total_Campos': total_campos,
+            'Campos_PK': campos_pk,
+            'Tipos_Datos': tipos_datos,
+            'Calidad_General': calidad_general,
+            'Ultima_Actualizacion': ultima_actualizacion,
+            'Esquema': tabla_data['Esquema'].iloc[0],
+            'Tipo_Entidad': tabla_data['Tipo'].iloc[0]
+        })
+    
+    return pd.DataFrame(stats)
+
+def advanced_search(df, query, filters=None):
+    """
+    Búsqueda avanzada con fuzzy matching y filtros múltiples
+    """
+    if filters is None:
+        filters = {}
+    
+    # Búsqueda por texto (fuzzy matching)
+    if query:
+        df['search_score'] = df.apply(lambda row: max(
+            fuzz.partial_ratio(query.upper(), str(row['Tabla']).upper()),
+            fuzz.partial_ratio(query.upper(), str(row['Campo']).upper()),
+            fuzz.partial_ratio(query.upper(), str(row['Descripción funcional']).upper())
+        ), axis=1)
+        df = df[df['search_score'] >= 30]  # Umbral de similitud
+        df = df.sort_values('search_score', ascending=False)
+    
+    # Aplicar filtros
+    for field, values in filters.items():
+        if field in df.columns and values:
+            df = df[df[field].isin(values)]
+    
+    return df
+
+def get_business_definition(term):
+    """
+    Obtiene definición del glosario de negocios
+    """
+    return BUSINESS_GLOSSARY.get(term.upper(), f"Término '{term}' no encontrado en glosario")
+
+def get_data_owner(dominio):
+    """
+    Obtiene el dueño del dato según dominio
+    """
+    return DATA_OWNERS.get(dominio, "Sin dueño asignado")
+
 def enrich_with_ai_descriptions(df):
     """
     Función de IA para autocompletar metadatos funcionales basados en patrones
@@ -266,52 +425,186 @@ if content:
     # Enriquecer con IA
     df = enrich_with_ai_descriptions(df)
     
+    # Clasificar automáticamente
+    df = classify_data_automatically(df)
+    
+    # Calcular estadísticas
+    df_stats = calculate_dataset_statistics(df)
+    
     if not df.empty:
         # Crear pestañas para organizar la aplicación
-        tab_metadata, tab_lineage, tab_schema = st.tabs(["📋 Estructura de Metadatos", "🔗 Linaje de Datos", "📐 Modelo Dimensional"])
+        tab_catalogo, tab_busqueda, tab_perfiles, tab_glosario, tab_lineage, tab_schema = st.tabs([
+            "📋 Catálogo Central", "🔍 Búsqueda Avanzada", "📊 Perfiles de Datasets", 
+            "📚 Glosario de Negocios", "🔗 Linaje de Datos", "📐 Modelo Dimensional"
+        ])
 
-        with tab_metadata:
-            st.subheader("Filtros de Metadatos")
-            col_esquema, col_tipo, col_estado = st.columns(3)
+        with tab_catalogo:
+            st.subheader("Catálogo de Datos Centralizado")
+            st.markdown("""
+            **Bienvenido al Catálogo de Datos** - Descubra, explore y entienda sus activos de datos.
+            *Navegue por las pestañas para acceder a diferentes funcionalidades del catálogo.*
+            """)
             
-            with col_esquema:
-                esquema_options = sorted(df["Esquema"].unique())
-                esquemas_seleccionados = st.multiselect(
-                    "Esquema", options=esquema_options, default=esquema_options
-                )
-            with col_tipo:
-                # Aseguramos que FCT esté presente si existe en los datos
-                tipo_options = sorted([str(t) for t in df["Tipo"].unique()])
-                tipos_seleccionados = st.multiselect(
-                    "Tipo", options=tipo_options, default=tipo_options
-                )
-            with col_estado:
-                estado_options = sorted(df["Estado"].unique())
-                estados_seleccionados = st.multiselect(
-                    "Estado", options=estado_options, default=estado_options
-                )
+            # Métricas generales
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("📁 Total Tablas", df["Tabla"].nunique())
+            col2.metric("🔢 Total Campos", len(df))
+            col3.metric("🏷️ Dominios", df["Dominio"].nunique())
+            col4.metric("👥 Dueños", len(df_stats['Esquema'].unique()))
             
-            tablas_seleccionadas = st.multiselect(
-                "Tabla", 
-                options=sorted(df["Tabla"].unique()),
-                default=sorted(df["Tabla"].unique())[:min(len(df["Tabla"].unique()), 5)]
-            )
+            # Vista previa de datasets por calidad
+            st.subheader("📈 Calidad de Datasets por Esquema")
+            calidad_esquema = df_stats.groupby('Esquema')['Calidad_General'].mean().reset_index()
+            st.bar_chart(calidad_esquema.set_index('Esquema'))
             
-            df_filtered = df[
-                (df["Esquema"].isin(esquemas_seleccionados)) &
-                (df["Tipo"].isin(tipos_seleccionados)) &
-                (df["Estado"].isin(estados_seleccionados)) &
-                (df["Tabla"].isin(tablas_seleccionadas))
-            ]
+            # Tabla resumen con clasificaciones
+            st.subheader("📋 Clasificación Automática de Datasets")
+            display_df = df[['Tabla', 'Esquema', 'Tipo', 'Dominio', 'Criticidad', 'Confidencialidad']].drop_duplicates('Tabla')
+            st.dataframe(display_df, use_container_width=True)
+
+        with tab_busqueda:
+            st.subheader("🔍 Búsqueda Avanzada de Datos")
             
+            # Barra de búsqueda
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                search_query = st.text_input("🔎 Buscar tablas, campos o descripciones...", placeholder="Ej: cliente, fecha, sentencia...")
+            with col2:
+                st.write("")
+                search_button = st.button("Buscar", type="primary")
+            
+            # Filtros avanzados
+            with st.expander("🎛️ Filtros Avanzados"):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    dominios_sel = st.multiselect("Dominio", options=DATA_TAXONOMY["Dominio"], default=DATA_TAXONOMY["Dominio"])
+                    criticidad_sel = st.multiselect("Criticidad", options=DATA_TAXONOMY["Criticialidad"], default=DATA_TAXONOMY["Criticialidad"])
+                
+                with col2:
+                    confidencialidad_sel = st.multiselect("Confidencialidad", options=DATA_TAXONOMY["Confidencialidad"], default=DATA_TAXONOMY["Confidencialidad"])
+                    esquemas_sel = st.multiselect("Esquema", options=sorted(df["Esquema"].unique()), default=sorted(df["Esquema"].unique()))
+            
+            # Ejecutar búsqueda
+            if search_query or search_button:
+                filters = {
+                    'Dominio': dominios_sel,
+                    'Criticidad': criticidad_sel,
+                    'Confidencialidad': confidencialidad_sel,
+                    'Esquema': esquemas_sel
+                }
+                
+                results = advanced_search(df, search_query, filters)
+                
+                if not results.empty:
+                    st.success(f"✅ Se encontraron {len(results)} resultados")
+                    
+                    # Mostrar resultados con scores
+                    if 'search_score' in results.columns:
+                        display_cols = ['Tabla', 'Campo', 'Descripción funcional', 'Dominio', 'search_score']
+                        display_results = results[display_cols].rename(columns={'search_score': 'Score'})
+                        st.dataframe(display_results, use_container_width=True)
+                    else:
+                        st.dataframe(results, use_container_width=True)
+                else:
+                    st.warning("❌ No se encontraron resultados para su búsqueda")
+            else:
+                st.info("💡 Ingrese un término de búsqueda o use los filtros para explorar los datos")
+
+        with tab_perfiles:
+            st.subheader("📊 Perfiles Detallados de Datasets")
+            
+            # Selector de dataset
+            tabla_sel = st.selectbox("📋 Seleccione un dataset para ver su perfil:", options=sorted(df["Tabla"].unique()))
+            
+            if tabla_sel:
+                tabla_data = df[df["Tabla"] == tabla_sel]
+                tabla_stat = df_stats[df_stats["Tabla"] == tabla_sel].iloc[0]
+                
+                # Información general
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("📊 Total Campos", tabla_stat['Total_Campos'])
+                with col2:
+                    st.metric("🔑 Claves Primarias", tabla_stat['Campos_PK'])
+                with col3:
+                    st.metric("⭐ Calidad General", f"{tabla_stat['Calidad_General']}/100")
+                
+                # Metadatos del dataset
+                st.subheader("📋 Metadatos del Dataset")
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write(f"**Esquema:** {tabla_stat['Esquema']}")
+                    st.write(f"**Tipo de Entidad:** {tabla_stat['Tipo_Entidad']}")
+                    st.write(f"**Última Actualización:** {tabla_stat['Ultima_Actualizacion']}")
+                
+                with col2:
+                    # Obtener dominio y dueño
+                    dominio = tabla_data['Dominio'].iloc[0]
+                    dueño = get_data_owner(dominio)
+                    st.write(f"**Dominio:** {dominio}")
+                    st.write(f"**Dueño del Dato:** {dueño}")
+                    st.write(f"**Frecuencia de Actualización:** {tabla_data['Frecuencia_Actualizacion'].iloc[0]}")
+                
+                # Campos detallados
+                st.subheader("📝 Detalle de Campos")
+                campos_display = tabla_data[['Campo', 'Tipo de Dato', 'Clave Primaria', 'Descripción funcional', 'Sensibilidad del Dato', 'Para qué sirve el campo']]
+                st.dataframe(campos_display, use_container_width=True)
+                
+                # Estadísticas de calidad
+                st.subheader("📈 Métricas de Calidad")
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    pk_ratio = (tabla_stat['Campos_PK'] / tabla_stat['Total_Campos']) * 100
+                    st.metric("🔑 % con PK", f"{pk_ratio:.1f}%")
+                with col2:
+                    doc_ratio = (tabla_data['Descripción funcional'].notna().sum() / len(tabla_data)) * 100
+                    st.metric("📄 % Documentado", f"{doc_ratio:.1f}%")
+                with col3:
+                    sens_types = tabla_data['Sensibilidad del Dato'].nunique()
+                    st.metric("🔒 Tipos de Sensibilidad", sens_types)
+                with col4:
+                    data_types = tabla_stat['Tipos_Datos']
+                    st.metric("💾 Tipos de Datos", data_types)
+
+        with tab_glosario:
+            st.subheader("📚 Glosario de Negocios")
+            
+            # Buscador de términos
+            term_search = st.text_input("🔍 Buscar término en glosario:", placeholder="Ej: cliente, expediente, sentencia...")
+            
+            if term_search:
+                definition = get_business_definition(term_search)
+                if "no encontrado" not in definition:
+                    st.success(f"✅ **{term_search.upper()}**: {definition}")
+                else:
+                    st.warning(definition)
+                    
+                    # Sugerir términos similares
+                    st.write("**Términos disponibles en el glosario:**")
+                    for term in sorted(BUSINESS_GLOSSARY.keys()):
+                        if term_search.upper() in term or term_search.lower() in term.lower():
+                            st.write(f"• {term}: {BUSINESS_GLOSSARY[term]}")
+            else:
+                st.info("💡 **Glosario de Negocios** - Definiciones estandarizadas para términos clave")
+                st.write("**Términos disponibles:**")
+                
+                # Mostrar todos los términos
+                cols = st.columns(2)
+                for i, (term, definition) in enumerate(sorted(BUSINESS_GLOSSARY.items())):
+                    with cols[i % 2]:
+                        with st.expander(f"📖 {term}"):
+                            st.write(definition)
+            
+            # Estadísticas del glosario
+            st.subheader("📊 Estadísticas del Glosario")
             col1, col2 = st.columns(2)
-            col1.metric("Total Tablas", df_filtered["Tabla"].nunique())
-            col2.metric("Total Campos", len(df_filtered))
-            
-            st.dataframe(df_filtered, use_container_width=True, height=600)
-            
-            csv = df_filtered.to_csv(index=False).encode('utf-8')
-            st.download_button("Descargar como CSV", csv, "metadatos.csv", "text/csv")
+            with col1:
+                st.metric("📝 Total Términos", len(BUSINESS_GLOSSARY))
+            with col2:
+                st.metric("🏢 Dominios Cubiertos", len(DATA_OWNERS))
 
         with tab_lineage:
             st.subheader("Mapa de Linaje Medallion y Relacional")
