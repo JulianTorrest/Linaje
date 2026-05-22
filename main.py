@@ -1263,12 +1263,12 @@ def validate_field_nomenclature(field_name, field_type):
     }
     
     # Identificar tipo de campo por nomenclatura
-    field_prefix, field_info = identify_field_type(field_name)
+    field_prefix, field_info = identify_field_type(field_name, field_type)
     results['tipo_campo'] = field_prefix
     results['tipo_recomendado'] = field_info['tipo_dato']
     
     # Verificar si cumple nomenclatura
-    if field_prefix != "UNKNOWN":
+    if field_prefix in FIELD_NOMENCLATURE:
         results['cumple_nomenclatura'] = True
     else:
         results['recomendaciones'].append('Usar prefijo estándar: ID_, CD_, NM_, DS_, FH_, VL_, TP_, FL_')
