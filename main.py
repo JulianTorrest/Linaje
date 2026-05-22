@@ -1493,7 +1493,7 @@ if content:
         ])
 
         with tab_catalogo:
-            st.subheader("Catálogo de Datos Centralizado")
+            st.subheader("Catalogo de Datos Centralizado")
             st.markdown("""
             **Bienvenido al Catálogo de Datos** - Descubra, explore y entienda sus activos de datos.
             *Navegue por las pestañas para acceder a diferentes funcionalidades del catálogo.*
@@ -1790,7 +1790,7 @@ if content:
                             st.write(f"**Estructura:** {info['estructura']}")
                         with col2:
                             # Buscar objetos asociados
-                            objetos_asociados = df[df['Tipo_Objeto'] == code]['Tabla'].nunique()
+                            tablas_asociadas = df[df['Tipo_Objeto'] == code]['Tabla'].nunique()
                             campos_asociados = len(df[df['Tipo_Objeto'] == code])
                             st.write(f"**Tablas:** {tablas_asociadas}")
                             st.write(f"**Campos:** {campos_asociados}")
@@ -2299,17 +2299,17 @@ if content:
             cols = st.columns(3)
             for i, (code, info) in enumerate(dominios_filtrados.items()):
                 with cols[i % 3]:
-                    with st.expander(f"🏢 {code} - {info['nombre']}"):
+                    with st.expander(f"{code} - {info['nombre']}"):
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.write(f"**📝 Tipo:** {info['tipo']}")
-                            st.write(f"**🎯 Nivel:** {info['nivel']}")
+                            st.write(f"**Tipo:** {info['tipo']}")
+                            st.write(f"**Nivel:** {info['nivel']}")
                         with col2:
                             # Buscar tablas asociadas
                             tablas_asociadas = df[df['Dominio_Org'] == code]['Tabla'].nunique()
                             campos_asociados = len(df[df['Dominio_Org'] == code])
-                            st.write(f"**📊 Tablas:** {tablas_asociadas}")
-                            st.write(f"**🔢 Campos:** {campos_asociados}")
+                            st.write(f"**Tablas:** {tablas_asociadas}")
+                            st.write(f"**Campos:** {campos_asociados}")
             
             # Análisis de cobertura
             st.subheader("📈 Análisis de Cobertura Organizacional")
