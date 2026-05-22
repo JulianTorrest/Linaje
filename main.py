@@ -1772,13 +1772,13 @@ if content:
                 
                 with col1:
                     st.subheader("Tablas por Estructura")
-                    estructura_counts = df_obj_stats['Estructura'].value_counts()
-                    st.bar_chart(estructura_counts)
+                    estructura_data = df_obj_stats.groupby('Estructura')['Total_Tablas'].sum()
+                    st.bar_chart(estructura_data)
                 
                 with col2:
                     st.subheader("Tablas por Tipo")
-                    tipo_counts = df_obj_stats['Tipo_Objeto'].value_counts()
-                    st.bar_chart(tipo_counts)
+                    tipo_data = df_obj_stats.set_index('Nombre')['Total_Tablas']
+                    st.bar_chart(tipo_data)
             
             # Catálogo completo de tipos de objetos
             st.subheader("Catalogo Completo de Tipos de Objetos")
