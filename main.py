@@ -1713,34 +1713,6 @@ if content:
             st.subheader("Asignacion de Productos por Tabla")
             product_assignment = df_with_products[['Tabla', 'Esquema', 'Tipo', 'Productos_Potenciales']].drop_duplicates('Tabla')
             st.dataframe(product_assignment, use_container_width=True)
-            
-            # Análisis de productos por tipo
-            st.subheader("Analisis de Productos por Tipo")
-            product_types = {}
-            for product_code, product_info in DATA_PRODUCTS.items():
-                tipo = product_info['tipo']
-                product_types[tipo] = product_types.get(tipo, 0) + 1
-            
-            if product_types:
-                st.bar_chart(product_types)
-            
-            # Filtros de productos
-            st.subheader("Explorar por Tipo de Producto")
-            selected_type = st.selectbox(
-                "Seleccione un tipo de producto para ver detalles:",
-                options=["Todos"] + list(set(p['tipo'] for p in DATA_PRODUCTS.values())),
-                index=0
-            )
-            
-            if selected_type != "Todos":
-                filtered_products = {k: v for k, v in DATA_PRODUCTS.items() if v['tipo'] == selected_type}
-                st.write(f"**{len(filtered_products)} productos de tipo '{selected_type}':**")
-                
-                for product_code, product_info in filtered_products.items():
-                    with st.expander(f"{product_code}"):
-                        st.write(f"**Descripción:** {product_info['descripcion']}")
-                        st.write(f"**Frecuencia:** {product_info['frecuencia']}")
-                        st.write(f"**Tecnología:** {product_info['tecnologia']}")
 
         with tab_objetos:
             st.subheader("Catalogo de Tipos de Objetos")
