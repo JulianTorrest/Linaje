@@ -27,7 +27,7 @@ BUSINESS_GLOSSARY = {
 # Taxonomías de clasificación
 DATA_TAXONOMY = {
     "Dominio": ["Jurídico", "Administrativo", "Geográfico", "Demográfico", "Financiero"],
-    "Criticialidad": ["Alta", "Media", "Baja"],
+    "Criticidad": ["Alta", "Media", "Baja"],
     "Confidencialidad": ["Público", "Interno", "Confidencial", "Secreto"],
     "Actualización": ["Diaria", "Semanal", "Mensual", "Trimestral", "Anual"]
 }
@@ -291,6 +291,20 @@ ORGANIZATIONAL_DOMAINS = {
     "DR-VAU": {"nombre": "Defensoría Regional Vaupés", "tipo": "Defensoría Regional", "nivel": "Bajo"},
     "DR-VIC": {"nombre": "Defensoría Regional Vichada", "tipo": "Defensoría Regional", "nivel": "Bajo"}
 }
+
+# Mapeo de prefijos/palabras clave de tablas a dominios organizacionales de la Defensoría
+# Esto ayuda a clasificar tablas de fuentes externas o temas específicos bajo una unidad interna.
+TABLE_PREFIX_TO_ORG_DOMAIN_MAPPING = {
+    "DANE": "CADDDH",      # Datos del DANE, usados para análisis por CADDDH
+    "FGN": "DD-VCAI",      # Datos de Fiscalía General de la Nación, relacionados con víctimas
+    "MDL": "CADDDH",       # Modelos/Módulos analíticos, gestionados por CADDDH
+    "UARIV": "DD-VCAI",    # Datos de la Unidad para las Víctimas, gestionados por DD-VCAI
+    "DPCFIO": "CADDDH",    # Proyectos específicos de casos FIO, analizados por CADDDH
+    "NOTICIAS": "DN-PYD",  # Monitoreo de medios, para Promoción y Divulgación
+    "FAUNA": "DD-DCA",     # Fauna Silvestre, para Derechos Colectivos y del Ambiente
+    "SENTENCIAS": "DN-RAJ" # Sentencias Judiciales, para Recursos y Acciones Judiciales
+}
+
 
 # Reglas generales de nombramiento para gobierno de datos
 NAMING_RULES = {
@@ -1533,7 +1547,7 @@ if content:
                 
                 with col1:
                     dominios_sel = st.multiselect("Dominio", options=DATA_TAXONOMY["Dominio"], default=DATA_TAXONOMY["Dominio"])
-                    criticidad_sel = st.multiselect("Criticidad", options=DATA_TAXONOMY["Criticialidad"], default=DATA_TAXONOMY["Criticialidad"])
+                    criticidad_sel = st.multiselect("Criticidad", options=DATA_TAXONOMY["Criticidad"], default=DATA_TAXONOMY["Criticidad"])
                 
                 with col2:
                     confidencialidad_sel = st.multiselect("Confidencialidad", options=DATA_TAXONOMY["Confidencialidad"], default=DATA_TAXONOMY["Confidencialidad"])
@@ -1983,8 +1997,8 @@ if content:
             
             with col2:
                 cumplimiento_promedio = governance_stats.get('cumplimiento_promedio', 0)
-                status_text = "Alto" if cumplimiento_promedio >= 80 else "Medio" if cumplimiento_promedio >= 60 else "Bajo"
-                st.metric(f"{status_text} Cumplimiento Promedio", f"{cumplimiento_promedio:.1f}%")
+                estado_texto = "Alto" if cumplimiento_promedio >= 80 else "Medio" if cumplimiento_promedio >= 60 else "Bajo"
+                st.metric(f"Cumplimiento Promedio ({estado_texto})", f"{cumplimiento_promedio:.1f}%")
             
             with col3:
                 calidad_general = "Excelente" if cumplimiento_promedio >= 90 else "Bueno" if cumplimiento_promedio >= 70 else "Regular" if cumplimiento_promedio >= 50 else "Requiere Mejora"
@@ -2312,12 +2326,12 @@ if content:
                             st.write(f"**Campos:** {campos_asociados}")
             
             # Análisis de cobertura
-            st.subheader("📈 Análisis de Cobertura Organizacional")
+            st.subheader("Analisis de Cobertura Organizacional")
             
             # Tablas sin clasificar
             sin_clasificar = df[df['Dominio_Org'] == 'SIN_DOMINIO']
             if not sin_clasificar.empty:
-                st.warning(f"⚠️ **{len(sin_clasificar)} campos sin clasificación organizacional**")
+                st.warning(f"**{len(sin_clasificar)} campos sin clasificacion organizacional**")
                 with st.expander("Ver tablas sin dominio asignado"):
                     tablas_sin_dom = sin_clasificar['Tabla'].unique()
                     for tabla in tablas_sin_dom[:10]:  # Limitar a 10
@@ -2326,7 +2340,7 @@ if content:
                         st.write(f"... y {len(tablas_sin_dom) - 10} más")
             
             # Mapa de dominios por esquema
-            st.subheader("🗺️ Distribución por Esquema y Dominio")
+            st.subheader("Distribucion por Esquema y Dominio")
             if not df_org_stats.empty:
                 # Crear matriz de dominios vs esquemas
                 pivot_data = df[df['Dominio_Org'] != 'SIN_DOMINIO'].pivot_table(
@@ -2357,7 +2371,7 @@ if content:
                         if term_search.upper() in term or term_search.lower() in term.lower():
                             st.write(f"• {term}: {BUSINESS_GLOSSARY[term]}")
             else:
-                st.info("**Glosario de Negocios** - Definiciones estandarizadas para terminos clave")
+                st.info("Glosario de Negocios - Definiciones estandarizadas para terminos clave")
                 st.write("**Términos disponibles:**")
                 
                 # Mostrar todos los términos
@@ -2481,6 +2495,14 @@ if content:
                 
                 for _, pk_row in pks_visibles.iterrows():
                     # Buscar dónde se usa esta columna en otras tablas visibles
+                    matches = df_display[(df_display["Campo"] == pk_row["Campo"]) & (df_display["Tabla"] != pk_row["Tabla"])]
+                    for _, match in matches.iterrows():
+                        schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
+                
+                st.graphviz_chart(schema_dot, use_container_width=True)
+
+    else:
+        st.warning("No se pudo extraer información. Verifica el formato del archivo.")
                     matches = df_display[(df_display["Campo"] == pk_row["Campo"]) & (df_display["Tabla"] != pk_row["Tabla"])]
                     for _, match in matches.iterrows():
                         schema_dot.edge(pk_row["Tabla"], match["Tabla"], label=pk_row["Campo"], color="#2E86C1", fontcolor="#1B4F72")
