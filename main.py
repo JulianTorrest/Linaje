@@ -1956,10 +1956,11 @@ if content:
             # Mostrar resultados
             if not df_campos_filtrado.empty:
                 for _, row in df_campos_filtrado.iterrows():
-                    with st.expander(f"{row['campo']} - {'SI' if row['cumple_nomenclatura'] and row['cumple_tipificacion'] else 'NO'}"):
+                    with st.expander(f"{row['Tabla']} > {row['campo']} - {'SI' if row['cumple_nomenclatura'] and row['cumple_tipificacion'] else 'NO'}"):
                         col1, col2 = st.columns(2)
                         
                         with col1:
+                            st.write(f"**Tabla:** {row['Tabla']}")
                             st.write(f"**Campo:** {row['campo']}")
                             st.write(f"**Tipo Actual:** {row['tipo_actual']}")
                             st.write(f"**Tipo Campo:** {row['tipo_campo']}")
