@@ -1440,9 +1440,9 @@ content = fetch_github_data(GITHUB_RAW_URL)
 # 2. Opción de carga manual (sobreescribe el de GitHub si se sube algo)
 with st.expander("Opciones de carga de datos"):
     if content:
-        st.success("✅ Datos cargados automáticamente desde GitHub.")
+        st.success("Datos cargados automáticamente desde GitHub.")
     else:
-        st.warning("⚠️ No se pudo cargar automáticamente desde GitHub.")
+        st.warning("No se pudo cargar automáticamente desde GitHub.")
         
     uploaded_file = st.file_uploader("Subir una versión local de 'Columnas Oracle.txt'", type=["txt"])
     if uploaded_file is not None:
@@ -1488,8 +1488,8 @@ if content:
     if not df.empty:
         # Crear pestañas para organizar la aplicación
         tab_catalogo, tab_busqueda, tab_perfiles, tab_productos, tab_objetos, tab_campos, tab_gobierno, tab_dominios, tab_glosario, tab_lineage, tab_schema = st.tabs([
-            "📋 Catálogo Central", "🔍 Búsqueda Avanzada", "📊 Perfiles de Datasets", 
-            "🏪 Catálogo de Productos", "🗃️ Tipos de Objetos", "🔍 Validación de Campos", "⚖️ Gobierno de Datos", "🏢 Dominios Org.", "📚 Glosario de Negocios", "🔗 Linaje de Datos", "📐 Modelo Dimensional"
+            "Catalogo Central", "Busqueda Avanzada", "Perfiles de Datasets", 
+            "Catalogo de Productos", "Tipos de Objetos", "Validacion de Campos", "Gobierno de Datos", "Dominios Org.", "Glosario de Negocios", "Linaje de Datos", "Modelo Dimensional"
         ])
 
         with tab_catalogo:
@@ -1501,34 +1501,34 @@ if content:
             
             # Métricas generales
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("📁 Total Tablas", df["Tabla"].nunique())
-            col2.metric("🔢 Total Campos", len(df))
-            col3.metric("🏷️ Dominios", df["Dominio"].nunique())
-            col4.metric("👥 Dueños", len(df_stats['Esquema'].unique()))
+            col1.metric("Total Tablas", df["Tabla"].nunique())
+            col2.metric("Total Campos", len(df))
+            col3.metric("Dominios", df["Dominio"].nunique())
+            col4.metric("Dueños", len(df_stats['Esquema'].unique()))
             
             # Vista previa de datasets por calidad
-            st.subheader("📈 Calidad de Datasets por Esquema")
+            st.subheader("Calidad de Datasets por Esquema")
             calidad_esquema = df_stats.groupby('Esquema')['Calidad_General'].mean().reset_index()
             st.bar_chart(calidad_esquema.set_index('Esquema'))
             
             # Tabla resumen con clasificaciones
-            st.subheader("📋 Clasificación Automática de Datasets")
+            st.subheader("Clasificacion Automatica de Datasets")
             display_df = df[['Tabla', 'Esquema', 'Tipo', 'Dominio', 'Criticidad', 'Confidencialidad']].drop_duplicates('Tabla')
             st.dataframe(display_df, use_container_width=True)
 
         with tab_busqueda:
-            st.subheader("🔍 Búsqueda Avanzada de Datos")
+            st.subheader("Busqueda Avanzada de Datos")
             
             # Barra de búsqueda
             col1, col2 = st.columns([3, 1])
             with col1:
-                search_query = st.text_input("🔎 Buscar tablas, campos o descripciones...", placeholder="Ej: cliente, fecha, sentencia...")
+                search_query = st.text_input("Buscar tablas, campos o descripciones...", placeholder="Ej: cliente, fecha, sentencia...")
             with col2:
                 st.write("")
                 search_button = st.button("Buscar", type="primary")
             
             # Filtros avanzados
-            with st.expander("🎛️ Filtros Avanzados"):
+            with st.expander("Filtros Avanzados"):
                 col1, col2, col3 = st.columns(3)
                 
                 with col1:
@@ -1557,7 +1557,7 @@ if content:
                 results = advanced_search(df, search_query, filters)
                 
                 if not results.empty:
-                    st.success(f"✅ Se encontraron {len(results)} resultados")
+                    st.success(f"Se encontraron {len(results)} resultados")
                     
                     # Mostrar resultados con scores
                     if 'search_score' in results.columns:
@@ -1567,15 +1567,15 @@ if content:
                     else:
                         st.dataframe(results, use_container_width=True)
                 else:
-                    st.warning("❌ No se encontraron resultados para su búsqueda")
+                    st.warning("No se encontraron resultados para su búsqueda")
             else:
-                st.info("💡 Ingrese un término de búsqueda o use los filtros para explorar los datos")
+                st.info("Ingrese un término de búsqueda o use los filtros para explorar los datos")
 
         with tab_perfiles:
-            st.subheader("📊 Perfiles Detallados de Datasets")
+            st.subheader("Perfiles Detallados de Datasets")
             
             # Selector de dataset
-            tabla_sel = st.selectbox("📋 Seleccione un dataset para ver su perfil:", options=sorted(df["Tabla"].unique()))
+            tabla_sel = st.selectbox("Seleccione un dataset para ver su perfil:", options=sorted(df["Tabla"].unique()))
             
             if tabla_sel:
                 tabla_data = df[df["Tabla"] == tabla_sel]
@@ -1584,14 +1584,14 @@ if content:
                 # Información general
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.metric("📊 Total Campos", tabla_stat['Total_Campos'])
+                    st.metric("Total Campos", tabla_stat['Total_Campos'])
                 with col2:
-                    st.metric("🔑 Claves Primarias", tabla_stat['Campos_PK'])
+                    st.metric("Claves Primarias", tabla_stat['Campos_PK'])
                 with col3:
-                    st.metric("⭐ Calidad General", f"{tabla_stat['Calidad_General']}/100")
+                    st.metric("Calidad General", f"{tabla_stat['Calidad_General']}/100")
                 
                 # Metadatos del dataset
-                st.subheader("📋 Metadatos del Dataset")
+                st.subheader("Metadatos del Dataset")
                 col1, col2 = st.columns(2)
                 
                 with col1:
@@ -1608,12 +1608,12 @@ if content:
                     st.write(f"**Frecuencia de Actualización:** {tabla_data['Frecuencia_Actualizacion'].iloc[0]}")
                 
                 # Campos detallados
-                st.subheader("📝 Detalle de Campos")
+                st.subheader("Detalle de Campos")
                 campos_display = tabla_data[['Campo', 'Tipo de Dato', 'Clave Primaria', 'Descripción funcional', 'Sensibilidad del Dato', 'Para qué sirve el campo']]
                 st.dataframe(campos_display, use_container_width=True)
                 
                 # Productos de datos potenciales
-                st.subheader("🏪 Productos de Datos Potenciales")
+                st.subheader("Productos de Datos Potenciales")
                 
                 # Verificar si la columna existe antes de usarla
                 if 'Productos_Potenciales' in tabla_data.columns:
@@ -1628,30 +1628,30 @@ if content:
                 for i, producto in enumerate(productos_lista):
                     with col1 if i % 2 == 0 else col2:
                         producto_info = get_product_details(producto.strip())
-                        with st.expander(f"🏷️ {producto.strip()} - {producto_info['nombre']}"):
-                            st.write(f"**📝 Descripción:** {producto_info['descripcion']}")
-                            st.write(f"**⏰ Frecuencia:** {producto_info['frecuencia']}")
-                            st.write(f"**💻 Tecnología:** {producto_info['tecnologia']}")
+                        with st.expander(f"{producto.strip()} - {producto_info['nombre']}"):
+                            st.write(f"**Descripcion:** {producto_info['descripcion']}")
+                            st.write(f"**Frecuencia:** {producto_info['frecuencia']}")
+                            st.write(f"**Tecnologia:** {producto_info['tecnologia']}")
                 
                 # Estadísticas de calidad
-                st.subheader("📈 Métricas de Calidad")
+                st.subheader("Metricas de Calidad")
                 col1, col2, col3, col4 = st.columns(4)
                 
                 with col1:
                     pk_ratio = (tabla_stat['Campos_PK'] / tabla_stat['Total_Campos']) * 100
-                    st.metric("🔑 % con PK", f"{pk_ratio:.1f}%")
+                    st.metric("% con PK", f"{pk_ratio:.1f}%")
                 with col2:
                     doc_ratio = (tabla_data['Descripción funcional'].notna().sum() / len(tabla_data)) * 100
-                    st.metric("📄 % Documentado", f"{doc_ratio:.1f}%")
+                    st.metric("% Documentado", f"{doc_ratio:.1f}%")
                 with col3:
                     sens_types = tabla_data['Sensibilidad del Dato'].nunique()
-                    st.metric("🔒 Tipos de Sensibilidad", sens_types)
+                    st.metric("Tipos de Sensibilidad", sens_types)
                 with col4:
                     data_types = tabla_stat['Tipos_Datos']
-                    st.metric("💾 Tipos de Datos", data_types)
+                    st.metric("Tipos de Datos", data_types)
 
         with tab_productos:
-            st.subheader("🏪 Catálogo de Productos de Datos")
+            st.subheader("Catalogo de Productos de Datos")
             st.markdown("""
             **Productos de Datos** - Transformación de datos brutos en productos de valor para el negocio.
             *Explore los diferentes tipos de productos que se pueden generar a partir de sus datasets.*
@@ -1662,26 +1662,26 @@ if content:
             
             # Métricas generales de productos
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("🏪 Total Productos", len(DATA_PRODUCTS))
-            col2.metric("📊 Tablas con Productos", df_with_products['Tabla'].nunique())
-            col3.metric("🔗 Productos por Tabla", f"{len(DATA_PRODUCTS) / max(df_with_products['Tabla'].nunique(), 1):.1f}")
-            col4.metric("📈 Tipos de Producto", len(set(p['tipo'] for p in DATA_PRODUCTS.values())))
+            col1.metric("Total Productos", len(DATA_PRODUCTS))
+            col2.metric("Tablas con Productos", df_with_products['Tabla'].nunique())
+            col3.metric("Productos por Tabla", f"{len(DATA_PRODUCTS) / max(df_with_products['Tabla'].nunique(), 1):.1f}")
+            col4.metric("Tipos de Producto", len(set(p['tipo'] for p in DATA_PRODUCTS.values())))
             
             # Catálogo de productos
-            st.subheader("📋 Catálogo Completo de Productos")
+            st.subheader("Catalogo Completo de Productos")
             
             for product_code, product_info in DATA_PRODUCTS.items():
-                with st.expander(f"🏷️ {product_code} - {product_info['nombre']}"):
+                with st.expander(f"{product_code} - {product_info['nombre']}"):
                     col1, col2 = st.columns(2)
                     
                     with col1:
-                        st.write(f"**📝 Descripción:** {product_info['descripcion']}")
-                        st.write(f"**🏷️ Tipo:** {product_info['tipo']}")
-                        st.write(f"**⏰ Frecuencia:** {product_info['frecuencia']}")
+                        st.write(f"**Descripcion:** {product_info['descripcion']}")
+                        st.write(f"**Tipo:** {product_info['tipo']}")
+                        st.write(f"**Frecuencia:** {product_info['frecuencia']}")
                     
                     with col2:
-                        st.write(f"**📄 Formato:** {product_info['formato']}")
-                        st.write(f"**💻 Tecnología:** {product_info['tecnologia']}")
+                        st.write(f"**Formato:** {product_info['formato']}")
+                        st.write(f"**Tecnologia:** {product_info['tecnologia']}")
                         
                         # Encontrar tablas que pueden generar este producto
                         related_tables = []
@@ -1691,17 +1691,17 @@ if content:
                                 related_tables.extend(tables_with_prefix[:3])  # Limitar a 3 ejemplos
                         
                         if related_tables:
-                            st.write("**📊 Tablas relacionadas:**")
+                            st.write("**Tablas relacionadas:**")
                             for table in related_tables:
                                 st.write(f"• {table}")
             
             # Tabla de asignación de productos
-            st.subheader("🔗 Asignación de Productos por Tabla")
+            st.subheader("Asignacion de Productos por Tabla")
             product_assignment = df_with_products[['Tabla', 'Esquema', 'Tipo', 'Productos_Potenciales']].drop_duplicates('Tabla')
             st.dataframe(product_assignment, use_container_width=True)
             
             # Análisis de productos por tipo
-            st.subheader("📊 Análisis de Productos por Tipo")
+            st.subheader("Analisis de Productos por Tipo")
             product_types = {}
             for product_code, product_info in DATA_PRODUCTS.items():
                 tipo = product_info['tipo']
@@ -1711,7 +1711,7 @@ if content:
                 st.bar_chart(product_types)
             
             # Filtros de productos
-            st.subheader("🎛️ Explorar por Tipo de Producto")
+            st.subheader("Explorar por Tipo de Producto")
             selected_type = st.selectbox(
                 "Seleccione un tipo de producto para ver detalles:",
                 options=["Todos"] + list(set(p['tipo'] for p in DATA_PRODUCTS.values())),
@@ -1723,13 +1723,13 @@ if content:
                 st.write(f"**{len(filtered_products)} productos de tipo '{selected_type}':**")
                 
                 for product_code, product_info in filtered_products.items():
-                    with st.expander(f"🏷️ {product_code}"):
+                    with st.expander(f"{product_code}"):
                         st.write(f"**Descripción:** {product_info['descripcion']}")
                         st.write(f"**Frecuencia:** {product_info['frecuencia']}")
                         st.write(f"**Tecnología:** {product_info['tecnologia']}")
 
         with tab_objetos:
-            st.subheader("🗃️ Catálogo de Tipos de Objetos")
+            st.subheader("Catalogo de Tipos de Objetos")
             st.markdown("""
             **Tipos de Objetos de BD** - Clasificación técnica según estructura y función.
             *Explore los diferentes tipos de objetos y su distribución en la arquitectura.*
@@ -1737,14 +1737,14 @@ if content:
             
             # Métricas de objetos
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("🗃️ Total Tipos", len(OBJECT_TYPES))
-            col2.metric("📊 Objetos Clasificados", len(df[df['Tipo_Objeto'] != 'SIN_TIPO']))
-            col3.metric("📈 Tipos con Datos", df_obj_stats['Tipo_Objeto'].nunique() if not df_obj_stats.empty else 0)
-            col4.metric("🎯 Cobertura Técnica", f"{len(df[df['Tipo_Objeto'] != 'SIN_TIPO']) / max(len(df), 1) * 100:.1f}%")
+            col1.metric("Total Tipos", len(OBJECT_TYPES))
+            col2.metric("Objetos Clasificados", len(df[df['Tipo_Objeto'] != 'SIN_TIPO']))
+            col3.metric("Tipos con Datos", df_obj_stats['Tipo_Objeto'].nunique() if not df_obj_stats.empty else 0)
+            col4.metric("Cobertura Tecnica", f"{len(df[df['Tipo_Objeto'] != 'SIN_TIPO']) / max(len(df), 1) * 100:.1f}%")
             
             # Estadísticas por tipo de objeto
             if not df_obj_stats.empty:
-                st.subheader("📊 Estadísticas por Tipo de Objeto")
+                st.subheader("Estadisticas por Tipo de Objeto")
                 
                 # Tabla de estadísticas
                 display_cols = ['Tipo_Objeto', 'Nombre', 'Estructura', 'Total_Tablas', 'Total_Campos']
@@ -1754,17 +1754,17 @@ if content:
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    st.subheader("📈 Tablas por Estructura")
+                    st.subheader("Tablas por Estructura")
                     estructura_counts = df_obj_stats['Estructura'].value_counts()
                     st.bar_chart(estructura_counts)
                 
                 with col2:
-                    st.subheader("🎯 Tablas por Tipo")
+                    st.subheader("Tablas por Tipo")
                     tipo_counts = df_obj_stats['Tipo_Objeto'].value_counts()
                     st.bar_chart(tipo_counts)
             
             # Catálogo completo de tipos de objetos
-            st.subheader("📋 Catálogo Completo de Tipos de Objetos")
+            st.subheader("Catalogo Completo de Tipos de Objetos")
             
             # Filtros por estructura
             estructura_sel = st.selectbox(
@@ -1783,24 +1783,24 @@ if content:
             cols = st.columns(3)
             for i, (code, info) in enumerate(objetos_filtrados.items()):
                 with cols[i % 3]:
-                    with st.expander(f"🗃️ {code} - {info['nombre']}"):
+                    with st.expander(f"{code} - {info['nombre']}"):
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.write(f"**📝 Descripción:** {info['descripcion']}")
-                            st.write(f"**🏗️ Estructura:** {info['estructura']}")
+                            st.write(f"**Descripcion:** {info['descripcion']}")
+                            st.write(f"**Estructura:** {info['estructura']}")
                         with col2:
                             # Buscar objetos asociados
                             objetos_asociados = df[df['Tipo_Objeto'] == code]['Tabla'].nunique()
                             campos_asociados = len(df[df['Tipo_Objeto'] == code])
-                            st.write(f"**📊 Tablas:** {objetos_asociados}")
-                            st.write(f"**🔢 Campos:** {campos_asociados}")
+                            st.write(f"**Tablas:** {tablas_asociadas}")
+                            st.write(f"**Campos:** {campos_asociados}")
                         
-                        st.write(f"**🏢 Capas Aplicables:** {', '.join(info['capas'])}")
-                        st.write(f"**📝 Ejemplo:** `{info['ejemplo']}`")
-                        st.write(f"**💡 Observaciones:** {info['observaciones']}")
+                        st.write(f"**Capas Aplicables:** {', '.join(info['capas'])}")
+                        st.write(f"**Ejemplo:** `{info['ejemplo']}`")
+                        st.write(f"**Observaciones:** {info['observaciones']}")
             
             # Análisis por capas
-            st.subheader("🏗️ Distribución por Capas Arquitectónicas")
+            st.subheader("Distribucion por Capas Arquitectonicas")
             
             # Contar objetos por capa
             capa_counts = {'Bronce': 0, 'Plata': 0, 'Oro': 0}
@@ -1810,20 +1810,20 @@ if content:
             
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("🟫 Objetos en Bronce", capa_counts['Bronce'])
+                st.metric("Objetos en Bronce", capa_counts['Bronce'])
             with col2:
-                st.metric("🟩 Objetos en Plata", capa_counts['Plata'])
+                st.metric("Objetos en Plata", capa_counts['Plata'])
             with col3:
-                st.metric("🟨 Objetos en Oro", capa_counts['Oro'])
+                st.metric("Objetos en Oro", capa_counts['Oro'])
             
             # Matriz de tipos vs capas
-            st.subheader("🗺️ Matriz de Tipos por Capa")
+            st.subheader("Matriz de Tipos por Capa")
             
             matriz_data = []
             for obj_code, obj_info in OBJECT_TYPES.items():
                 row = {'Tipo_Objeto': obj_code, 'Nombre': obj_info['nombre']}
                 for capa in ['Bronce', 'Plata', 'Oro']:
-                    row[capa] = '✅' if capa in obj_info['capas'] else '❌'
+                    row[capa] = 'SI' if capa in obj_info['capas'] else 'NO'
                 matriz_data.append(row)
             
             matriz_df = pd.DataFrame(matriz_data)
@@ -1832,7 +1832,7 @@ if content:
             # Objetos sin clasificar
             sin_clasificar_obj = df[df['Tipo_Objeto'] == 'SIN_TIPO'] if 'SIN_TIPO' in df['Tipo_Objeto'].values else pd.DataFrame()
             if not sin_clasificar_obj.empty:
-                st.warning(f"⚠️ **{len(sin_clasificar_obj)} objetos sin clasificación técnica**")
+                st.warning(f"**{len(sin_clasificar_obj)} objetos sin clasificacion tecnica**")
                 with st.expander("Ver objetos sin tipo asignado"):
                     tablas_sin_tipo = sin_clasificar_obj['Tabla'].unique()
                     for tabla in tablas_sin_tipo[:10]:
@@ -1841,7 +1841,7 @@ if content:
                         st.write(f"... y {len(tablas_sin_tipo) - 10} más")
 
         with tab_campos:
-            st.subheader("🔍 Validación de Nomenclatura y Tipificación de Campos")
+            st.subheader("Validacion de Nomenclatura y Tipificacion de Campos")
             st.markdown("""
             **Control de Calidad de Campos** - Validación de nomenclatura y tipos de datos.
             *Asegure que cada campo sigue los estándares definidos de nomenclatura y tipificación.*
@@ -1849,13 +1849,13 @@ if content:
             
             # Métricas generales de campos
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("📊 Total Campos", field_general_stats.get('total_campos', 0))
-            col2.metric("✅ Cumplen Nomenclatura", field_general_stats.get('cumplen_nomenclatura', 0))
-            col3.metric("✅ Cumplen Tipificación", field_general_stats.get('cumplen_tipificacion', 0))
-            col4.metric("❌ Sin Clasificar", field_general_stats.get('campos_sin_clasificar', 0))
+            col1.metric("Total Campos", field_general_stats.get('total_campos', 0))
+            col2.metric("Cumplen Nomenclatura", field_general_stats.get('cumplen_nomenclatura', 0))
+            col3.metric("Cumplen Tipificacion", field_general_stats.get('cumplen_tipificacion', 0))
+            col4.metric("Sin Clasificar", field_general_stats.get('campos_sin_clasificar', 0))
             
             # Análisis por tipo de campo
-            st.subheader("📋 Análisis por Tipo de Campo")
+            st.subheader("Analisis por Tipo de Campo")
             
             if field_type_stats:
                 type_data = []
@@ -1874,18 +1874,18 @@ if content:
                 st.dataframe(type_df, use_container_width=True)
             
             # Problemas comunes
-            st.subheader("🚨 Problemas Comunes Identificados")
+            st.subheader("Problemas Comunes Identificados")
             
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("❌ Campos sin Prefijo", field_issue_stats.get('campos_sin_prefijo', 0))
+                st.metric("Campos sin Prefijo", field_issue_stats.get('campos_sin_prefijo', 0))
             with col2:
-                st.metric("⚠️ Tipificación Incorrecta", field_issue_stats.get('tipificacion_incorrecta', 0))
+                st.metric("Tipificacion Incorrecta", field_issue_stats.get('tipificacion_incorrecta', 0))
             with col3:
-                st.metric("🔥 Problemas Críticos", field_issue_stats.get('problemas_criticos', 0))
+                st.metric("Problemas Criticos", field_issue_stats.get('problemas_criticos', 0))
             
             # Validación detallada por campo
-            st.subheader("🔍 Análisis Detallado por Campo")
+            st.subheader("Analisis Detallado por Campo")
             
             # Filtros
             col1, col2 = st.columns(2)
@@ -1919,32 +1919,32 @@ if content:
             # Mostrar resultados
             if not df_campos_filtrado.empty:
                 for _, row in df_campos_filtrado.iterrows():
-                    with st.expander(f"🔍 {row['campo']} - {'✅' if row['cumple_nomenclatura'] and row['cumple_tipificacion'] else '❌'}"):
+                    with st.expander(f"{row['campo']} - {'SI' if row['cumple_nomenclatura'] and row['cumple_tipificacion'] else 'NO'}"):
                         col1, col2 = st.columns(2)
                         
                         with col1:
-                            st.write(f"**📝 Campo:** {row['campo']}")
-                            st.write(f"**🔤 Tipo Actual:** {row['tipo_actual']}")
-                            st.write(f"**🏷️ Tipo Campo:** {row['tipo_campo']}")
+                            st.write(f"**Campo:** {row['campo']}")
+                            st.write(f"**Tipo Actual:** {row['tipo_actual']}")
+                            st.write(f"**Tipo Campo:** {row['tipo_campo']}")
                         
                         with col2:
-                            st.write(f"**✅ Nomenclatura:** {'Sí' if row['cumple_nomenclatura'] else 'No'}")
-                            st.write(f"**✅ Tipificación:** {'Sí' if row['cumple_tipificacion'] else 'No'}")
-                            st.write(f"**🎯 Tipo Recomendado:** {row['tipo_recomendado']}")
+                            st.write(f"**Nomenclatura:** {'SI' if row['cumple_nomenclatura'] else 'NO'}")
+                            st.write(f"**Tipificacion:** {'SI' if row['cumple_tipificacion'] else 'NO'}")
+                            st.write(f"**Tipo Recomendado:** {row['tipo_recomendado']}")
                         
                         # Recomendaciones
                         if row['recomendaciones']:
-                            st.write("**💡 Recomendaciones:**")
+                            st.write("**Recomendaciones:**")
                             for rec in row['recomendaciones']:
                                 st.write(f"• {rec}")
             else:
                 st.info("No hay campos que coincidan con los filtros seleccionados")
             
             # Catálogo de tipos de campos
-            st.subheader("📚 Catálogo de Tipos de Campos Gobernados")
+            st.subheader("Catalogo de Tipos de Campos Gobernados")
             
             for field_type, field_info in FIELD_NOMENCLATURE.items():
-                with st.expander(f"🏷️ {field_type} - {field_info['descripcion']}"):
+                with st.expander(f"{field_type} - {field_info['descripcion']}"):
                     col1, col2 = st.columns(2)
                     with col1:
                         st.write(f"**📝 Patrón:** {field_info['patron']}")
@@ -1957,10 +1957,10 @@ if content:
                     
                     # Estadísticas de uso
                     campos_tipo = df_fields[df_fields['tipo_campo'] == field_type]
-                    st.write(f"**📊 Uso Actual:** {len(campos_tipo)} campos")
+                    st.write(f"**Uso Actual:** {len(campos_tipo)} campos")
 
         with tab_gobierno:
-            st.subheader("⚖️ Gobierno de Datos - Validación de Nombramiento")
+            st.subheader("Gobierno de Datos - Validacion de Nombramiento")
             st.markdown("""
             **Control de Calidad de Nomenclatura** - Verificación del cumplimiento de reglas de gobierno.
             *Asegure consistencia y estándares en el nombramiento de objetos de datos.*
@@ -1968,30 +1968,30 @@ if content:
             
             # Métricas generales de gobierno
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("📊 Total Tablas", governance_stats.get('total_tablas', 0))
-            col2.metric("✅ Cumplen 100%", governance_stats.get('tablas_cumplen', 0))
-            col3.metric("⚠️ Cumplen Parcial", governance_stats.get('tablas_parciales', 0))
-            col4.metric("❌ No Cumplen", governance_stats.get('tablas_no_cumplen', 0))
+            col1.metric("Total Tablas", governance_stats.get('total_tablas', 0))
+            col2.metric("Cumplen 100%", governance_stats.get('tablas_cumplen', 0))
+            col3.metric("Cumplen Parcial", governance_stats.get('tablas_parciales', 0))
+            col4.metric("No Cumplen", governance_stats.get('tablas_no_cumplen', 0))
             
             # Puntaje general de gobierno
-            st.subheader("📈 Índice de Madurez de Gobierno")
+            st.subheader("Indice de Madurez de Gobierno")
             col1, col2, col3 = st.columns(3)
             
             with col1:
                 puntaje_promedio = governance_stats.get('puntaje_promedio', 0)
-                st.metric("🎯 Puntaje Promedio", f"{puntaje_promedio:.1f}/6.0")
+                st.metric("Puntaje Promedio", f"{puntaje_promedio:.1f}/6.0")
             
             with col2:
                 cumplimiento_promedio = governance_stats.get('cumplimiento_promedio', 0)
-                color = "🟢" if cumplimiento_promedio >= 80 else "🟡" if cumplimiento_promedio >= 60 else "🔴"
-                st.metric(f"{color} Cumplimiento Promedio", f"{cumplimiento_promedio:.1f}%")
+                status_text = "Alto" if cumplimiento_promedio >= 80 else "Medio" if cumplimiento_promedio >= 60 else "Bajo"
+                st.metric(f"{status_text} Cumplimiento Promedio", f"{cumplimiento_promedio:.1f}%")
             
             with col3:
                 calidad_general = "Excelente" if cumplimiento_promedio >= 90 else "Bueno" if cumplimiento_promedio >= 70 else "Regular" if cumplimiento_promedio >= 50 else "Requiere Mejora"
-                st.metric("📊 Calidad General", calidad_general)
+                st.metric("Calidad General", calidad_general)
             
             # Análisis por regla
-            st.subheader("📋 Cumplimiento por Regla de Nombramiento")
+            st.subheader("Cumplimiento por Regla de Nombramiento")
             
             if rule_stats:
                 # Crear tabla de reglas
@@ -2004,19 +2004,19 @@ if content:
                         'Cumplen': stats['cumplen'],
                         'Violan': stats['violan'],
                         '% Cumplimiento': f"{stats['porcentaje_cumplimiento']:.1f}%",
-                        'Estado': '✅' if stats['porcentaje_cumplimiento'] >= 90 else '⚠️' if stats['porcentaje_cumplimiento'] >= 70 else '❌'
+                        'Estado': 'CUMPLE' if stats['porcentaje_cumplimiento'] >= 90 else 'PARCIAL' if stats['porcentaje_cumplimiento'] >= 70 else 'NO CUMPLE'
                     })
                 
                 rule_df = pd.DataFrame(rule_data)
                 st.dataframe(rule_df, use_container_width=True)
                 
                 # Gráfico de cumplimiento por regla
-                st.subheader("📊 Visualización de Cumplimiento")
+                st.subheader("Visualizacion de Cumplimiento")
                 rule_chart_data = {stats['nombre']: stats['porcentaje_cumplimiento'] for stats in rule_stats.values()}
                 st.bar_chart(rule_chart_data)
             
             # Validación detallada por tabla
-            st.subheader("🔍 Análisis Detallado por Tabla")
+            st.subheader("Analisis Detallado por Tabla")
             
             # Filtros
             col1, col2 = st.columns(2)
@@ -2055,59 +2055,59 @@ if content:
             # Mostrar resultados
             if not df_filtrado.empty:
                 for _, row in df_filtrado.iterrows():
-                    with st.expander(f"📋 {row['tabla']} - {row['porcentaje_cumplimiento']:.1f}%"):
+                    with st.expander(f"{row['tabla']} - {row['porcentaje_cumplimiento']:.1f}%"):
                         col1, col2 = st.columns(2)
                         
                         with col1:
-                            st.write(f"**🎯 Puntaje:** {row['puntaje_gobierno']}/6")
-                            st.write(f"**✅ Reglas Cumplidas:** {len(row['reglas_cumplidas'])}")
-                            st.write(f"**❌ Reglas Violadas:** {len(row['reglas_violadas'])}")
+                            st.write(f"**Puntaje:** {row['puntaje_gobierno']}/6")
+                            st.write(f"**Reglas Cumplidas:** {len(row['reglas_cumplidas'])}")
+                            st.write(f"**Reglas Violadas:** {len(row['reglas_violadas'])}")
                         
                         with col2:
                             # Estado visual
                             if row['porcentaje_cumplimiento'] == 100:
-                                st.success("✅ Cumple todas las reglas")
+                                st.success("Cumple todas las reglas")
                             elif row['porcentaje_cumplimiento'] >= 70:
-                                st.warning("⚠️ Cumple parcialmente")
+                                st.warning("Cumple parcialmente")
                             else:
-                                st.error("❌ Requiere corrección")
+                                st.error("Requiere correccion")
                         
                         # Detalles de reglas
                         if row['reglas_violadas']:
-                            st.write("**🚨 Reglas Violadas:**")
+                            st.write("**Reglas Violadas:**")
                             for rule_code in row['reglas_violadas']:
                                 rule_info = NAMING_RULES[rule_code]
-                                st.write(f"• ❌ {rule_info['nombre']}: {rule_info['descripcion']}")
+                                st.write(f"• {rule_info['nombre']}: {rule_info['descripcion']}")
                         
                         if row['recomendaciones']:
-                            st.write("**💡 Recomendaciones:**")
+                            st.write("**Recomendaciones:**")
                             for rec in row['recomendaciones']:
                                 st.write(f"• {rec}")
             else:
                 st.info("No hay tablas que coincidan con los filtros seleccionados")
             
             # Reglas de nombramiento
-            st.subheader("📚 Reglas de Nombramiento Definidas")
+            st.subheader("Reglas de Nombramiento Definidas")
             
             for rule_code, rule_info in NAMING_RULES.items():
-                with st.expander(f"📖 {rule_code}: {rule_info['nombre']}"):
+                with st.expander(f"{rule_code}: {rule_info['nombre']}"):
                     col1, col2 = st.columns(2)
                     with col1:
                         st.write(f"**📝 Descripción:** {rule_info['descripcion']}")
-                        st.write(f"**✅ Ejemplo Correcto:** `{rule_info['ejemplo_correcto']}`")
+                        st.write(f"**Ejemplo Correcto:** `{rule_info['ejemplo_correcto']}`")
                     with col2:
-                        st.write(f"**❌ Ejemplo Incorrecto:** `{rule_info['ejemplo_incorrecto']}`")
+                        st.write(f"**Ejemplo Incorrecto:** `{rule_info['ejemplo_incorrecto']}`")
                         
                         # Estadísticas de esta regla
                         if rule_code in rule_stats:
                             stats = rule_stats[rule_code]
-                            st.write(f"**📊 Estadísticas:**")
+                            st.write(f"**Estadisticas:**")
                             st.write(f"• Cumplen: {stats['cumplen']}")
                             st.write(f"• Violan: {stats['violan']}")
                             st.write(f"• % Cumplimiento: {stats['porcentaje_cumplimiento']:.1f}%")
             
             # Validación de Patrones de Nomenclatura por Capa
-            st.subheader("🏗️ Patrones de Nomenclatura por Capa")
+            st.subheader("Patrones de Nomenclatura por Capa")
             st.markdown("""
             **Validación de Patrones Arquitectónicos** - Verificación de cumplimiento de patrones por capa.
             *Asegure que cada objeto sigue la estructura definida para su capa arquitectónica.*
@@ -2115,13 +2115,13 @@ if content:
             
             # Métricas generales de patrones
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("📊 Total Objetos", pattern_general_stats.get('total_objetos', 0))
-            col2.metric("✅ Cumplen Patrón", pattern_general_stats.get('cumplen_patron', 0))
-            col3.metric("❌ No Cumplen", pattern_general_stats.get('no_cumplen_patron', 0))
-            col4.metric("📈 % Cumplimiento", f"{pattern_general_stats.get('porcentaje_cumplimiento', 0):.1f}%")
+            col1.metric("Total Objetos", pattern_general_stats.get('total_objetos', 0))
+            col2.metric("Cumplen Patron", pattern_general_stats.get('cumplen_patron', 0))
+            col3.metric("No Cumplen", pattern_general_stats.get('no_cumplen_patron', 0))
+            col4.metric("% Cumplimiento", f"{pattern_general_stats.get('porcentaje_cumplimiento', 0):.1f}%")
             
             # Análisis por capa
-            st.subheader("📊 Cumplimiento por Capa Arquitectónica")
+            st.subheader("Cumplimiento por Capa Arquitectonica")
             
             if pattern_layer_stats:
                 layer_data = []
@@ -2132,19 +2132,19 @@ if content:
                         'Cumplen Patrón': stats['cumplen_patron'],
                         'No Cumplen': stats['no_cumplen_patron'],
                         '% Cumplimiento': f"{stats['porcentaje_cumplimiento']:.1f}%",
-                        'Estado': '✅' if stats['porcentaje_cumplimiento'] >= 80 else '⚠️' if stats['porcentaje_cumplimiento'] >= 60 else '❌'
+                        'Estado': 'CUMPLE' if stats['porcentaje_cumplimiento'] >= 80 else 'PARCIAL' if stats['porcentaje_cumplimiento'] >= 60 else 'NO CUMPLE'
                     })
                 
                 layer_df = pd.DataFrame(layer_data)
                 st.dataframe(layer_df, use_container_width=True)
                 
                 # Gráfico de cumplimiento por capa
-                st.subheader("📈 Visualización por Capa")
+                st.subheader("Visualizacion por Capa")
                 layer_chart_data = {layer: stats['porcentaje_cumplimiento'] for layer, stats in pattern_layer_stats.items()}
                 st.bar_chart(layer_chart_data)
             
             # Análisis por tipo de objeto
-            st.subheader("🗃️ Cumplimiento por Tipo de Objeto")
+            st.subheader("Cumplimiento por Tipo de Objeto")
             
             if pattern_object_stats:
                 object_data = []
@@ -2161,7 +2161,7 @@ if content:
                 st.dataframe(object_df, use_container_width=True)
             
             # Validación detallada por objeto
-            st.subheader("🔍 Análisis Detallado de Patrones")
+            st.subheader("Analisis Detallado de Patrones")
             
             # Filtros
             col1, col2 = st.columns(2)
@@ -2193,40 +2193,40 @@ if content:
             # Mostrar resultados
             if not df_pat_filtrado.empty:
                 for _, row in df_pat_filtrado.iterrows():
-                    with st.expander(f"🏗️ {row['tabla']} ({row['capa']}) - {'✅' if row['cumple_patron'] else '❌'}"):
+                    with st.expander(f"{row['tabla']} ({row['capa']}) - {'SI' if row['cumple_patron'] else 'NO'}"):
                         col1, col2 = st.columns(2)
                         
                         with col1:
-                            st.write(f"**📊 Capa:** {row['capa']}")
-                            st.write(f"**🗃️ Tipo Objeto:** {row['tipo_objeto']}")
-                            st.write(f"**✅ Cumple Patrón:** {'Sí' if row['cumple_patron'] else 'No'}")
+                            st.write(f"**Capa:** {row['capa']}")
+                            st.write(f"**Tipo Objeto:** {row['tipo_objeto']}")
+                            st.write(f"**Cumple Patron:** {'SI' if row['cumple_patron'] else 'NO'}")
                         
                         with col2:
                             if row['cumple_patron']:
-                                st.success(f"✅ Patrón: {row['patron_cumplido']}")
+                                st.success(f"Patron: {row['patron_cumplido']}")
                             else:
-                                st.error("❌ No cumple ningún patrón aplicable")
+                                st.error("No cumple ningun patron aplicable")
                         
                         # Patrones aplicables
                         if row['patrones_aplicables']:
-                            st.write("**🎯 Patrones Aplicables:**")
+                            st.write("**Patrones Aplicables:**")
                             for pattern in row['patrones_aplicables']:
                                 pattern_info = LAYER_NAMING_PATTERNS.get(row['capa'], {}).get(pattern, {})
                                 st.write(f"• {pattern}: {pattern_info.get('descripcion', 'Sin descripción')}")
                         
                         # Recomendaciones
                         if row['recomendaciones_patron']:
-                            st.write("**💡 Recomendaciones:**")
+                            st.write("**Recomendaciones:**")
                             for rec in row['recomendaciones_patron']:
                                 st.write(f"• {rec}")
             else:
                 st.info("No hay objetos que coincidan con los filtros seleccionados")
             
             # Catálogo de patrones por capa
-            st.subheader("📚 Catálogo de Patrones por Capa")
+            st.subheader("Catalogo de Patrones por Capa")
             
             for layer, patterns in LAYER_NAMING_PATTERNS.items():
-                with st.expander(f"🏗️ {layer} - {len(patterns)} patrones definidos"):
+                with st.expander(f"{layer} - {len(patterns)} patrones definidos"):
                     for pattern_name, pattern_info in patterns.items():
                         col1, col2 = st.columns(2)
                         with col1:
@@ -2235,17 +2235,17 @@ if content:
                             st.write(f"**🎯 Aplica Para:** {pattern_info['aplica_para']}")
                         with col2:
                             st.write(f"**🔤 Expresión:** `{pattern_info['patron']}`")
-                            st.write(f"**✅ Ejemplos:**")
+                            st.write(f"**Ejemplos:**")
                             for ejemplo in pattern_info['ejemplos']:
                                 st.write(f"• `{ejemplo}`")
                         
                         # Estadísticas de este patrón
                         pattern_usage = sum(1 for _, row in df_patterns.iterrows() 
                                           if row['patron_cumplido'] == pattern_name)
-                        st.write(f"**📊 Uso Actual:** {pattern_usage} objetos")
+                        st.write(f"**Uso Actual:** {pattern_usage} objetos")
 
         with tab_dominios:
-            st.subheader("🏢 Dominios Organizacionales")
+            st.subheader("Dominios Organizacionales")
             st.markdown("""
             **Dominios de la Defensoría** - Clasificación de datos según estructura organizacional.
             *Explore cómo se distribuyen los datos por despachos, direcciones y defensorías.*
@@ -2253,14 +2253,14 @@ if content:
             
             # Métricas organizacionales
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("🏢 Total Dominios", len(ORGANIZATIONAL_DOMAINS))
-            col2.metric("📊 Tablas Clasificadas", len(df[df['Dominio_Org'] != 'SIN_DOMINIO']))
-            col3.metric("📈 Dominios con Datos", df_org_stats['Dominio'].nunique() if not df_org_stats.empty else 0)
-            col4.metric("🗺️ Cobertura Org.", f"{len(df[df['Dominio_Org'] != 'SIN_DOMINIO']) / max(len(df), 1) * 100:.1f}%")
+            col1.metric("Total Dominios", len(ORGANIZATIONAL_DOMAINS))
+            col2.metric("Tablas Clasificadas", len(df[df['Dominio_Org'] != 'SIN_DOMINIO']))
+            col3.metric("Dominios con Datos", df_org_stats['Dominio'].nunique() if not df_org_stats.empty else 0)
+            col4.metric("Cobertura Org.", f"{len(df[df['Dominio_Org'] != 'SIN_DOMINIO']) / max(len(df), 1) * 100:.1f}%")
             
             # Estadísticas por dominio
             if not df_org_stats.empty:
-                st.subheader("📊 Estadísticas por Dominio Organizacional")
+                st.subheader("Estadisticas por Dominio Organizacional")
                 
                 # Tabla de estadísticas
                 display_cols = ['Dominio', 'Nombre', 'Tipo', 'Nivel', 'Total_Tablas', 'Total_Campos']
@@ -2270,17 +2270,17 @@ if content:
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    st.subheader("📈 Tablas por Tipo de Org")
+                    st.subheader("Tablas por Tipo de Org")
                     tipo_counts = df_org_stats['Tipo'].value_counts()
                     st.bar_chart(tipo_counts)
                 
                 with col2:
-                    st.subheader("🎯 Tablas por Nivel")
+                    st.subheader("Tablas por Nivel")
                     nivel_counts = df_org_stats['Nivel'].value_counts()
                     st.bar_chart(nivel_counts)
             
             # Catálogo completo de dominios
-            st.subheader("📋 Catálogo Completo de Dominios")
+            st.subheader("Catalogo Completo de Dominios")
             
             # Filtros por tipo de organización
             tipo_org_sel = st.selectbox(
@@ -2339,15 +2339,15 @@ if content:
                 st.dataframe(pivot_data, use_container_width=True)
 
         with tab_glosario:
-            st.subheader("📚 Glosario de Negocios")
+            st.subheader("Glosario de Negocios")
             
             # Buscador de términos
-            term_search = st.text_input("🔍 Buscar término en glosario:", placeholder="Ej: cliente, expediente, sentencia...")
+            term_search = st.text_input("Buscar termino en glosario:", placeholder="Ej: cliente, expediente, sentencia...")
             
             if term_search:
                 definition = get_business_definition(term_search)
                 if "no encontrado" not in definition:
-                    st.success(f"✅ **{term_search.upper()}**: {definition}")
+                    st.success(f"**{term_search.upper()}**: {definition}")
                 else:
                     st.warning(definition)
                     
@@ -2357,23 +2357,23 @@ if content:
                         if term_search.upper() in term or term_search.lower() in term.lower():
                             st.write(f"• {term}: {BUSINESS_GLOSSARY[term]}")
             else:
-                st.info("💡 **Glosario de Negocios** - Definiciones estandarizadas para términos clave")
+                st.info("**Glosario de Negocios** - Definiciones estandarizadas para terminos clave")
                 st.write("**Términos disponibles:**")
                 
                 # Mostrar todos los términos
                 cols = st.columns(2)
                 for i, (term, definition) in enumerate(sorted(BUSINESS_GLOSSARY.items())):
                     with cols[i % 2]:
-                        with st.expander(f"📖 {term}"):
+                        with st.expander(f"{term}"):
                             st.write(definition)
             
             # Estadísticas del glosario
-            st.subheader("📊 Estadísticas del Glosario")
+            st.subheader("Estadisticas del Glosario")
             col1, col2 = st.columns(2)
             with col1:
-                st.metric("📝 Total Términos", len(BUSINESS_GLOSSARY))
+                st.metric("Total Terminos", len(BUSINESS_GLOSSARY))
             with col2:
-                st.metric("🏢 Dominios Cubiertos", len(DATA_OWNERS))
+                st.metric("Dominios Cubiertos", len(DATA_OWNERS))
 
         with tab_lineage:
             st.subheader("Mapa de Linaje Medallion y Relacional")
