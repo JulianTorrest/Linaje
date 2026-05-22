@@ -2,3 +2,6 @@ streamlit
 pandas
 plotly
 graphviz
+requests
+fuzzywuzzy
+python-Levenshtein
